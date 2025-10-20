@@ -39,7 +39,7 @@ The system will:
 - **Products:** product ID, title, description, price, inventory, product image. 
 - **Orders:** order ID, order date/time, order status, customer ID, products, quantities.
 
-## User Stories
+## User Flows
 
 ### Customer User Flows
 
@@ -52,7 +52,7 @@ Allow a Customer to visit the website front-end, explore available products with
 
 **Flow Steps:**
 1. **Home Page**
-   - The customer lands on the home page where he/she can read about the company and navigates via a link button to the products page.
+   - The customer lands on the home page where he/she can read about the company and navigates via a button to the products page.
    - The cart icon in the header shows the number of items added.
    - A button labelled “Sigars and accessories" directs the user to the product page.
 
