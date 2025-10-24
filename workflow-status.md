@@ -12,7 +12,7 @@ WORKFLOW_PATH: greenfield-level-3.yaml
 ## Current State
 
 CURRENT_PHASE: 1-analysis
-CURRENT_WORKFLOW: brainstorm-project
+CURRENT_WORKFLOW: document-project
 CURRENT_AGENT: Business Analyst
 PHASE_1_COMPLETE: false
 PHASE_2_COMPLETE: false
@@ -21,9 +21,9 @@ PHASE_4_COMPLETE: false
 
 ## Next Action
 
-NEXT_ACTION: Review brainstorming results and consider next analysis steps.
-NEXT_COMMAND: ""
-NEXT_AGENT: Business Analyst
+NEXT_ACTION: Review product brief and prepare for planning phase.
+NEXT_COMMAND: "read docs/product-brief.md"
+NEXT_AGENT: Project Manager
 
 ## Story Backlog
 
