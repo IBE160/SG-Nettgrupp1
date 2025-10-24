@@ -2,7 +2,7 @@
 
 ## Project Configuration
 
-PROJECT_NAME: SG-Nettgrupp1
+PROJECT_NAME: IBE160
 PROJECT_TYPE: greenfield
 PROJECT_LEVEL: 3
 FIELD_TYPE: software-development
