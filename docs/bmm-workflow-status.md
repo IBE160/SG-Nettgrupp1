@@ -12,8 +12,8 @@ WORKFLOW_PATH: greenfield-level-3.yaml
 ## Current State
 
 CURRENT_PHASE: 2-Planning
-CURRENT_WORKFLOW: product-brief - Complete
-CURRENT_AGENT: Business Analyst
+CURRENT_WORKFLOW: prd - Complete
+CURRENT_AGENT: Project Manager
 PHASE_1_COMPLETE: true
 PHASE_2_COMPLETE: false
 PHASE_3_COMPLETE: false
@@ -21,13 +21,26 @@ PHASE_4_COMPLETE: false
 
 ## Next Action
 
-NEXT_ACTION: Create Product Requirements Document (PRD)
-NEXT_COMMAND: prd
-NEXT_AGENT: Project Manager
+NEXT_ACTION: System-wide architecture document
+NEXT_COMMAND: create-architecture
+NEXT_AGENT: architect
 
 ## Story Backlog
 
+### Epic 1: Customer-Facing Shop
+- [ ] **Story 1.1: View Product Catalog**
+- [ ] **Story 1.2: View Product Details**
+- [ ] **Story 1.3: Add and Adjust Items in Cart**
+- [ ] **Story 1.4: View and Manage Shopping Cart**
+- [ ] **Story 1.5: Place Click-and-Collect Order**
+- [ ] **Story 1.6: Receive Order Confirmation**
+- [ ] **Story 1.7: View Store Location**
 
+### Epic 2: Admin Dashboard
+- [ ] **Story 2.1: Secure Admin Access**
+- [ ] **Story 2.2: View Incoming Orders**
+- [ ] **Story 2.3: Manage Order Status and Inventory**
+- [ ] **Story 2.4: Manage Product Catalog**
 
 ## Completed Stories
 
