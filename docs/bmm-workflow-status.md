@@ -22,7 +22,7 @@ PHASE_4_COMPLETE: false
 ## Next Action
 
 NEXT_ACTION: Review product brief and prepare for planning phase.
-NEXT_COMMAND: "read docs/product-brief.md"
+NEXT_COMMAND: read docs/product-brief.md
 NEXT_AGENT: Project Manager
 
 ## Story Backlog
