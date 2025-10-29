@@ -1,4 +1,4 @@
-# BMM Workflow Status
+    # BMM Workflow Status
 
 ## Project Configuration
 
@@ -12,7 +12,7 @@ WORKFLOW_PATH: greenfield-level-3.yaml
 ## Current State
 
 CURRENT_PHASE: 2-Planning
-CURRENT_WORKFLOW: product-brief - Complete
+CURRENT_WORKFLOW: product-brief
 CURRENT_AGENT: Business Analyst
 PHASE_1_COMPLETE: true
 PHASE_2_COMPLETE: false
@@ -21,9 +21,9 @@ PHASE_4_COMPLETE: false
 
 ## Next Action
 
-NEXT_ACTION: Create Product Requirements Document (PRD)
-NEXT_COMMAND: prd
-NEXT_AGENT: Project Manager
+NEXT_ACTION: Create Product Brief
+NEXT_COMMAND: product-brief
+NEXT_AGENT: Business Analyst
 
 ## Story Backlog
 
