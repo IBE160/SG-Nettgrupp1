@@ -8,7 +8,7 @@ Nettgrupp1-Dagtid, men fleksibel.
 **Gruppemedlemmer:**
 - Hajar Al-Mohannah - [Student-ID/E-post@himolde.no]
 - Camilla Hagå-Huus - [Student-ID/E-post@himolde.no]
-- Kim-Ove Reitan Hagerup - [Student-ID/E-post@himolde.no]
+- Kim-Ove Reitan Hagerup - [231097/kim-ove.r.hagerup@himolde.no]
 - Eirik Lyder Bredland - 210667/eirik.l.bredland@himolde.no
 
 **Dato:** [DD.MM.ÅÅÅÅ]
