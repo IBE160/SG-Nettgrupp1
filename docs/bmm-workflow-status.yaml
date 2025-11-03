@@ -32,7 +32,7 @@ workflow_status:
   # Phase 1: Analysis
   brainstorm-project: docs/brainstorming-session-results-2025-10-24.md
   research: docs/research-user-2025-10-29.md
-  product-brief: recommended
+  product-brief: docs/product-brief-ibe160-2025-11-03.md
 
   # Phase 2: Planning
   prd: required
