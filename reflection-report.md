@@ -212,6 +212,6 @@ Hovedmålet med dette prosjektet er å produsere et fungerende nettstedet der be
 
 ---
 
-**Ordantall:** [Ca. antall ord]
+**Ordantall:** 981
 
 **Forventet lengde:** 3000-5000 ord (avhengig av gruppestørrelse og prosjektets kompleksitet)
