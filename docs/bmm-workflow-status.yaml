@@ -30,13 +30,15 @@ workflow_path: "greenfield-level-3.yaml"
 
 workflow_status:
   # Phase 1: Analysis
+  proposal: docs/proposal.md
   brainstorm-project: docs/brainstorming-session-results-2025-10-24.md
   research: docs/research-user-2025-10-29.md
   product-brief: docs/product-brief-ibe160-2025-11-03.md
 
   # Phase 2: Planning
   prd: docs/PRD.md
-  validate-prd: optional
+  epics: docs/epics.md # Detailed story breakdown from PRD
+  validate-prd: docs/validation-report-2025-11-05.md
   create-design: conditional
 
   # Phase 3: Solutioning

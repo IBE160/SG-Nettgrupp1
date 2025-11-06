@@ -27,6 +27,17 @@ This project aims to address these critical issues by modernizing operations and
 
 ---
 
+## Success Metrics
+
+*   **Goal: Reduce manual effort**
+    *   *Metric:* Reduce owner's time spent on order processing by 50% within 3 months of launch.
+*   **Goal: Increase sales**
+    *   *Metric:* Achieve an average of 10 click-and-collect orders per week within 2 months of launch.
+*   **Goal: Improve accuracy**
+    *   *Metric:* Maintain a 99% match between digital and physical stock counts, verified monthly.
+
+---
+
 ## Requirements
 
 ### Functional Requirements
@@ -36,27 +47,28 @@ This project aims to address these critical issues by modernizing operations and
 *   FR003: The system shall provide simplified, relatable language for taste/flavor descriptions to aid newcomers.
 *   FR004: The system shall allow customers to add products to a shopping cart.
 *   FR005: The system shall automatically update the shopping cart with product changes.
-*   FR007: The system shall provide a checkout page for customers to enter essential details (email, optional phone).
-*   FR008: The system shall generate an order confirmation page with a unique reference number upon successful order placement.
-*   FR009: The system shall automatically send order details via email to the store upon order placement.
-*   FR010: The system shall record all placed orders in the admin dashboard.
-*   FR011: The system shall provide an admin interface for the business owner to view incoming orders.
-*   FR012: The system shall allow the business owner to mark orders as "Processed" or "Completed" in the admin interface.
-*   FR013: The system shall allow the business owner to delete orders in the admin interface.
-*   FR014: The system shall provide an admin interface for the business owner to add new products.
-*   FR015: The system shall provide an admin interface for the business owner to edit existing product details.
-*   FR016: The system shall provide an admin interface for the business owner to archive products.
-*   FR017: The system shall allow the business owner to update stock levels for products in the admin interface.
-*   FR018: The system shall integrate a Google Maps view on the landing page displaying the store's location.
-*   FR019: The system shall support a "click-and-collect" ordering model where payment occurs physically at pickup.
+*   FR006: The system shall provide a checkout page for customers to enter essential details (email, optional phone).
+*   FR007: The system shall generate an order confirmation page with a unique reference number upon successful order placement.
+*   FR008: The system shall automatically send order details via email to the store upon order placement.
+*   FR009: The system shall record all placed orders in the admin dashboard.
+*   FR010: The system shall provide an admin interface for the business owner to view incoming orders.
+*   FR011: The system shall allow the business owner to mark orders as "Processed" or "Completed" in the admin interface.
+*   FR012: The system shall allow the business owner to delete orders in the admin interface.
+*   FR013: The system shall provide an admin interface for the business owner to add new products.
+*   FR014: The system shall provide an admin interface for the business owner to edit existing product details.
+*   FR015: The system shall provide an admin interface for the business owner to archive products.
+*   FR016: The system shall allow the business owner to update stock levels for products in the admin interface.
+*   FR017: The system shall integrate a Google Maps view on the landing page displaying the store's location.
+*   FR018: The system shall support a "click-and-collect" ordering model where payment occurs physically at pickup.
+*   FR019: The system shall automatically send an email notification to the customer when the business owner marks an order as "Processed" and ready for pickup.
+*   FR020: The admin interface shall support authenticated login.
 
 ### Non-Functional Requirements
 
 *   NFR001: The system shall be fully responsive across mobile, tablet, and PC devices.
 *   NFR002: The system shall support standard modern web browsers (Chrome, Firefox, Edge, Safari) on their latest stable versions.
-*   NFR003: The system shall maintain a consistent website uptime of 99.9%.
+*   NFR003: The system shall maintain a consistent website uptime of 99.9%. *(Note: Stakeholder to confirm feasibility vs. cost)*
 *   NFR004: The system shall ensure secure hosting over HTTPS.
-*   NFR005: The admin interface shall support authenticated login.
 
 ---
 
@@ -68,14 +80,14 @@ This project aims to address these critical issues by modernizing operations and
 *   **Goal:** To place a click-and-collect order for cigars.
 *   **Entry Point:** Arrives at the website (e.g., via search, direct link).
 *   **Flow:**
-    1.  **Browse Products:** Customer navigates to the "Cigars and Accessories" catalog.
-    2.  **View Product Details:** Customer clicks on a product to see its description, price, stock, origin, and vitola.
-    3.  **Add to Cart:** Customer adds desired quantity of product to cart.
-    4.  **Review Cart:** Customer reviews items in the shopping cart.
+    1.  **Browse Products:** Customer navigates to the "Cigars and Accessories" catalog. (FR001)
+    2.  **View Product Details:** Customer clicks on a product to see its description, price, stock, origin, and vitola. (FR002)
+    3.  **Add to Cart:** Customer adds desired quantity of product to cart. (FR004)
+    4.  **Review Cart:** Customer reviews items in the shopping cart. (FR005)
     5.  **Proceed to Checkout:** Customer clicks checkout.
-    6.  **Enter Details:** Customer provides email and optional phone number.
-    7.  **Confirm Order:** Customer reviews order summary and confirms.
-    8.  **Receive Confirmation:** Customer sees order confirmation page with reference number.
+    6.  **Enter Details:** Customer provides email and optional phone number. (FR006)
+    7.  **Confirm Order:** Customer reviews order summary and confirms. (FR018)
+    8.  **Receive Confirmation:** Customer sees order confirmation page with reference number. (FR007)
     9.  **In-Store Pickup:** Customer visits store, pays, and collects order.
 *   **Decision Points/Alternatives:**
     *   Customer can continue browsing or go directly to checkout.
@@ -90,19 +102,19 @@ This project aims to address these critical issues by modernizing operations and
 *   **Goal:** To process a new click-and-collect order.
 *   **Entry Point:** Logs into the admin interface.
 *   **Flow:**
-    1.  **Login:** Owner logs into the admin dashboard.
-    2.  **View New Orders:** Owner sees a notification or list of new incoming orders.
+    1.  **Login:** Owner logs into the admin dashboard. (FR020)
+    2.  **View New Orders:** Owner sees a notification or list of new incoming orders. (FR010)
     3.  **Select Order:** Owner clicks on a new order to view details.
     4.  **Prepare Order:** Owner gathers products for the order.
-    5.  **Update Order Status:** Owner marks the order as "Processed".
-    6.  **Send Ready for Pickup Confirmation:** System automatically sends a confirmation email to the customer that the order is ready for pickup.
+    5.  **Update Order Status:** Owner marks the order as "Processed". (FR011)
+    6.  **Send Ready for Pickup Confirmation:** System automatically sends a confirmation email to the customer that the order is ready for pickup. (FR019)
     7.  **Customer Pickup:** Customer arrives, pays, and collects.
-    8.  **Complete Order:** Owner marks the order as "Completed".
+    8.  **Complete Order:** Owner marks the order as "Completed". (FR011)
 *   **Decision Points/Alternatives:**
-    *   Owner can delete an order if there's an issue (e.g., customer cancellation).
+    *   Owner can delete an order if there's an issue (e.g., customer cancellation). (FR012)
 *   **Edge Cases:**
     *   Customer doesn't pick up order (owner can delete or mark as cancelled).
-    *   Stock discrepancy (owner updates stock levels via product management).
+    *   Stock discrepancy (owner updates stock levels via product management). (FR016)
 
 ### User Journey 3: Newcomer - Discovering a Beginner-Friendly Cigar
 
@@ -110,14 +122,16 @@ This project aims to address these critical issues by modernizing operations and
 *   **Goal:** To find a suitable beginner-friendly cigar.
 *   **Entry Point:** Arrives at the website.
 *   **Flow:**
-    1.  **Explore Catalog:** Newcomer navigates to the "Cigars and Accessories" catalog.
-    2.  **Browse Curated Selection:** Newcomer views simplified product descriptions and recommendations.
-    3.  **View Product Details:** Newcomer clicks on a recommended product to see details, including simplified taste/flavor language.
-    4.  **Consider Purchase:** Newcomer decides whether to add to cart or continue browsing.
+    1.  **Explore Catalog:** Newcomer navigates to the "Cigars and Accessories" catalog. (FR001)
+    2.  **Browse Curated Selection:** Newcomer views simplified product descriptions and recommendations. (FR003)
+    3.  **View Product Details:** Newcomer clicks on a recommended product to see details, including simplified taste/flavor language. (FR002, FR003)
+    4.  **Consider Purchase:** Newcomer decides whether to add to cart or continue browsing. (FR004)
 *   **Decision Points/Alternatives:**
     *   Newcomer can continue browsing all products within the single category.
 *   **Edge Cases:**
     *   No beginner-friendly options explicitly highlighted.
+
+> **Note for clarification:** The mechanism for presenting the "Curated Selection" needs to be defined. Will this be a separate section on the page, a "Beginner's Choice" badge on certain products, or another method? This should be clarified before implementation.
 
 ---
 
@@ -158,9 +172,7 @@ This project aims to address these critical issues by modernizing operations and
 #### Design Constraints
 
 *   **Branding:** The design should align with the existing brand identity of Alta Sigar & Grill.
-*   **Technology Stack:**
-    *   **Frontend Framework:** Next.js
-    *   **Styling:** Tailwind CSS
+*   **Technology Stack:** *(To be defined in the Technical Specification document)*
 *   **Browser Support:** The application must be compatible with the latest stable versions of modern web browsers (Chrome, Firefox, Edge, Safari).
 *   **Security:** The entire website must be served over HTTPS.
 
