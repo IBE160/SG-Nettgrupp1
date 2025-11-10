@@ -5,9 +5,9 @@
 # generated: 2025-11-03
 # project: ibe160
 # project_type: software
-# project_level: 3
+# selected_track: 3
 # field_type: greenfield
-# workflow_path: greenfield-level-3.yaml
+# workflow_path: "method-greenfield.yaml"
 
 # STATUS DEFINITIONS:
 # ==================
@@ -24,27 +24,26 @@
 generated: "2025-11-03"
 project: "ibe160"
 project_type: "software"
-project_level: "3"
+selected_track: "3"
 field_type: "greenfield"
-workflow_path: "greenfield-level-3.yaml"
+workflow_path: "method-greenfield.yaml"
 
 workflow_status:
-  # Phase 1: Analysis
+  # Phase 0: Discovery
   proposal: docs/proposal.md
   brainstorm-project: docs/brainstorming-session-results-2025-10-24.md
   research: docs/research-user-2025-10-29.md
   product-brief: docs/product-brief-ibe160-2025-11-03.md
 
-  # Phase 2: Planning
+  # Phase 1: Planning
   prd: docs/PRD.md
-  epics: docs/epics.md # Detailed story breakdown from PRD
   validate-prd: docs/validation-report-2025-11-05.md
   create-design: conditional
 
-  # Phase 3: Solutioning
+  # Phase 2: Solutioning
   create-architecture: required
   validate-architecture: optional
   solutioning-gate-check: recommended
 
-  # Phase 4: Implementation
+  # Phase 3: Implementation
   sprint-planning: required
