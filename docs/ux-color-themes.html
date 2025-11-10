@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Color Theme Visualizer</title>
+    <style>
+        :root {
+            --theme-1-primary: #8d5b29;
+            --theme-1-secondary: #2a1d13;
+            --theme-1-accent: #c59048;
+            --theme-1-bg: #fdfaf6;
+            --theme-1-text: #2a1d13;
+            --theme-1-card-bg: #ffffff;
+            --theme-1-border: #e2d8ce;
+            --theme-1-success: #28a745;
+            --theme-1-error: #dc3545;
+            --theme-1-warning: #ffc107;
+
+            --theme-2-primary: #2c3e50;
+            --theme-2-secondary: #34495e;
+            --theme-2-accent: #e67e22;
+            --theme-2-bg: #ecf0f1;
+            --theme-2-text: #2c3e50;
+            --theme-2-card-bg: #ffffff;
+            --theme-2-border: #bdc3c7;
+            --theme-2-success: #27ae60;
+            --theme-2-error: #c0392b;
+            --theme-2-warning: #f39c12;
+
+            --theme-3-primary: #b94517;
+            --theme-3-secondary: #333333;
+            --theme-3-accent: #DAA520; /* Goldenrod */
+            --theme-3-bg: #f8f8f8;
+            --theme-3-text: #1a1a1a;
+            --theme-3-card-bg: #ffffff;
+            --theme-3-border: #dddddd;
+            --theme-3-success: #228B22; /* ForestGreen */
+            --theme-3-error: #B22222; /* Firebrick */
+            --theme-3-warning: #FFD700; /* Gold */
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 600;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+        }
+
+        .visualizer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .theme-card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .theme-card h2 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .swatch {
+            width: 100px;
+            text-align: center;
+        }
+
+        .swatch-color {
+            width: 100%;
+            height: 60px;
+            border-radius: 4px;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .swatch-label {
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+        .swatch-hex {
+            font-size: 0.75rem;
+            color: #666;
+        }
+        
+        .components h4 {
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-primary:hover {
+            filter: brightness(110%);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        .btn-secondary:hover {
+            filter: brightness(120%);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+        }
+        .btn-accent:hover {
+            filter: brightness(110%);
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+        }
+
+        .alert-success {
+            background-color: var(--success-color-bg);
+            color: var(--success-color-text);
+            border-color: var(--success-color-border);
+        }
+
+        .alert-error {
+            background-color: var(--error-color-bg);
+            color: var(--error-color-text);
+            border-color: var(--error-color-border);
+        }
+        
+        .alert-warning {
+            background-color: var(--warning-color-bg);
+            color: var(--warning-color-text);
+            border-color: var(--warning-color-border);
+        }
+
+        .form-group {
+            margin-top: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--card-bg-color);
+            color: var(--text-color)
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px var(--primary-color-shadow);
+        }
+        
+        .description p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .description strong {
+            color: var(--primary-color);
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>UX Color Theme Visualizer</h1>
+
+    <div class="visualizer-grid">
+
+        <!-- Theme 1: Logo Inspired -->
+        <div class="theme-card" style="
+            --bg-color: var(--theme-1-bg);
+            --border-color: var(--theme-1-border);
+            --text-color: var(--theme-1-text);
+            --primary-color: var(--theme-1-primary);
+            --secondary-color: var(--theme-1-secondary);
+            --accent-color: var(--theme-1-accent);
+            --card-bg-color: var(--theme-1-card-bg);
+            --success-color-bg: #e9f7ec;
+            --success-color-text: #155724;
+            --success-color-border: #c3e6cb;
+            --error-color-bg: #f8d7da;
+            --error-color-text: #721c24;
+            --error-color-border: #f5c6cb;
+            --warning-color-bg: #fff3cd;
+            --warning-color-text: #856404;
+            --warning-color-border: #ffeeba;
+            --primary-color-shadow: rgba(141, 91, 41, 0.3);
+        ">
+            <h2>1. Logo Inspired</h2>
+            <div class="description">
+                <p>This theme is directly derived from your logo. It feels <strong>Traditional, Rustic, and Trustworthy</strong>. It's grounded and evokes a sense of quality craftsmanship.</p>
+            </div>
+            
+            <h4>Palette</h4>
+            <div class="palette">
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-1-primary);"></div><div class="swatch-label">Primary</div><div class="swatch-hex">#8d5b29</div></div>
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-1-secondary);"></div><div class="swatch-label">Secondary</div><div class="swatch-hex">#2a1d13</div></div>
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-1-accent);"></div><div class="swatch-label">Accent</div><div class="swatch-hex">#c59048</div></div>
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-1-bg);"></div><div class="swatch-label">BG</div><div class="swatch-hex">#fdfaf6</div></div>
+            </div>
+
+            <div class="components">
+                <h4>Buttons</h4>
+                <button class="btn btn-primary">Primary Action</button>
+                <button class="btn btn-secondary">Secondary</button>
+                <button class="btn btn-accent">Accent</button>
+                
+                <h4>Alerts</h4>
+                <div class="alert alert-success">Success: Your order has been placed.</div>
+                <div class="alert alert-error">Error: Please check your details.</div>
+
+                <h4>Form</h4>
+                <div class="form-group">
+                    <label for="name1">Your Name</label>
+                    <input type="text" id="name1" value="John Doe">
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 2: Modern Refined -->
+        <div class="theme-card" style="
+            --bg-color: var(--theme-2-bg);
+            --border-color: var(--theme-2-border);
+            --text-color: var(--theme-2-text);
+            --primary-color: var(--theme-2-primary);
+            --secondary-color: var(--theme-2-secondary);
+            --accent-color: var(--theme-2-accent);
+            --card-bg-color: var(--theme-2-card-bg);
+            --success-color-bg: #d4edda;
+            --success-color-text: #155724;
+            --success-color-border: #c3e6cb;
+            --error-color-bg: #f8d7da;
+            --error-color-text: #721c24;
+            --error-color-border: #f5c6cb;
+            --warning-color-bg: #fff3cd;
+            --warning-color-text: #856404;
+            --warning-color-border: #ffeeba;
+            --primary-color-shadow: rgba(44, 62, 80, 0.3);
+        ">
+            <h2>2. Modern Refined</h2>
+            <div class="description">
+                <p>A more contemporary take on sophistication. This theme feels <strong>Professional, Clean, and Stable</strong>. It uses a cool, muted palette for a modern, corporate feel.</p>
+            </div>
+
+            <h4>Palette</h4>
+            <div class="palette">
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-2-primary);"></div><div class="swatch-label">Primary</div><div class="swatch-hex">#2c3e50</div></div>
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-2-secondary);"></div><div class="swatch-label">Secondary</div><div class="swatch-hex">#34495e</div></div>
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-2-accent);"></div><div class="swatch-label">Accent</div><div class="swatch-hex">#e67e22</div></div>
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-2-bg);"></div><div class="swatch-label">BG</div><div class="swatch-hex">#ecf0f1</div></div>
+            </div>
+
+            <div class="components">
+                <h4>Buttons</h4>
+                <button class="btn btn-primary">Primary Action</button>
+                <button class="btn btn-secondary">Secondary</button>
+                <button class="btn btn-accent" style="color:white;">Accent</button>
+
+                <h4>Alerts</h4>
+                <div class="alert alert-success">Success: Your order has been placed.</div>
+                <div class="alert alert-error">Error: Please check your details.</div>
+                
+                <h4>Form</h4>
+                <div class="form-group">
+                    <label for="name2">Your Name</label>
+                    <input type="text" id="name2" value="Jane Smith">
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 3: Minimalist High-Contrast -->
+        <div class="theme-card" style="
+            --bg-color: var(--theme-3-bg);
+            --border-color: var(--theme-3-border);
+            --text-color: var(--theme-3-text);
+            --primary-color: var(--theme-3-primary);
+            --secondary-color: var(--theme-3-secondary);
+            --accent-color: var(--theme-3-accent);
+            --card-bg-color: var(--theme-3-card-bg);
+            --success-color-bg: #d4edda;
+            --success-color-text: #155724;
+            --success-color-border: #c3e6cb;
+            --error-color-bg: #f8d7da;
+            --error-color-text: #721c24;
+            --error-color-border: #f5c6cb;
+            --warning-color-bg: #fff3cd;
+            --warning-color-text: #856404;
+            --warning-color-border: #ffeeba;
+            --primary-color-shadow: rgba(185, 69, 23, 0.3);
+        ">
+            <h2>3. Luxury Fire</h2>
+            <div class="description">
+                <p>This theme aims for a feeling of <strong>Luxury, Warmth, and Premium Quality</strong>. The deep red and gold accents evoke the colors of a lit cigar.</p>
+            </div>
+            <h4>Palette</h4>
+            <div class="palette">
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-3-primary);"></div><div class="swatch-label">Primary</div><div class="swatch-hex">#b94517</div></div>
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-3-secondary);"></div><div class="swatch-label">Secondary</div><div class="swatch-hex">#333333</div></div>
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-3-accent);"></div><div class="swatch-label">Accent</div><div class="swatch-hex">#DAA520</div></div>
+                <div class="swatch"><div class="swatch-color" style="background-color: var(--theme-3-bg);"></div><div class="swatch-label">BG</div><div class="swatch-hex">#f8f8f8</div></div>
+            </div>
+
+            <div class="components">
+                <h4>Buttons</h4>
+                <button class="btn btn-primary">Primary Action</button>
+                <button class="btn btn-secondary">Secondary</button>
+                <button class="btn btn-accent" style="color: #333;">Accent</button>
+                
+                <h4>Alerts</h4>
+                <div class="alert alert-success">Success: Your order has been placed.</div>
+                <div class="alert alert-error">Error: Please check your details.</div>
+                
+                <h4>Form</h4>
+                <div class="form-group">
+                    <label for="name3">Your Name</label>
+                    <input type="text" id="name3" value="Alex Johnson">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final App Showcase - Product Catalog</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Inter:wght@400;500;600&display=swap');
+
+        :root {
+            /* Color Palette from Theme 1: Logo Inspired */
+            --primary: #8d5b29;
+            --secondary: #2a1d13;
+            --accent: #c59048;
+            --bg: #fdfaf6;
+            --text: #2a1d13;
+            --card-bg: #ffffff;
+            --border: #e2d8ce;
+            
+            /* Typography */
+            --font-heading: 'Lora', serif;
+            --font-body: 'Inter', sans-serif;
+
+            /* Spacing (8px base unit) */
+            --space-1: 8px;
+            --space-2: 16px;
+            --space-3: 24px;
+            --space-4: 32px;
+            --space-5: 40px;
+            --space-6: 48px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-3);
+        }
+
+        /* Header & Navigation (from Direction 1: Classic & Centered) */
+        .main-header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            padding: var(--space-2) 0;
+        }
+
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: var(--space-4);
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 1rem;
+            padding: var(--space-1) 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .cart-button {
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cart-icon {
+            width: 28px;
+            height: 28px;
+            stroke: var(--secondary);
+            stroke-width: 2;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: var(--space-6) var(--space-3);
+            background-color: #f3efe8;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-heading);
+            font-size: 3rem;
+            margin: 0 0 var(--space-2) 0;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: var(--space-5) 0;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--space-4);
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .product-card-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background-color: #eee;
+        }
+
+        .product-card-content {
+            padding: var(--space-3);
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            margin: 0 0 var(--space-1) 0;
+        }
+        
+        .product-card-origin {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: var(--space-2);
+        }
+
+        .product-card-description {
+            font-size: 0.95rem;
+            flex-grow: 1;
+            margin-bottom: var(--space-2);
+        }
+
+        .product-card-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-3);
+        }
+
+        /* Button Styles from UX Patterns */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        .btn-primary:hover {
+            background-color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Footer */
+        .main-footer {
+            margin-top: var(--space-6);
+            padding: var(--space-4) 0;
+            background-color: var(--secondary);
+            color: #a9a19a;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <a href="#" class="logo">Hagerup Sigar & Grill</a>
+            <nav class="main-nav">
+                <a href="#">Home</a>
+                <a href="#" class="active">Cigars & Accessories</a>
+                <a href="#">About Us</a>
+                <a href="#">Visit Us</a>
+            </nav>
+            <div class="header-actions">
+                <button class="cart-button" aria-label="Shopping Cart">
+                    <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <div class="cart-count">3</div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header">
+            <h1>Cigars & Accessories</h1>
+            <p>Discover a curated selection of the world's finest cigars, ready for you to enjoy.</p>
+        </div>
+
+        <div class="main-content container">
+            <div class="product-grid">
+                
+                <div class="product-card">
+                    <img class="product-card-image" src="https://via.placeholder.com/300x220/eee/ccc?text=Arturo+Fuente" alt="Arturo Fuente Hemingway">
+                    <div class="product-card-content">
+                        <h3>Arturo Fuente Hemingway</h3>
+                        <p class="product-card-origin">Dominican Republic</p>
+                        <p class="product-card-description">A classic, medium-bodied cigar with smooth notes of cedar and a hint of spice. Perfect for any occasion.</p>
+                        <p class="product-card-price">$15.00</p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img class="product-card-image" src="https://via.placeholder.com/300x220/eee/ccc?text=Padrón" alt="Padrón 1964 Anniversary">
+                    <div class="product-card-content">
+                        <h3>Padrón 1964 Anniversary</h3>
+                        <p class="product-card-origin">Nicaragua</p>
+                        <p class="product-card-description">A full-bodied, box-pressed masterpiece. Expect rich flavors of cocoa, coffee, and sweet spice.</p>
+                        <p class="product-card-price">$25.00</p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img class="product-card-image" src="https://via.placeholder.com/300x220/eee/ccc?text=Montecristo" alt="Montecristo No. 2">
+                    <div class="product-card-content">
+                        <h3>Montecristo No. 2</h3>
+                        <p class="product-card-origin">Cuba</p>
+                        <p class="product-card-description">The iconic torpedo. A complex and creamy smoke with notes of leather, nuts, and a touch of sweetness.</p>
+                        <p class="product-card-price">$20.00</p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img class="product-card-image" src="https://via.placeholder.com/300x220/eee/ccc?text=Davidoff" alt="Davidoff Signature">
+                    <div class="product-card-content">
+                        <h3>Davidoff Signature</h3>
+                        <p class="product-card-origin">Dominican Republic</p>
+                        <p class="product-card-description">An elegant and refined mild cigar. Delivers creamy notes of wood and earth with a clean finish.</p>
+                        <p class="product-card-price">$30.00</p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img class="product-card-image" src="https://via.placeholder.com/300x220/eee/ccc?text=Oliva" alt="Oliva Serie V Melanio">
+                    <div class="product-card-content">
+                        <h3>Oliva Serie V Melanio</h3>
+                        <p class="product-card-origin">Nicaragua</p>
+                        <p class="product-card-description">A highly-rated, full-flavored cigar with a smooth profile of coffee, caramel, and black pepper.</p>
+                        <p class="product-card-price">$18.00</p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <img class="product-card-image" src="https://via.placeholder.com/300x220/eee/ccc?text=Cohiba" alt="Cohiba Robusto">
+                    <div class="product-card-content">
+                        <h3>Cohiba Robusto</h3>
+                        <p class="product-card-origin">Cuba</p>
+                        <p class="product-card-description">A legendary and luxurious smoke. Rich and complex with notes of honey, vanilla, and oak.</p>
+                        <p class="product-card-price">$45.00</p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2025 Hagerup Sigar & Grill. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
