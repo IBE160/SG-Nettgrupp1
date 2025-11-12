@@ -39,7 +39,7 @@ workflow_status:
   prd: docs/PRD.md
   epics: docs/epics.md # Detailed story breakdown from PRD
   validate-prd: docs/validation-report-2025-11-05.md
-  create-design: conditional
+  create-design: docs/ux-design-specification.md
 
   # Phase 3: Solutioning
   create-architecture: required
