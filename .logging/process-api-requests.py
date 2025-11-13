@@ -401,12 +401,18 @@ def save_session_file(data: List[dict], session_id: str, first_timestamp: str, o
     return output_file
 
 def clear_log_file(log_path: Path, verbose: bool = False):
-    """Clear the log file content."""
+    """Clear the log file content by deleting and recreating it."""
     if verbose:
         print(f"🧹 Clearing log file: {log_path}")
 
-    with log_path.open("w", encoding="utf-8") as f:
-        f.write("")  # Truncate to empty
+    try:
+        if log_path.exists():
+            log_path.unlink()  # Delete the file
+        log_path.touch()       # Create an empty file
+        if verbose:
+            print(f"   ✓ File deleted and recreated.")
+    except Exception as e:
+        print(f"   ❌ Error clearing file: {e}")
 
 def print_summary(stats: dict):
     """Print processing summary."""
