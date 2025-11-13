@@ -38,7 +38,7 @@ workflow_status:
   # Phase 1: Planning
   prd: docs/PRD.md
   validate-prd: docs/validation-report-2025-11-05.md
-  create-design: conditional
+  create-design: docs/ux-design-specification.md
 
   # Phase 2: Solutioning
   create-architecture: required
