@@ -18,7 +18,7 @@
   - [x] /run-agent-task ux-designer *validate-ux-design "Read UX design specification and validate the content"
   - [x] /run-agent-task tea *framework "Initialize production-ready test framework"
   - [x] /run-agent-task tea *ci "Scaffold CI/CD quality pipeline"
-  - [ ] /run-agent-task tea *test-design {prompt / user-input-file}
+  - [x] /run-agent-task tea *test-design " "
 
 ## Fase 2
 
