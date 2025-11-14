@@ -1,6 +1,10 @@
 import { test, expect } from '../support/fixtures';
 
 test.describe('Example Test Suite', () => {
+  test.afterEach(async ({ userFactory }) => {
+    await userFactory.cleanup();
+  });
+
   test('should load homepage', async ({ page }) => {
     await page.goto('/');
     await expect(page).toHaveTitle(/Home/i);

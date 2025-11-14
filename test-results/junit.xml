@@ -1,38 +1,20 @@
-<testsuites id="" name="" tests="6" failures="0" skipped="0" errors="0" time="28.054659">
-<testsuite name="example.spec.ts" timestamp="2025-11-14T17:25:50.655Z" hostname="chromium" tests="2" failures="0" skipped="0" time="4.257" errors="0">
-<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="1.959">
+<testsuites id="" name="" tests="6" failures="0" skipped="0" errors="0" time="35.688279">
+<testsuite name="example.spec.ts" timestamp="2025-11-14T17:47:47.367Z" hostname="chromium" tests="2" failures="0" skipped="0" time="7.932" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="3.397">
 </testcase>
-<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="2.298">
-<system-out>
-<![CDATA[Response status: [33m200[39m
-Response status text: OK
-Response text: {"email":"Alia.Funk88@hotmail.com","name":"Edward Leffler III","password":"Z05SLVtTPtXn","id":7}
-]]>
-</system-out>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="4.535">
 </testcase>
 </testsuite>
-<testsuite name="example.spec.ts" timestamp="2025-11-14T17:25:50.655Z" hostname="firefox" tests="2" failures="0" skipped="0" time="14.746" errors="0">
-<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="7.011">
+<testsuite name="example.spec.ts" timestamp="2025-11-14T17:47:47.367Z" hostname="firefox" tests="2" failures="0" skipped="0" time="20.257" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="9.264">
 </testcase>
-<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="7.735">
-<system-out>
-<![CDATA[Response status: [33m200[39m
-Response status text: OK
-Response text: {"email":"Audra_OHara@yahoo.com","name":"Edward Hansen","password":"bWsmgNj4e8lT","id":8}
-]]>
-</system-out>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="10.993">
 </testcase>
 </testsuite>
-<testsuite name="example.spec.ts" timestamp="2025-11-14T17:25:50.655Z" hostname="webkit" tests="2" failures="0" skipped="0" time="5.029" errors="0">
-<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="2.285">
+<testsuite name="example.spec.ts" timestamp="2025-11-14T17:47:47.367Z" hostname="webkit" tests="2" failures="0" skipped="0" time="7.107" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="2.755">
 </testcase>
-<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="2.744">
-<system-out>
-<![CDATA[Response status: [33m200[39m
-Response status text: OK
-Response text: {"email":"Laurel.Bartoletti61@hotmail.com","name":"Billie Paucek","password":"kCB3alH68vaj","id":9}
-]]>
-</system-out>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="4.352">
 </testcase>
 </testsuite>
 </testsuites>

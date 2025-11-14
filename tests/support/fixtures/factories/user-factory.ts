@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 
 // TODO: This is a temporary solution. The API_URL should be configured properly.
-const API_URL = 'http://localhost:5173';
+const API_URL = 'http://localhost:3001';
 
 export class UserFactory {
   private createdUsers: string[] = [];
@@ -15,7 +15,7 @@ export class UserFactory {
     };
 
     // API call to create user
-    const response = await fetch(`${API_URL}/users`, {
+    const response = await fetch(`${API_URL}/api/users/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user),
@@ -23,7 +23,8 @@ export class UserFactory {
 
     const created = await response.json();
     this.createdUsers.push(created.id);
-    return created;
+    // The factory needs to return the plain password to the test
+    return { ...created, password: user.password };
   }
 
   async cleanup() {
