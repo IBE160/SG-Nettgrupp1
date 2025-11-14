@@ -17,7 +17,7 @@
   - [x] /run-agent-task ux-designer *create-ux-design "Read PRD and epics documents and create UX design specification file"
   - [x] /run-agent-task ux-designer *validate-ux-design "Read UX design specification and validate the content"
   - [x] /run-agent-task tea *framework "Initialize production-ready test framework"
-  - [ ] /run-agent-task tea *ci {prompt / user-input-file}
+  - [x] /run-agent-task tea *ci "Scaffold CI/CD quality pipeline"
   - [ ] /run-agent-task tea *test-design {prompt / user-input-file}
 
 ## Fase 2
