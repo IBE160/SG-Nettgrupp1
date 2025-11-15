@@ -18,6 +18,7 @@ workflow_status:
   prd: docs/PRD.md
   validate-prd: docs/validation-report-2025-11-05.md
   create-design: docs/ux-design-specification.md
+  validate-design: docs/validation-report-2025-11-13.md
 
   # Phase 2: Solutioning
   create-architecture: required
