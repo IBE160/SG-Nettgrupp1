@@ -51,7 +51,7 @@ This project aims to address these critical issues by modernizing operations and
 *   FR008: The system shall automatically send order details via email to the store upon order placement.
 *   FR009: The system shall record all placed orders in the admin dashboard.
 *   FR010: The system shall provide an admin interface for the business owner to view incoming orders.
-*   FR011: The system shall allow the business owner to mark orders as "Processed" or "Completed" in the admin interface.
+*   FR011: The system shall allow the business owner to mark orders as "Prepared", "Completed", or "Cancelled" in the admin interface.
 *   FR012: The system shall allow the business owner to delete orders in the admin interface.
 *   FR013: The system shall provide an admin interface for the business owner to add new products.
 *   FR014: The system shall provide an admin interface for the business owner to edit existing product details.
@@ -59,7 +59,7 @@ This project aims to address these critical issues by modernizing operations and
 *   FR016: The system shall allow the business owner to update stock levels for products in the admin interface.
 *   FR017: The system shall integrate a Google Maps view on the landing page displaying the store's location.
 *   FR018: The system shall support a "click-and-collect" ordering model where payment occurs physically at pickup.
-*   FR019: The system shall automatically send an email notification to the customer when the business owner marks an order as "Processed" and ready for pickup.
+*   FR019: The system shall automatically send an email notification to the customer when the business owner marks an order as "Prepared" and ready for pickup.
 *   FR020: The admin interface shall support authenticated login.
 
 ### Non-Functional Requirements
@@ -105,14 +105,14 @@ This project aims to address these critical issues by modernizing operations and
     2.  **View New Orders:** Owner sees a notification or list of new incoming orders. (FR010)
     3.  **Select Order:** Owner clicks on a new order to view details.
     4.  **Prepare Order:** Owner gathers products for the order.
-    5.  **Update Order Status:** Owner marks the order as "Processed". (FR011)
+    5.  **Update Order Status:** Owner marks the order as "Prepared". (FR011)
     6.  **Send Ready for Pickup Confirmation:** System automatically sends a confirmation email to the customer that the order is ready for pickup. (FR019)
     7.  **Customer Pickup:** Customer arrives, pays, and collects.
     8.  **Complete Order:** Owner marks the order as "Completed". (FR011)
 *   **Decision Points/Alternatives:**
     *   Owner can delete an order if there's an issue (e.g., customer cancellation). (FR012)
 *   **Edge Cases:**
-    *   Customer doesn't pick up order (owner can delete or mark as cancelled).
+    *   Customer doesn't pick up order (owner can mark the order as "Cancelled" or delete it).
     *   Stock discrepancy (owner updates stock levels via product management). (FR016)
 
 ---

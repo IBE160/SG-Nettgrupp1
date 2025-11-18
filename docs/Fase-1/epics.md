@@ -233,16 +233,32 @@ So that I can manage my workload and prepare orders for pickup.
 
 ---
 
-**Story 2.6: Admin Mark Order as Processed**
+**Story 2.6: Admin Mark Order as Prepared**
 
 As a Business Owner,
-I want to update the status of an order to "Processed"
+I want to update the status of an order to "Prepared"
 So that I can track its preparation and notify the customer.
 
 **Acceptance Criteria:**
-1. From the order detail view in the admin interface, a button/action exists to "Mark as Processed".
-2. Clicking this action changes the order status to "Processed" (FR011).
+1. From the order detail view in the admin interface, a button/action exists to "Mark as Prepared".
+2. Clicking this action changes the order status to "Prepared" (FR011).
 3. The system automatically sends a "Ready for Pickup" email notification to the customer (FR019).
+
+**Prerequisites:** Story 2.5
+
+---
+
+**Story 2.7: Admin Cancel Order**
+
+As a Business Owner,
+I want to update the status of an order to "Cancelled"
+So that I can handle orders that are not picked up or are cancelled by the customer.
+
+**Acceptance Criteria:**
+1. From the order detail view in the admin interface, a button/action exists to "Mark as Cancelled".
+2. Clicking this action changes the order status to "Cancelled" (FR011).
+3. The stock for the items in the cancelled order is returned to the main inventory.
+4. The order remains in the system for historical records but is clearly marked as "Cancelled".
 
 **Prerequisites:** Story 2.5
 

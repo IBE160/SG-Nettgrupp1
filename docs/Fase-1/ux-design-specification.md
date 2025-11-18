@@ -271,12 +271,13 @@ The project aims to modernize Alta Sigar & Grill's operations and enhance custom
     *   **Order Reference Number:** Unique identifier for the order.
     *   **Customer Email:** Email address of the customer who placed the order.
     *   **Order Date:** Date and time the order was placed.
-    *   **Current Status:** Clearly displayed status (e.g., "New," "Prepared," "Completed").
-    *   **Action Buttons:** Buttons for "Mark as Prepared" (visible when status is "New"), "Mark as Completed" (visible when status is "Prepared"), and a "Delete Order" button/icon.
+    *   **Current Status:** Clearly displayed status (e.g., "New," "Prepared," "Completed," "Cancelled").
+    *   **Action Buttons:** Buttons for "Mark as Prepared", "Mark as Completed", "Mark as Cancelled", and a "Delete Order" button/icon.
 *   **States:**
     *   **New:** Visually distinct (e.g., highlighted background, bold text) to draw attention.
     *   **Prepared:** Standard display, indicating the order is being processed.
     *   **Completed:** Standard display, indicating the order is fulfilled.
+    *   **Cancelled:** De-emphasized display (e.g., greyed out text) to indicate it is no longer an active order.
     *   **Hover:** Visual feedback on hover to indicate interactivity.
 *   **Variants:**
     *   **List Item:** A compact row for display within a list of orders.
@@ -285,6 +286,7 @@ The project aims to modernize Alta Sigar & Grill's operations and enhance custom
     *   Clicking on the card/row navigates to a detailed order view (if implemented).
     *   Clicking "Mark as Prepared" updates the order status and triggers customer notification.
     *   Clicking "Mark as Completed" updates the order status and triggers inventory decrement.
+    *   Clicking "Mark as Cancelled" updates the order status and returns the ordered items to inventory.
     *   Clicking "Delete Order" prompts for confirmation before removal.
 *   **Accessibility:** Ensure clear labels for status and action buttons, and proper keyboard navigation for admin users.
 
