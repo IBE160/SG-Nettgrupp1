@@ -3,20 +3,20 @@
 ## Fase 0
 
 - [x] Brainstorming
-  - [x] /analyst *brainstorm "Explore and refine the customer journeys"
+  - [x] /analyst *brainstorm "Read the proposal: /docs/proposal.md, Brainstorm to define the customer journeys."
 - [x] Research
-  - [x] /analyst *research "User Journey Mapping for an online cigar store"
+  - [x] /analyst *research "Read the proposal: /docs/proposal.md, Perform reasearch into user journey mapping."
 - [x] Product Brief
-  - [x] /analyst *product-brief "Read the brainstorming session, the research session and the @proposal.md file, and create a product brief for the project."
+  - [x] /analyst *product-brief "Read the brainstorming session, the research session and the proposal: /docs/brainstorming-session-results-2025-10-24.md, /docs/research-user-2025-10-29.md, proposal.md and create a product brief for the project."
 
 ## Fase 1
 
 - [x] Planning
-  - [x] /run-agent-task pm *prd
-  - [x] /run-agent-task pm *validate-prd
-  - [x] /run-agent-task ux-designer *create-ux-design "Read PRD and epics documents and create UX design specification file"
-  - [x] /run-agent-task ux-designer *validate-ux-design "Read UX design specification and validate the content"
-  - [x] /run-agent-task tea *framework "Initialize production-ready test framework"
+  - [x] /run-agent-task pm *prd "Read the product brief: /docs/product-brief-ibe160-2025-11-03.md and create a Product Requirements Document for the project".
+  - [x] /run-agent-task pm *validate-prd "Read the PRD: /docs/PRD.md and validate the content of the document."
+  - [x] /run-agent-task ux-designer *create-design "Read PRD and epics documents: /docs/PRD.md, /docs/epics.md and create UX design specifications."
+  - [x] /run-agent-task ux-designer *validate-design "Read UX design specifications: /docs/ux-design-specification.md and validate the content."
+  - [x] /run-agent-task tea *framework "Initialize production-ready test framework architecture"
   - [x] /run-agent-task tea *ci "Scaffold CI/CD quality pipeline"
   - [x] /run-agent-task tea *test-design "Full test design for Epics 1-3 "
 
