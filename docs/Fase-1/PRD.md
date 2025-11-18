@@ -17,13 +17,12 @@
 *   Establish a reliable and functional web presence for the business.
 *   Enhance customer engagement with product information online.
 *   Provide a smooth and intuitive click-and-collect order placement experience.
-*   Effectively guide newcomers to cigars in product selection.
 
 ### Background Context
 
-The Alta Sigar & Grill business currently faces significant operational inefficiencies due to a lack of formal inventory and order management systems, leading to manual, time-consuming processes and potential stock inaccuracies. This diverts the owner's time from core business growth. Concurrently, customers are unable to view real-time product availability or place remote orders, creating a barrier to purchase and impacting satisfaction. A notable challenge also exists for new cigar enthusiasts who often experience "choice overload" on other platforms, deterring engagement.
+The Alta Sigar & Grill business currently faces significant operational inefficiencies due to a lack of formal inventory and order management systems, leading to manual, time-consuming processes and potential stock inaccuracies. This diverts the owner's time from core business growth. Concurrently, customers are unable to view real-time product availability or place remote orders, creating a barrier to purchase and impacting satisfaction.
 
-This project aims to address these critical issues by modernizing operations and enhancing customer experience. By implementing a web application with an intuitive admin interface for the owner and a user-friendly frontend for customers, Alta Sigar & Grill can streamline inventory and order management, offer convenient click-and-collect services, and provide a guided product selection process specifically for newcomers. This strategic move is expected to boost operational efficiency, increase customer satisfaction, expand market reach, and ultimately drive sales.
+This project aims to address these critical issues by modernizing operations and enhancing customer experience. By implementing a web application with an intuitive admin interface for the owner and a user-friendly frontend for customers, Alta Sigar & Grill can streamline inventory and order management and offer convenient click-and-collect services. This strategic move is expected to boost operational efficiency, increase customer satisfaction, expand market reach, and ultimately drive sales.
 
 ---
 
@@ -44,7 +43,7 @@ This project aims to address these critical issues by modernizing operations and
 
 *   FR001: The system shall display an up-to-date product catalog for "Cigars and Accessories" including name, description, price, and real-time stock quantity.
 *   FR002: The system shall display "Land of origin" and "Vitola" for each product on its detail page.
-*   FR003: The system shall provide simplified, relatable language for taste/flavor descriptions to aid newcomers.
+*   FR003: The system shall provide simplified, relatable language for taste/flavor descriptions.
 *   FR004: The system shall allow customers to add products to a shopping cart.
 *   FR005: The system shall automatically update the shopping cart with product changes.
 *   FR006: The system shall provide a checkout page for customers to enter essential details (email, optional phone).
@@ -116,30 +115,13 @@ This project aims to address these critical issues by modernizing operations and
     *   Customer doesn't pick up order (owner can delete or mark as cancelled).
     *   Stock discrepancy (owner updates stock levels via product management). (FR016)
 
-### User Journey 3: Newcomer - Discovering a Beginner-Friendly Cigar
-
-*   **Persona:** Newcomer
-*   **Goal:** To find a suitable beginner-friendly cigar.
-*   **Entry Point:** Arrives at the website.
-*   **Flow:**
-    1.  **Explore Catalog:** Newcomer navigates to the "Cigars and Accessories" catalog. (FR001)
-    2.  **Browse Curated Selection:** Newcomer views simplified product descriptions and recommendations. (FR003)
-    3.  **View Product Details:** Newcomer clicks on a recommended product to see details, including simplified taste/flavor language. (FR002, FR003)
-    4.  **Consider Purchase:** Newcomer decides whether to add to cart or continue browsing. (FR004)
-*   **Decision Points/Alternatives:**
-    *   Newcomer can continue browsing all products within the single category.
-*   **Edge Cases:**
-    *   No beginner-friendly options explicitly highlighted.
-
-> **Note for clarification:** The mechanism for presenting the "Curated Selection" needs to be defined. Will this be a separate section on the page, a "Beginner's Choice" badge on certain products, or another method? This should be clarified before implementation.
-
 ---
 
 ## UX Design Principles
 
 ### UX Principles
 
-1.  **Simplicity and Intuition:** Design interfaces that are easy to understand and navigate, particularly for the business owner (limited technical expertise) and new cigar enthusiasts (guided selection).
+1.  **Simplicity and Intuition:** Design interfaces that are easy to understand and navigate, particularly for the business owner (limited technical expertise).
 2.  **Transparency:** Provide clear and real-time information, especially regarding product availability and order status, to build customer trust and reduce owner inquiries.
 3.  **Efficiency:** Optimize workflows for both customers (quick and seamless click-and-collect ordering) and the business owner (streamlined order and inventory management).
 4.  **Accessibility:** Adhere to WCAG 2.1 AA compliance as a recommended best practice to ensure the website is usable by the widest possible audience.

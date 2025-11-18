@@ -7,7 +7,7 @@ _Generated using BMad Method - Create UX Design Workflow v1.0_
 
 ## Executive Summary
 
-The project aims to modernize Alta Sigar & Grill's operations and enhance customer experience by streamlining inventory and order management, offering convenient click-and-collect services, and providing a guided product selection for newcomers. The goal is to boost efficiency, satisfaction, market reach, and sales.
+The project aims to modernize Alta Sigar & Grill's operations and enhance customer experience by streamlining inventory and order management, offering convenient click-and-collect services. The goal is to boost efficiency, satisfaction, market reach, and sales.
 
 ---
 
@@ -25,14 +25,14 @@ The project aims to modernize Alta Sigar & Grill's operations and enhance custom
 
 ### 2.1 Defining Experience
 
-"Your guide to your next cigar experience" - This emphasizes discovery, recommendation, and potentially educational content, blending standard e-commerce with a personalized guidance aspect.
+"A premium click-and-collect cigar experience."
 
 ### 2.2 Novel UX Patterns
 
 **Core Experience Principles:**
 
 *   **Speed:** Key actions like browsing, adding to cart, and checkout should feel instant and fluid, with quick loading times and smooth transitions.
-*   **Guidance:** Navigation should be intuitive for all users. Product information, especially for newcomers, should be presented clearly and simply to aid understanding.
+*   **Guidance:** Product information should be presented clearly and simply to aid understanding.
 *   **Flexibility:** The system should offer clear, efficient paths for primary tasks while also allowing users the freedom to explore and browse the product catalog at their own pace.
 *   **Feedback:** Users should receive clear, immediate, and positive feedback for their actions, such as cart updates and order confirmations, contributing to a sense of delight and efficiency.
 
