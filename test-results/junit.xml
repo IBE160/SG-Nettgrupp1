@@ -1,0 +1,20 @@
+<testsuites id="" name="" tests="6" failures="0" skipped="0" errors="0" time="35.688279">
+<testsuite name="example.spec.ts" timestamp="2025-11-14T17:47:47.367Z" hostname="chromium" tests="2" failures="0" skipped="0" time="7.932" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="3.397">
+</testcase>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="4.535">
+</testcase>
+</testsuite>
+<testsuite name="example.spec.ts" timestamp="2025-11-14T17:47:47.367Z" hostname="firefox" tests="2" failures="0" skipped="0" time="20.257" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="9.264">
+</testcase>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="10.993">
+</testcase>
+</testsuite>
+<testsuite name="example.spec.ts" timestamp="2025-11-14T17:47:47.367Z" hostname="webkit" tests="2" failures="0" skipped="0" time="7.107" errors="0">
+<testcase name="Example Test Suite › should load homepage" classname="example.spec.ts" time="2.755">
+</testcase>
+<testcase name="Example Test Suite › should create user and login" classname="example.spec.ts" time="4.352">
+</testcase>
+</testsuite>
+</testsuites>

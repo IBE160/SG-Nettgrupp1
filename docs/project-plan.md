@@ -14,11 +14,11 @@
 - [ ] Planning
   - [x] /run-agent-task pm *prd
   - [x] /run-agent-task pm *validate-prd
-  - [x] /run-agent-task ux-designer *create-ux-design {prompt / user-input-file}
-  - [x] /run-agent-task ux-designer *validate-ux-design {prompt / user-input-file}
-  - [ ] /run-agent-task tea *framework {prompt / user-input-file}
-  - [ ] /run-agent-task tea *ci {prompt / user-input-file}
-  - [ ] /run-agent-task tea *test-design {prompt / user-input-file}
+  - [x] /run-agent-task ux-designer *create-ux-design "Read PRD and epics documents and create UX design specification file"
+  - [x] /run-agent-task ux-designer *validate-ux-design "Read UX design specification and validate the content"
+  - [x] /run-agent-task tea *framework "Initialize production-ready test framework"
+  - [x] /run-agent-task tea *ci "Scaffold CI/CD quality pipeline"
+  - [x] /run-agent-task tea *test-design " "
 
 ## Fase 2
 
