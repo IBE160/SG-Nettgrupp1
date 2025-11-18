@@ -2,34 +2,64 @@
 
 ## Fase 0
 
-- [x] Brainstorming
-  - [x] /analyst *brainstorm "Read the proposal: /docs/proposal.md, Brainstorm to define the customer journeys."
-- [x] Research
-  - [x] /analyst *research "Read the proposal: /docs/proposal.md, Perform reasearch into user journey mapping."
-- [x] Product Brief
-  - [x] /analyst *product-brief "Read the brainstorming session, the research session and the proposal: /docs/brainstorming-session-results-2025-10-24.md, /docs/research-user-2025-10-29.md, proposal.md and create a product brief for the project."
+### [x] Initialization
+  - [x] /run-agent-task analyst *workflow-init
+    - [x] File: bmm-workflow-status.yaml
+
+### [x] Brainstorming
+  - [x] /analyst *brainstorm
+    - [x] File: brainstorming-session-results-2025-10-24.md
+
+### [x] Research
+  - [x] /analyst *research
+    - [x] File: research-user-2025-10-29.md
+
+### [x] Product Brief
+  - [x] /analyst *product-brief 
+    - [x] File: product-brief-ibe160-2025-11-03.md
 
 ## Fase 1
 
-- [x] Planning
-  - [x] /run-agent-task pm *prd "Read the product brief: /docs/product-brief-ibe160-2025-11-03.md and create a Product Requirements Document for the project".
-  - [x] /run-agent-task pm *validate-prd "Read the PRD: /docs/PRD.md and validate the content of the document."
-  - [x] /run-agent-task ux-designer *create-design "Read PRD and epics documents: /docs/PRD.md, /docs/epics.md and create UX design specifications."
-  - [x] /run-agent-task ux-designer *validate-design "Read UX design specifications: /docs/ux-design-specification.md and validate the content."
-  - [x] /run-agent-task tea *framework "Initialize production-ready test framework architecture"
-  - [x] /run-agent-task tea *ci "Scaffold CI/CD quality pipeline"
-  - [x] /run-agent-task tea *test-design "Full test design for Epics 1-3 "
+### [x] Planning
+  - [x] /run-agent-task pm *prd
+    - [x] File: PRD.md
+    - [x] File: epics.md
+  
+  - [x] /run-agent-task pm *validate-prd
+    - [x] File: validation-report-2025-11-05.md
+  
+  - [x] /run-agent-task ux-designer *create-design
+    - [x] File: ux-design-specification.md
+    - [x] File: ux-color-themes.html
+    - [x] File: ux-design-directions.html
+
+  - [x] /run-agent-task ux-designer *validate-design
+    - [x] File: validation-report-2025-11-13.md
+  
+  - [x] /run-agent-task tea *framework
+    - [x] File: testreport.md
+  
+  - [x] /run-agent-task tea *ci
+    - [x] File: ci.md
+    - [x] File: ci-secrets-checklist.md
+
+
+  - [x] /run-agent-task tea *test-design
+    - [x] File: test-design-epic-1.md
+    - [x] File: test-design-epic-2.md
+    - [x] File: test-design-epic-3.md
 
 ## Fase 2
 
-- [ ] Solutioning
+### [ ] Solutioning
   - [ ] /run-agent-task architect *architecture {prompt / user-input-file}
   - [ ] /run-agent-task architect *validate-architecture {prompt / user-input-file}
 
 ## Fase 3
 
-- [ ] Implementation
+### [ ] Implementation
   - [ ] /run-agent-task sm *sprint-planning {prompt / user-input-file}
+  
   - foreach epic in sprint planning:
     - [ ] /run-agent-task sm epic-tech-content {prompt / user-input-file}
     - [ ] /run-agent-task sm validate-epic-tech-content {prompt / user-input-file}
