@@ -11,14 +11,14 @@
 
 ## Fase 1
 
-- [ ] Planning
+- [x] Planning
   - [x] /run-agent-task pm *prd
   - [x] /run-agent-task pm *validate-prd
   - [x] /run-agent-task ux-designer *create-ux-design "Read PRD and epics documents and create UX design specification file"
   - [x] /run-agent-task ux-designer *validate-ux-design "Read UX design specification and validate the content"
   - [x] /run-agent-task tea *framework "Initialize production-ready test framework"
   - [x] /run-agent-task tea *ci "Scaffold CI/CD quality pipeline"
-  - [x] /run-agent-task tea *test-design " "
+  - [x] /run-agent-task tea *test-design "Full test design for Epics 1-3 "
 
 ## Fase 2
 
