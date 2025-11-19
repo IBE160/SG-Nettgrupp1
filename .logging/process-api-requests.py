@@ -33,9 +33,9 @@ from filelock import FileLock, Timeout
 
 # ---------- Configuration ----------
 BASE = Path(".")
-LOG_FILE = BASE / ".logging" / "log.jsonl"
-LOCK_FILE = BASE / ".logging" / ".process.lock"
-DEFAULT_OUTPUT_DIR = BASE / ".logging" / "requests"
+LOG_FILE = BASE / "log.jsonl"
+LOCK_FILE = BASE / ".process.lock"
+DEFAULT_OUTPUT_DIR = BASE / "requests"
 
 # Event types we care about
 EVENT_REQUEST = "gemini_cli.api_request"
