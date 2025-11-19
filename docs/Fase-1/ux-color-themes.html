@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta Sigar & Grill - Color Theme Visualizer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #F8F9FA; /* Light neutral background */
+            color: #343A40; /* Dark neutral text */
+        }
+        .theme-container {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h1, h2, h3 {
+            color: #1A1A1A;
+        }
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        .color-swatch {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 10px;
+            box-sizing: border-box;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white; /* Default text color for swatches */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .color-swatch.dark-text {
+            color: #343A40;
+            text-shadow: none;
+        }
+        .component-examples {
+            margin-top: 30px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #DAA520; /* Goldenrod */
+            color: #1A1A1A; /* Dark text for contrast */
+        }
+        .btn-primary:hover {
+            background-color: #B8860B; /* Darker Goldenrod */
+        }
+        .btn-secondary {
+            background-color: #6C757D; /* Medium Gray */
+            color: #FFFFFF;
+        }
+        .btn-secondary:hover {
+            background-color: #5A6268;
+        }
+        .btn-success {
+            background-color: #28A745;
+            color: #FFFFFF;
+        }
+        .btn-warning {
+            background-color: #FFC107;
+            color: #1A1A1A;
+        }
+        .btn-error {
+            background-color: #DC3545;
+            color: #FFFFFF;
+        }
+        .input-field {
+            padding: 10px;
+            border: 1px solid #6C757D;
+            border-radius: 5px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            width: 200px;
+            box-sizing: border-box;
+            background-color: #FFFFFF;
+            color: #1A1A1A;
+        }
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 0.9em;
+        }
+        .alert-success {
+            background-color: #D4EDDA;
+            color: #155724;
+            border-color: #C3E6CB;
+        }
+        .alert-error {
+            background-color: #F8D7DA;
+            color: #721C24;
+            border-color: #F5C6CB;
+        }
+        .text-primary { color: #DAA520; }
+        .text-secondary { color: #6C757D; }
+        .text-accent { color: #008080; }
+        .bg-primary { background-color: #DAA520; }
+        .bg-secondary { background-color: #1A1A1A; }
+        .bg-accent { background-color: #008080; }
+
+        .personality-description {
+            margin-top: 30px;
+            border-top: 1px solid #EEE;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-container">
+        <h1>Alta Sigar & Grill - Color Theme Visualizer</h1>
+        <p>Explore the proposed color palette and how it translates into UI components.</p>
+
+        <div class="theme-section">
+            <h2>Theme: Premium & Sophisticated</h2>
+            <p>This theme is inspired by the brand's logo, aiming for a luxurious and trustworthy feel.</p>
+
+            <h3>Color Palette</h3>
+            <div class="color-palette">
+                <div class="color-swatch" style="background-color: #DAA520;">#DAA520<br>Primary</div>
+                <div class="color-swatch" style="background-color: #1A1A1A;">#1A1A1A<br>Secondary</div>
+                <div class="color-swatch" style="background-color: #008080;">#008080<br>Accent</div>
+                <div class="color-swatch dark-text" style="background-color: #F8F9FA;">#F8F9FA<br>Neutral Light</div>
+                <div class="color-swatch" style="background-color: #6C757D;">#6C757D<br>Neutral Medium</div>
+                <div class="color-swatch" style="background-color: #343A40;">#343A40<br>Neutral Dark</div>
+                <div class="color-swatch" style="background-color: #28A745;">#28A745<br>Success</div>
+                <div class="color-swatch dark-text" style="background-color: #FFC107;">#FFC107<br>Warning</div>
+                <div class="color-swatch" style="background-color: #DC3545;">#DC3545<br>Error</div>
+            </div>
+
+            <h3>Live Component Examples</h3>
+            <div class="component-examples">
+                <h4>Buttons</h4>
+                <button class="btn btn-primary">Primary Action</button>
+                <button class="btn btn-secondary">Secondary Action</button>
+                <button class="btn btn-success">Success</button>
+                <button class="btn btn-warning">Warning</button>
+                <button class="btn btn-error">Error</button>
+
+                <h4>Form Input</h4>
+                <input type="text" class="input-field" placeholder="Enter text here">
+
+                <h4>Alerts</h4>
+                <div class="alert alert-success">
+                    Your order has been placed successfully!
+                </div>
+                <div class="alert alert-error">
+                    Error: Product is out of stock.
+                </div>
+
+                <h4>Text Colors</h4>
+                <p class="text-primary">This is primary colored text.</p>
+                <p class="text-secondary">This is secondary colored text.</p>
+                <p class="text-accent">This is accent colored text.</p>
+            </div>
+
+            <div class="personality-description">
+                <h3>Theme Personality Description</h3>
+                <ul>
+                    <li>**Emotional Impact:** Trustworthy, luxurious, sophisticated, and engaging.</li>
+                    <li>**Best for:** Premium product presentation, building brand trust, and creating a memorable user experience.</li>
+                    <li>**Visual Style:** Elegant, modern, with a touch of classic luxury.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

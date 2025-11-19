@@ -7,11 +7,11 @@ Nettgrupp1-Dagtid, men fleksibel.
 
 **Gruppemedlemmer:**
 - Hajar Al-Mohannah - [Student-ID/E-post@himolde.no]
-- Kim-Ove Reitan Hagerup - [231097/kim-ove.r.hagerup@himolde.no]
+- Kim-Ove Reitan Hagerup - 231097/kim-ove.r.hagerup@himolde.no
 - Camilla Hagå-Huus - 241665/cahag4982@himolde.no
 - Eirik Lyder Bredland - 210667/eirik.l.bredland@himolde.no
 
-**Dato:** [DD.MM.ÅÅÅÅ]
+**Dato:** 15.11.2025
 
 ---
 
@@ -24,9 +24,9 @@ Hovedmålet med dette prosjektet er å produsere et fungerende nettstedet der be
 
 ### 2.2 Arbeidsmetodikk
 [Beskriv hvordan dere organiserte arbeidet]
-- Hvordan fordelte dere oppgaver?
-- Hvilke verktøy brukte dere for samarbeid og hvordan det fungerte? (f.eks. Git, og Teams)
-- Hvordan brukte dere KI-verktøy i prosessen?
+- Hvordan fordelte dere oppgaver? Vi bestemte oss tidlig for å satse på at flest mulig skulle kunne delta i de forskjellige prosessene, og dermed har vi hatt jevnlige workshops der vi har samlet oss på Teams og samarbeidet. Ikke alle har vært med på samtlige workshops, men alle har vært med på deler av arbeidet. Vi har også jobbet vekselvis på hver sin PC mens vedkommende deler skjerm på Teams, slik at alle skulle få erfaring med å bruke verktøyene på sin egen PC, inkludert opplasting til Github. I forkant av arbeidet med selve prosjektoppgaven hadde vi flere workshops for å sørge for at alle i gruppen hadde fått satt opp sin PC/MAC i henhold til forutsetningene gitt av faglærer. 
+- Hvilke verktøy brukte dere for samarbeid og hvordan det fungerte? Vi opprettet en egen chat på Teams som vi har brukt innad i gruppen, her har all skriftlig kommunikasjon innad i arbeidsgruppen foregått. I tillegg har vi brukt den felles Teams-kanalen for gruppen vår for å dele dokumenter underveis. Ferdig arbeid har blitt lastet opp til Github og vi har testet ut bruken av pull-request fra Github.
+- Hvordan brukte dere KI-verktøy i prosessen? Foruten utstrakt bruk av KI gjennom agentene som utgjør en del av BMAD-rammeverket har vi brukt KI til feilsøking og problemløsing når noe ikke virket slik det var forutsatt. Spesielt nyttig har KI vært i forbindelse med oppsett og installasjon av støtteverktøy på den enkelte sin PC/MAC.
 
 ### 2.3 Teknologi og verktøy
 [Liste over de viktigste teknologiene og verktøyene dere brukte]
@@ -39,8 +39,14 @@ Hovedmålet med dette prosjektet er å produsere et fungerende nettstedet der be
 ### 2.4 Utviklingsfaser
 [Beskriv de ulike fasene i utviklingen]
 
+**Fase 0: Forarbeid**
+- [Hva gjorde dere i denne fasen?]
+- I denne fasen startet vi med å skrive vår Proposal. Vi startet med å spørre ChatGPT om hva en slik proposal skal se ut, men etter hvert fikk vi en mal fra faglærer som beskrev hvordan en slik proposal skal utformes. Denne malen ble underveis i prosessen endret av faglærer, slik at vi ble nødt til å gå gjennom denne prosessen flere ganger. Etter at vår Proposal (proposal.md) var ferdig ble denne lagt til i vårt repository og vi kunne starte med å bruke agentene i BMAD rammeverket til å lose oss gjennom de neste stegene som bestod i en brainstorming session samt en research session. Dette resulterte i to dokumenter utarbeidet av KI (brainstorming-session-results.2025-10-24.md og research-user-2025-10-29.md). Neste steg var å be Business Analyst å produsere Product Brief (product-brief-ibe160-2025-11-03.md). Denne var basert på de tre foregående dokumentene.
+- [Hvordan brukte dere KI her? Husk å lagre promptene deres! Inkluder ALLE stegene dere gjorde.]
+
 **Fase 1: Planlegging**
 - [Hva gjorde dere i denne fasen?]
+- //lage PRD //Validere PRD //lage UX-design spec //validere UX-design spec
 - [Hvordan brukte dere KI her? Husk å lagre promptene deres! Inkluder ALLE stegene dere gjorde.]
 
 **Fase 2: Utvikling**
@@ -54,12 +60,17 @@ Hovedmålet med dette prosjektet er å produsere et fungerende nettstedet der be
 ### 3.1 Tekniske utfordringer
 [Beskriv 2-3 konkrete tekniske problemer dere møtte]
 
-**Utfordring 1: [Tittel]**
-- Problem: [Beskriv problemet]
-- Løsning: [Hvordan løste dere det?]
+**Utfordring 1: API-feil og begrensninger i Gemini free-tier**
+- Problem: Gemini har fastsatte begrensninger i gratisversjonen av modellen 2.5 Pro, da denne er begrenset til maksimalt 5 forespørsler daglig, deretter må man gå over til å bruke modellen 2.5 Flash. Enkelte av oss opplevde hyppige API-feil, noe som vanskeliggjorde et kontinuerlig utviklingsarbeid i Gemini.
+- Løsning: I starten var det en del frustrasjon med denne begrensingen, og enkelte av oss startet abonnement på Gemini for å utvide muligheten for å bruke Gemini i lengre intervaller. I tillegg fikk vi etter hvert opplæring i hvordan man kan styre selv hvilken modell man ønsker å starte, dermed kan man bruke 2.5 Flash til enklere oppgaver og skifte over til 2.5 Pro for tyngre oppgaver, "gemini --model gemini-2.5-flash" og "gemini --model gemini-2.5-pro". Vi har også brukt andre KI verktøy for å løse problemer, for det meste OpenAI sin ChatGPT, spesielt ved problemer med Git, synkronisering og for å løse diverse installasjonsproblemer. 
 - KI sin rolle: [Hvordan hjalp eller hindret KI dere?]
 
-**Utfordring 2: [Tittel]**
+**Utfordring 2: Stadige endringer i BMAD-rammeverket**
+- Problem: BMAD-rammeverket er relativt nytt rammeverk for agentdrevet utvikling. Dette er under kontinuerlig utvikling, og vi mottok relativt hyppig endringer på dette fra vår faglærer. De fleste endringer til rammeverket ble lagt til i vårt remote repository, men enkelte endringer utførte vi selv underveis som feil ble oppdaget. Disse endringene medførte ofte endringer i arbeidsflyten som vi allerede var godt i gang med.
+- Løsning: Hyppige endringer i rammeverket gjorde at vi måtte passe på at vi alltid startet hver arbeidsøkt med å laste ned og merge remote repository inn i vår lokale versjon, i tillegg til å merge dette inn i hver vår egne branch som vi arbeidet i. Dette kunne for eksempel få den effekten at dersom vi var i gang med en prosess mens det kom oppdatering på main-branchen så oppstod det en merge konflikt når vi skulle synkronisere vår arbeid.
+- KI sin rolle: KI viste seg å være god på å rydde opp i slike konflikter, spesielt i de tilfellene der vi  klarte å beskrive for KI hva konflikten gikk ut på og hvor feilen var oppstått.
+
+**Utfordring 3: [Overskrift]**
 - Problem: [Beskriv problemet]
 - Løsning: [Hvordan løste dere det?]
 - KI sin rolle: [Hvordan hjalp eller hindret KI dere?]
@@ -212,6 +223,6 @@ Hovedmålet med dette prosjektet er å produsere et fungerende nettstedet der be
 
 ---
 
-**Ordantall:** 981
+**Ordantall:** 1706
 
 **Forventet lengde:** 3000-5000 ord (avhengig av gruppestørrelse og prosjektets kompleksitet)
