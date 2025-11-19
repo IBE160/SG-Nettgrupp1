@@ -51,9 +51,11 @@
 
 ## Fase 2
 
-### [ ] Solutioning
-  - [ ] /run-agent-task architect *architecture {prompt / user-input-file}
-  - [ ] /run-agent-task architect *validate-architecture {prompt / user-input-file}
+### [x] Solutioning
+  - [x] /run-agent-task architect *architecture
+    - [x] File: architecture.md
+  - [x] /run-agent-task architect *validate-architecture
+    - [x] File: validation-report-2025-11-19.md
 
 ## Fase 3
 
