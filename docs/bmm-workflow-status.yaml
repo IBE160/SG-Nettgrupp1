@@ -21,8 +21,8 @@ workflow_status:
   validate-design: docs/validation-report-2025-11-13.md
 
   # Phase 2: Solutioning
-  create-architecture: required
-  validate-architecture: optional
+  create-architecture: docs/architecture.md
+  validate-architecture: docs/validation-report-2025-11-13.md
   solutioning-gate-check: recommended
 
   # Phase 3: Implementation
