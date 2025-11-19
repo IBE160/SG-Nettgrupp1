@@ -132,33 +132,52 @@ Hovedmålet med dette prosjektet er å produsere et fungerende nettstedet der be
 ---
 
 ## 5. Etiske implikasjoner
-
+Bruken av KI i utviklingsarbeidet gir både fordeler og etiske utfordringer. Under utviklingen av prosjektet brukte vi en KI-agent i VS Code til å foreslå kode, forklare feil og hjelpe med struktur. Dette påvirker ansvar, læring og sikkerhet, og vi reflekterer over disse aspektene her.
 ### 5.1 Ansvar og eierskap
 - Hvem er ansvarlig for koden når KI har bidratt?
 - Hvordan sikrer man kvalitet når KI genererer kode?
 - Diskuter spørsmål om opphavsrett og intellektuell eiendom
+Selv om KI har generert flere kodeforslag, er det fortsatt vi som gruppe som står ansvarlige for alt som er tatt inn i prosjektet. KI fungerer som et støttende verktøy, men har ikke ansvar for kvalitet, sikkerhet eller logikk. Derfor måtte vi lese gjennom og teste alle forslag før vi implementerte dem.
+Det etiske spørsmålet om opphavsrett er også aktuelt. KI er trent på store mengder kode fra ulike kilder, og vi kan ikke alltid vite hvor inspirasjonen til et forslag kommer fra. Likevel er det vi som har ansvar for sluttproduktet og må sørge for at koden ikke bryter noen lisensvilkår. Derfor brukte vi KI mest til mindre kodebiter, feilsøking og struktur – ikke til hele ferdige funksjoner uten gjennomgang.
+
 
 ### 5.2 Transparens
 - Bør det være transparent at KI er brukt?
 - Hvordan dokumenterer man KI sin bidrag?
 - Hva er konsekvensene av å ikke være åpen om KI-bruk?
+Vi mener det er viktig å være åpne om at KI har vært en del av prosessen. For akademisk arbeid er det etisk nødvendig å vise hvilke verktøy man har brukt, slik at veileder og sensor forstår hvordan prosjektet ble utviklet. Hvis man ikke er åpen om KI-bruk, kan det skape et feil inntrykk av kompetansen og arbeidsmengden bak koden.
+Vi har derfor dokumentert når og hvordan KI-agenten ble brukt, spesielt under feilsøking og refaktorering. Dette gir transparens og gjør prosessen etterprøvbar.
+
 
 ### 5.3 Påvirkning på læring og kompetanse
 - Hvordan påvirker KI-avhengighet fremtidig kompetanse?
 - Hvilke ferdigheter risikerer man å ikke utvikle?
 - Balanse mellom effektivitet og læring
+KI påvirker hvordan man lærer å programmere. Vi opplevde at verktøyet sparte tid, men samtidig gjorde det enkelt å hoppe over viktige steg i læringsprosessen. Hvis man blir for avhengig av KI, kan det gå utover evnen til å skrive kode selvstendig eller forstå hvorfor noe fungerer.
+Ferdigheter som feilsøking, debugging og å bygge logikk fra bunnen av er særlig utsatt for å svekkes hvis KI brukes ukritisk. For å motvirke dette forsøkte vi å bruke KI som et supplement — ikke som en erstatning. Vi leste gjennom alle forslag og prøvde å forstå hvorfor koden fungerte, slik at vi fortsatt utviklet våre egne ferdigheter.
+
 
 ### 5.4 Arbeidsmarkedet
 - Hvordan kan utbredt KI-bruk påvirke fremtidige jobber i IT?
 - Hvilke roller vil bli viktigere/mindre viktige?
 - Deres refleksjoner om fremtidig karriere i en KI-drevet verden
+KI påvirker allerede IT-bransjen, og det er sannsynlig at dette vil øke. Rutineoppgaver innen koding kan bli mer automatisert, mens roller som handler om arkitektur, problemløsning, kravforståelse og kvalitetssikring vil bli viktigere.
+Vår refleksjon er at fremtidige utviklere må kunne:
+•	samarbeide med KI-verktøy
+•	validere og kvalitetssikre generert kode
+•	forstå systemer på et dypere nivå enn bare syntaks
+Dette vil også påvirke karrierevalg. I en KI-drevet verden må vi bygge kompetanse som ikke lett kan automatiseres, som problemløsning, kreativitet og kritisk vurdering.
+
 
 ### 5.5 Datasikkerhet og personvern
 - Hvilke data delte dere med KI-verktøy?
 - Potensielle risikoer ved å dele kode og data med KI
 - Hvordan skal man tenke på sikkerhet når man bruker KI?
+Underveis var det viktig å være bevisst på hva vi delte med KI-agenten. Selv om vi kun delte kode vi selv hadde skrevet, finnes det likevel potensielle risikoer. Noen KI-tjenester kan lagre eller bruke innholdet for videre trening, noe som gjør at man aldri bør dele sensitiv informasjon, API-nøkler eller brukerdata.
+Vi brukte KI kun til ren kodehjelp og delte ikke personinformasjon eller systemer med sikkerhetskritiske deler. Likevel viser dette hvor viktig det er å ha et bevisst forhold til datasikkerhet når man bruker KI som utviklingsverktøy. Man bør alltid vurdere hva som er trygt å dele og hva som bør holdes lokalt.
 
----
+
+--
 
 ## 6. Teknologiske implikasjoner
 
