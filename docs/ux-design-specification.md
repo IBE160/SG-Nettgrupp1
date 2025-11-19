@@ -16,6 +16,10 @@ The project aims to modernize Alta Sigar & Grill's operations and enhance custom
 ### 1.1 Design System Choice
 
 **Chosen System:** shadcn/ui
+<<<<<<< HEAD
+=======
+**Version:** Components last updated or verified on 2025-11-13. It is recommended to document the specific versions of the installed components.
+>>>>>>> origin/main
 **Rationale:** Selected by the user. It aligns well with the project's use of Tailwind CSS, offering highly customizable and accessible components. This choice provides a strong foundation for building a visually appealing and effective website while maintaining control over the design.
 
 ---
@@ -460,7 +464,11 @@ The project aims to modernize Alta Sigar & Grill's operations and enhance custom
 
 ### 9.1 Completion Summary
 
+<<<<<<< HEAD
 {{completion_summary}}
+=======
+This UX Design Specification establishes the complete visual and interactive foundation for the project. Key decisions regarding the design system (shadcn/ui), color palette, typography, and overall design direction have been made in collaboration with the user. Critical user journeys for both customers and the business owner have been mapped out, and a comprehensive component library strategy has been defined. The document also specifies detailed UX patterns for consistency and outlines a robust strategy for responsive design and accessibility (WCAG 2.1 AA). With these elements in place, the project is ready to move into the development phase.
+>>>>>>> origin/main
 
 ---
 
@@ -468,20 +476,34 @@ The project aims to modernize Alta Sigar & Grill's operations and enhance custom
 
 ### Related Documents
 
+<<<<<<< HEAD
 - Product Requirements: `{{prd_file}}`
 - Product Brief: `{{brief_file}}`
 - Brainstorming: `{{brainstorm_file}}`
+=======
+- Product Requirements: `PRD.md`
+- Product Brief: `product-brief-ibe160-2025-11-03.md`
+- Brainstorming: `brainstorming-session-results-2025-10-24.md`
+>>>>>>> origin/main
 
 ### Core Interactive Deliverables
 
 This UX Design Specification was created through visual collaboration:
 
+<<<<<<< HEAD
 - **Color Theme Visualizer**: {{color_themes_html}}
+=======
+- **Color Theme Visualizer**: [ux-color-themes.html](./ux-color-themes.html)
+>>>>>>> origin/main
   - Interactive HTML showing all color theme options explored
   - Live UI component examples in each theme
   - Side-by-side comparison and semantic color usage
 
+<<<<<<< HEAD
 - **Design Direction Mockups**: {{design_directions_html}}
+=======
+- **Design Direction Mockups**: [ux-design-directions.html](./ux-design-directions.html)
+>>>>>>> origin/main
   - Interactive HTML with 6-8 complete design approaches
   - Full-screen mockups of key screens
   - Design philosophy and rationale for each direction

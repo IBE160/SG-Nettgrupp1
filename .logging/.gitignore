@@ -20,3 +20,4 @@ log.jsonl
 # IDE
 .vscode/
 .idea/
+.logging/
