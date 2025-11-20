@@ -1,23 +1,18 @@
 import { test, expect } from '@playwright/test';
+import { createProduct } from '../support/factories/product.factory'; // Import the factory
 
 test.describe('Story 1.2: Product API Endpoints', () => {
 
-  const newProduct = {
-    name: 'Test Cigar',
-    description: 'A test cigar from a test factory.',
-    price: 9.99,
-    stock_quantity: 100,
-    land_of_origin: 'Testland',
-    vitola: 'Testoro',
-  };
-
-  let createdProductId: string;
+  // No longer a global newProduct, as each test will create its own unique one.
+  // The POST test will create a generic product.
 
   test.describe('API Endpoint Verification', () => {
 
     test('AC3: POST /api/products should create a new product', async ({ request }) => {
+      const productToCreate = createProduct(); // Use the factory
+
       const response = await request.post('/api/products', {
-        data: newProduct,
+        data: productToCreate,
       });
 
       // Expect the API to respond with 201 Created
@@ -27,16 +22,17 @@ test.describe('Story 1.2: Product API Endpoints', () => {
       
       // Expect the response body to contain the created product with an ID
       expect(body.id).toBeDefined();
-      expect(body.name).toBe(newProduct.name);
-      expect(body.price).toBe(newProduct.price);
+      expect(body.name).toBe(productToCreate.name);
+      expect(body.price).toBe(productToCreate.price);
 
-      // Store the created ID for subsequent tests
-      createdProductId = body.id;
+      // No longer storing ID globally
     });
 
     test('AC3: GET /api/products should return a list of products', async ({ request }) => {
-      // This test depends on the POST test above to have created a product.
-      // For a more robust suite, we would seed data independently for each test.
+      // Create a product specifically for this test
+      const productToCreate = createProduct();
+      await request.post('/api/products', { data: productToCreate });
+
       const response = await request.get('/api/products');
 
       // Expect the API to respond with 200 OK
@@ -47,12 +43,18 @@ test.describe('Story 1.2: Product API Endpoints', () => {
       // Expect the response body to be an array containing at least one product
       expect(Array.isArray(body.data)).toBe(true);
       expect(body.data.length).toBeGreaterThan(0);
-      expect(body.data[0].name).toBeDefined();
+      
+      // Verify that the created product is in the list
+      const foundProduct = body.data.find((p: any) => p.name === productToCreate.name);
+      expect(foundProduct).toBeDefined();
     });
 
     test('AC3: GET /api/products/:id should return a single product', async ({ request }) => {
-      // This test depends on the POST test to have stored a created product ID.
-      expect(createdProductId, 'This test requires a product to have been created by the POST test first.').toBeDefined();
+      // Create a product specifically for this test
+      const productToCreate = createProduct();
+      const createResponse = await request.post('/api/products', { data: productToCreate });
+      const createdProduct = await createResponse.json();
+      const createdProductId = createdProduct.id;
 
       const response = await request.get(`/api/products/${createdProductId}`);
 
@@ -63,7 +65,7 @@ test.describe('Story 1.2: Product API Endpoints', () => {
 
       // Expect the response body to be the correct product
       expect(body.id).toBe(createdProductId);
-      expect(body.name).toBe(newProduct.name);
+      expect(body.name).toBe(productToCreate.name);
     });
 
   });

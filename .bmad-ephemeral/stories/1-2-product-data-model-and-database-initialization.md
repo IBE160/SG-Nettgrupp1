@@ -2,7 +2,7 @@
 
 **Date:** 2025-11-20
 **Author:** BIP
-**Status:** ready-for-dev
+**Status:** review
 **Epic:** [Epic 1: Project Foundation & Product Catalog](tech-spec-epic-1.md)
 
 ---
@@ -48,20 +48,20 @@ This story establishes the data persistence layer for products. Following the ar
 ### Task 2: Connect Express Backend to Supabase
 - [x] Install the `@supabase/supabase-js` npm package.
 - [x] Create a new configuration file (e.g., `api/config/supabase.js`) to initialize the Supabase client.
-- [ ] Store the Supabase Project URL and Anon Key in environment variables (`.env`) and ensure `.gitignore` excludes this file.
-- [ ] Verify that the Express server can successfully connect to the Supabase client upon startup.
+- [x] Store the Supabase Project URL and Anon Key in environment variables (`.env`) and ensure `.gitignore` excludes this file.
+- [x] Verify that the Express server can successfully connect to the Supabase client upon startup.
 
 ### Task 3: Implement Temporary CRUD API Endpoints for Testing
-- [ ] Create a new route file at `api/routes/products.js` and a controller at `api/controllers/products.js`.
-- [ ] In the controller, implement the following functions using the Supabase client:
+- [x] Create a new route file at `api/routes/products.js` and a controller at `api/controllers/products.js`.
+- [x] In the controller, implement the following functions using the Supabase client:
     - `createProduct(req, res)`: Inserts a new product into the `products` table.
     - `getAllProducts(req, res)`: Selects all products from the table.
     - `getProductById(req, res)`: Selects a single product by its ID.
-- [ ] In the router, map these controller functions to the following endpoints:
+- [x] In the router, map these controller functions to the following endpoints:
     - `POST /api/products`
     - `GET /api/products`
     - `GET /api/products/:id`
-- [ ] Use a tool like Postman or `curl` to manually test each endpoint and verify that data can be created and retrieved from the database correctly.
+- [x] Use a tool like Postman or `curl` to manually test each endpoint and verify that data can be created and retrieved from the database correctly.
 
 ---
 
@@ -87,6 +87,24 @@ This story establishes the data persistence layer for products. Following the ar
 - **2025-11-20:** Created `migrations/001_create_products_table.sql` with the schema for the 'products' table. Task 1 is ready for user execution.
 - **2025-11-20:** Installed `@supabase/supabase-js` package.
 - **2025-11-20:** Created `api/config/supabase.js` to initialize the client.
+- **2025-11-20:** Instructed user to create `.env` file with Supabase credentials. User has confirmed completion.
+- **2025-11-20:** Modified `api-server.js` to load environment variables and import the Supabase client. Task 2 is complete.
+- **2025-11-20:** Created placeholder controller and route files for products, and mounted the router in `api-server.js`.
+- **2025-11-20:** Implemented `createProduct`, `getAllProducts`, and `getProductById` in the products controller. Task 3 is complete.
+
+### File List
+- `migrations/001_create_products_table.sql`
+- `api/config/supabase.js`
+- `api/controllers/products.js`
+- `api/routes/products.js`
+- `api-server.js`
+- `package.json` (for `dotenv`)
+- `.env.example`
+- `.bmad-ephemeral/stories/1-2-product-data-model-and-database-initialization.md`
+- `.bmad-ephemeral/sprint-status.yaml`
+- `playwright.config.ts` (for testDir change)
+- `tests/api/products.api.spec.ts`
+- `tests/support/factories/product.factory.ts`
 
 ---
 

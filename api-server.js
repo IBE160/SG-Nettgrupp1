@@ -1,9 +1,18 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import 'dotenv/config'; // Load environment variables
+import { supabase } from './api/config/supabase.js'; // Import supabase client
+
+
+import productRoutes from './api/routes/products.js';
 
 const app = express();
 app.use(express.json());
+
+// Mount the products router
+app.use('/api/products', productRoutes);
+
 
 const JWT_SECRET = 'your-super-secret-key'; // In a real app, this should be in an environment variable
 

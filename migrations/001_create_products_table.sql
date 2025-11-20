@@ -24,3 +24,13 @@ COMMENT ON COLUMN products.stock_quantity IS 'The current number of items in sto
 COMMENT ON COLUMN products.land_of_origin IS 'The product''s country of origin.';
 COMMENT ON COLUMN products.vitola IS 'The product''s vitola (shape and size).';
 COMMENT ON COLUMN products.is_archived IS 'Flag to hide product from public view.';
+
+-- Enable Row Level Security (RLS)
+ALTER TABLE products ENABLE ROW LEVEL SECURITY;
+
+-- Create a policy that allows anyone (anon and authenticated) to read products
+CREATE POLICY "Public profiles are viewable by everyone"
+ON products FOR SELECT
+TO anon, authenticated
+USING (true);
+

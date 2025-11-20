@@ -30,16 +30,16 @@ This story establishes the data persistence layer for products using Supabase (P
 
 **File:** `tests/api/products.api.spec.ts`
 
-- ✅ **Test:** `POST /api/products should create a new product`
-  - **Status:** RED - Expected to fail with 404 Not Found until the endpoint is created.
+- [x] **Test:** `POST /api/products should create a new product`
+  - **Status:** GREEN - Tests now pass after implementation.
   - **Verifies:** That a new product can be created via the API.
 
-- ✅ **Test:** `GET /api/products should return a list of products`
-  - **Status:** RED - Expected to fail with 404 Not Found until the endpoint is created.
+- [x] **Test:** `GET /api/products should return a list of products`
+  - **Status:** GREEN - Tests now pass after implementation.
   - **Verifies:** That a list of products can be retrieved from the API.
 
-- ✅ **Test:** `GET /api/products/:id should return a single product`
-  - **Status:** RED - Expected to fail with 404 Not Found until the endpoint is created.
+- [x] **Test:** `GET /api/products/:id should return a single product`
+  - **Status:** GREEN - Tests now pass after implementation.
   - **Verifies:** That a single product can be retrieved by its ID.
 
 ---
@@ -86,14 +86,14 @@ No `data-testid` attributes are required as this is a backend-focused story with
 **File:** `tests/api/products.api.spec.ts`
 
 **Tasks to make these tests pass:**
-- [ ] **Task 1: Define Schema:** Connect to the Supabase project and execute the `CREATE TABLE` SQL statement for the `products` table as defined in the Epic 1 Tech Spec.
-- [ ] **Task 2: Connect Backend:** Install `@supabase/supabase-js`, create a configuration file for the client, and ensure the Express server connects to Supabase on startup.
-- [ ] **Task 3: Implement API:** Create the `products.js` route and controller.
-- [ ] **Task 3.1:** Implement the `createProduct` controller function to handle `POST /api/products` requests.
-- [ ] **Task 3.2:** Implement the `getAllProducts` controller function to handle `GET /api/products` requests.
-- [ ] **Task 3.3:** Implement the `getProductById` controller function to handle `GET /api/products/:id` requests.
-- [ ] Run tests and verify they all pass.
-- [ ] ✅ All tests pass (green phase).
+- [x] **Task 1: Define Schema:** Connect to the Supabase project and execute the `CREATE TABLE` SQL statement for the `products` table as defined in the Epic 1 Tech Spec.
+- [x] **Task 2: Connect Backend:** Install `@supabase/supabase-js`, create a configuration file for the client, and ensure the Express server connects to Supabase on startup.
+- [x] **Task 3: Implement API:** Create the `products.js` route and controller.
+- [x] **Task 3.1:** Implement the `createProduct` controller function to handle `POST /api/products` requests.
+- [x] **Task 3.2:** Implement the `getAllProducts` controller function to handle `GET /api/products` requests.
+- [x] **Task 3.3:** Implement the `getProductById` controller function to handle `GET /api/products/:id` requests.
+- [x] Run tests and verify they all pass.
+- [x] ✅ All tests pass (green phase).
 
 **Estimated Effort:** 3 hours
 
@@ -120,17 +120,17 @@ npx playwright test tests/api/products.api.spec.ts --debug
 
 **TEA Agent Responsibilities:**
 
-- ✅ All tests written and failing
-- ✅ Fixtures and factories created with auto-cleanup
-- ✅ Mock requirements documented
-- ✅ data-testid requirements listed
-- ✅ Implementation checklist created
+- [x] All tests written and failing
+- [x] Fixtures and factories created with auto-cleanup
+- [x] Mock requirements documented
+- [x] data-testid requirements listed
+- [x] Implementation checklist created
 
 **Verification:**
 
-- All tests run and fail as expected
-- Failure messages are clear and actionable
-- Tests fail due to missing implementation, not test bugs
+- [x] All tests run and fail as expected
+- [x] Failure messages are clear and actionable
+- [x] Tests fail due to missing implementation, not test bugs
 
 ---
 
@@ -223,34 +223,20 @@ See `tea-index.csv` for complete knowledge fragment mapping.
 ```
 Running 9 tests using 2 workers
 
-  ✘  1 …› API Endpoint Verification › AC3: POST /api/products should create a new product (503ms)
-  ✘  2 …I Endpoint Verification › AC3: GET /api/products should return a list of products (469ms)
-  ✘  3 … Endpoint Verification › AC3: GET /api/products/:id should return a single product (90ms)
-  ✘  4 …› API Endpoint Verification › AC3: POST /api/products should create a new product (455ms)
-  ✘  5 …I Endpoint Verification › AC3: GET /api/products should return a list of products (484ms)
-  ✘  6 … Endpoint Verification › AC3: GET /api/products/:id should return a single product (97ms)
-  ✘  7 …› API Endpoint Verification › AC3: POST /api/products should create a new product (429ms)
-  ✘  8 …I Endpoint Verification › AC3: GET /api/products should return a list of products (463ms)
-  ✘  9 …Endpoint Verification › AC3: GET /api/products/:id should return a single product (104ms)
-
-  9 failed
+  ✓  1 …› AC3: GET /api/products should return a list of products (801ms)  ✓  2 …ion › AC3: POST /api/products should create a new product (591ms)  ✓  3 …AC3: GET /api/products/:id should return a single product (304ms)  ✓  4 …ion › AC3: POST /api/products should create a new product (291ms)  ✓  5 …› AC3: GET /api/products should return a list of products (414ms)  ✓  6 …AC3: GET /api/products/:id should return a single product (232ms)  ✓  7 …ion › AC3: POST /api/products should create a new product (275ms)  ✓  8 …› AC3: GET /api/products should return a list of products (397ms)  ✓  9 …AC3: GET /api/products/:id should return a single product (262ms)
+  9 passed (11.1s)
 ```
 
 **Summary:**
 - **Total tests:** 9 (3 tests x 3 browsers)
-- **Passing:** 0 (expected)
-- **Failing:** 9 (expected)
-- **Status:** ✅ RED phase verified
-
-**Expected Failure Messages:**
-- `connect ECONNREFUSED ::1:5173`: This is the expected error for the `POST` and `GET` tests, as the API server and routes have not been created yet.
-- `expect(createdProductId, ...).toBeDefined()`: This is the expected error for the `GET /:id` test, as the failing `POST` test prevents the `createdProductId` from being defined.
-
----
+- **Passing:** 9
+- **Failing:** 0
+- **Status:** ✅ GREEN phase verified
 
 ## Notes
 
-- The test suite is correctly in a RED state. The developer can now proceed with implementation, using the failing tests as a guide.
+- The ATDD checklist is now complete. The developer has successfully implemented the API endpoints and all associated tests are passing.
+
 
 ---
 
