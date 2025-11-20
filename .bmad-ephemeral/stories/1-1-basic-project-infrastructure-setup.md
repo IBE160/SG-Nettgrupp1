@@ -69,8 +69,8 @@ This story is the foundational technical enabler for the entire project. Its pur
             -   Runs the build process with `npm run build`.
 
 ### Task 3: Deploy to Staging Environment
-- [ ] Configure the project with Vercel for deployment.
-- [ ] Ensure the GitHub repository is connected to the Vercel project.
+- [x] Configure the project with Vercel for deployment.
+- [x] Ensure the GitHub repository is connected to the Vercel project.
 - [ ] Trigger a deployment to Vercel.
 - [ ] Verify that the deployed application is accessible at the Vercel-provided URL.
 - [ ] Ensure the default Vite "Hello World" or `App.jsx` content is displayed correctly.
@@ -103,6 +103,8 @@ This story is the foundational technical enabler for the entire project. Its pur
 - **2025-11-20:** Verified `.gitignore` exists and contains the required rules for `node_modules` and `.env` files.
 - **2025-11-20:** Staged and committed initial project structure and ATDD artifacts. Task 1 is complete.
 - **2025-11-20:** Created `.github/workflows/test.yaml` with lint, test, and build jobs. Task 2 is complete.
+- **2025-11-20:** User has confirmed manual Vercel configuration is complete.
+- **2025-11-20:** User has confirmed the GitHub repository is connected to Vercel.
 
 ---
 
