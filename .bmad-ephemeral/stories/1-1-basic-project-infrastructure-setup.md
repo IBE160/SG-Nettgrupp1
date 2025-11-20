@@ -41,11 +41,11 @@ This story is the foundational technical enabler for the entire project. Its pur
 ### Task 1: Verify and Configure Git Repository
 - [x] Confirm that the current project directory is a Git repository.
 - [x] Create a `.gitignore` file and ensure it excludes `node_modules`, `.env` files, and other sensitive or generated files.
-- [ ] Perform an initial commit of the existing project structure.
+- [x] Perform an initial commit of the existing project structure.
 
 ### Task 2: Configure CI/CD Pipeline
-- [ ] Create a new GitHub Actions workflow file at `.github/workflows/test.yaml`.
-- [ ] **Workflow Configuration:**
+- [x] Create a new GitHub Actions workflow file at `.github/workflows/test.yaml`.
+- [x] **Workflow Configuration:**
     - **Trigger:** on `push` to the `main` branch and on `pull_request`.
     - **Jobs:**
         1.  **`lint` job:**
@@ -101,6 +101,8 @@ This story is the foundational technical enabler for the entire project. Its pur
 ### Debug Log
 - **2025-11-20:** Started implementation. Confirmed project is a Git repository using `git status`. Proceeding to `.gitignore` configuration.
 - **2025-11-20:** Verified `.gitignore` exists and contains the required rules for `node_modules` and `.env` files.
+- **2025-11-20:** Staged and committed initial project structure and ATDD artifacts. Task 1 is complete.
+- **2025-11-20:** Created `.github/workflows/test.yaml` with lint, test, and build jobs. Task 2 is complete.
 
 ---
 
