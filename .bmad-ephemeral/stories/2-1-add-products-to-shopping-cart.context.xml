@@ -1,0 +1,54 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.1</storyId>
+    <title>Add Products to Shopping Cart</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/2-1-add-products-to-shopping-cart.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Customer</asA>
+    <iWant>to add products from the catalog or product detail page to a shopping cart</iWant>
+    <soThat>I can collect items I wish to purchase</soThat>
+    <tasks>
+      <task id="1">Database Schema for Cart</task>
+      <task id="2">Backend API for Cart</task>
+      <task id="3">Frontend UI and Logic</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">A button/action exists on product listings and detail pages to "Add to Cart" (FR004).</criterion>
+      <criterion id="2">Clicking "Add to Cart" adds the selected product and quantity to a persistent shopping cart.</criterion>
+      <criterion id="3">The shopping cart icon/indicator updates to reflect the number of items.</criterion>
+      <criterion id="4">The system handles out-of-stock scenarios gracefully (e.g., prevents adding, displays message).</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <docs>
+      <doc path="docs/epics.md" title="Epic Breakdown" section="Story 2.1" snippet="Details the user story and acceptance criteria for adding items to a cart."/>
+      <doc path="docs/architecture.md" title="Architecture" section="Data Architecture" snippet="Cart Persistence: Stored in Supabase PostgreSQL."/>
+    </docs>
+    <code>
+        <file path="src/components/common/ProductCard.jsx" kind="modified-component" reason="Will be modified to include an 'Add to Cart' button."/>
+        <file path="src/pages/ProductDetailPage.jsx" kind="modified-component" reason="Will be modified to include an 'Add to Cart' button."/>
+        <file path="src/components/common/ShoppingCartIcon.jsx" kind="new-component" reason="A new component to display cart status in the header."/>
+        <file path="api/routes/cart.js" kind="new-route" reason="New backend route for all cart-related actions."/>
+        <file path="api/controllers/cart.js" kind="new-controller" reason="New backend controller for cart logic."/>
+    </code>
+    <dependencies/>
+  </artifacts>
+  <constraints>
+    <constraint type="data" source="story file">The backend must check product stock before allowing an item to be added to the cart.</constraint>
+    <constraint type="pattern" source="story file">The `cartId` should be persisted in `localStorage` for guest users.</constraint>
+  </constraints>
+  <interfaces>
+      <interface name="POST /api/cart/:cartId/items" kind="REST endpoint" signature="POST /api/cart/:cartId/items" path="api/routes/cart.js" reason="Primary endpoint for adding products to the cart."/>
+  </interfaces>
+  <tests>
+    <ideas>
+      <idea ac_id="2">Write an E2E test that clicks 'Add to Cart' and then verifies the cart icon updates.</idea>
+      <idea ac_id="4">Write an integration test for the `POST /api/cart/:cartId/items` endpoint that attempts to add an out-of-stock item and asserts that it fails with an appropriate error.</idea>
+    </ideas>
+  </tests>
+</story-context>

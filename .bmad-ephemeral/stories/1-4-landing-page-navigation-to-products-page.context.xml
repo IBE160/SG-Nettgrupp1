@@ -1,0 +1,55 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.4</storyId>
+    <title>Landing Page Navigation to Products Page</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/1-4-landing-page-navigation-to-products-page.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Customer</asA>
+    <iWant>to easily navigate from the landing page to the products page</iWant>
+    <soThat>I can quickly start browsing products</soThat>
+    <tasks>
+      <task id="1">Create Landing Page Component</task>
+      <task id="2">Implement Routing</task>
+      <task id="3">Test Navigation</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">The landing page contains a clear button or link labeled "View Products" or similar.</criterion>
+      <criterion id="2">Clicking this button/link navigates the user to the dedicated "Products" page.</criterion>
+      <criterion id="3">The button/link is responsive and functional across mobile, tablet, and PC devices.</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <docs>
+      <doc path="docs/epics.md" title="Epic Breakdown" section="Story 1.4: Landing Page Navigation to Products Page" snippet="Outlines the acceptance criteria for this story."/>
+      <doc path=".bmad-ephemeral/stories/tech-spec-epic-1.md" title="Epic 1 Technical Specification" section="System Architecture Alignment" snippet="The frontend work will involve creating React components within the defined project structure, primarily src/pages/Products.jsx, src/pages/LandingPage.jsx..."/>
+    </docs>
+    <code>
+      <file path="src/App.jsx" kind="component" reason="Main application component where routing is likely configured."/>
+      <file path="src/pages/LandingPage.jsx" kind="new-component" reason="The main component for the landing page UI to be created in this story."/>
+      <file path="src/pages/ProductsPage.jsx" kind="new-component" reason="A placeholder component to be created to serve as the navigation target."/>
+    </code>
+    <dependencies>
+      <dependency name="react-router-dom" version="^7.9.6" type="npm" reason="The core dependency for handling client-side routing in React."/>
+    </dependencies>
+  </artifacts>
+  <constraints>
+    <constraint type="pattern" source="docs/architecture.md">UI components should be built using the `shadcn/ui` library (e.g., Button).</constraint>
+    <constraint type="pattern" source="docs/architecture.md">Navigation should be handled by `react-router-dom`.</constraint>
+  </constraints>
+  <interfaces/>
+  <tests>
+    <standards>E2E tests using Playwright are the primary method for validating navigation and user flows. [Source: .bmad-ephemeral/stories/tech-spec-epic-1.md]</standards>
+    <locations>
+      <location type="e2e">/tests/e2e/navigation.spec.ts</location>
+    </locations>
+    <ideas>
+      <idea ac_id="2">Write an E2E test that loads the root ('/'), clicks the 'View Products' button, and asserts that the browser URL becomes '/products'.</idea>
+      <idea ac_id="3">Run the E2E test across different viewport sizes to ensure the button is always clickable.</idea>
+    </ideas>
+  </tests>
+</story-context>

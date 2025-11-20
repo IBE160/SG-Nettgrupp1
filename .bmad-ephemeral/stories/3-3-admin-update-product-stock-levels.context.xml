@@ -1,0 +1,41 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>3.3</storyId>
+    <title>Admin Update Product Stock Levels</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/3-3-admin-update-product-stock-levels.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Business Owner</asA>
+    <iWant>to quickly update the stock levels for products</iWant>
+    <soThat>the online catalog accurately reflects physical inventory</soThat>
+    <tasks>
+        <task id="1">Frontend UI for Quick Stock Update</task>
+        <task id="2">Backend API</task>
+        <task id="3">Testing</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">From the product list or product edit page in the admin interface, I can easily modify the stock quantity for any product (FR016).</criterion>
+      <criterion id="2">Changes to stock levels are immediately reflected in the customer-facing catalog.</criterion>
+      <criterion id="3">The system prevents setting stock to a negative value.</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <code>
+      <file path="src/pages/AdminDashboard.jsx" kind="modified-component" reason="The product table will be updated to allow inline editing of the stock quantity."/>
+    </code>
+    <dependencies/>
+  </artifacts>
+  <constraints>
+      <constraint type="data" source="database schema">The `products.stock_quantity` column should have a CHECK constraint to prevent negative numbers.</constraint>
+  </constraints>
+  <interfaces/>
+  <tests>
+    <ideas>
+      <idea ac_id="1-2">Write an E2E test that edits a stock value directly in the admin table and verifies the change is persisted.</idea>
+    </ideas>
+  </tests>
+</story-context>

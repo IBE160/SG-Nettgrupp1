@@ -1,0 +1,60 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.5</storyId>
+    <title>Customer-Facing Product Catalog Display</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/1-5-customer-facing-product-catalog-display.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Customer</asA>
+    <iWant>to view a list of available products within the "Cigars and Accessories" category on a dedicated products page</iWant>
+    <soThat>I can browse the product offerings</soThat>
+    <tasks>
+      <task id="1">Develop Product Catalog Page</task>
+      <task id="2">Create Product Card Component</task>
+      <task id="3">Render Product List</task>
+      <task id="4">Testing</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">A dedicated "Products" page displays a list of products within the "Cigars and Accessories" category (FR001).</criterion>
+      <criterion id="2">Each product in the catalog displays its name, a brief description, price, and current stock quantity.</criterion>
+      <criterion id="3">The catalog is up-to-date with product information from the database.</criterion>
+      <criterion id="4">The "Products" page is responsive across mobile, tablet, and PC devices (NFR001).</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <docs>
+      <doc path=".bmad-ephemeral/stories/tech-spec-epic-1.md" title="Epic 1 Technical Specification" section="APIs and Interfaces" snippet="Defines the `GET /api/products` endpoint which this story will consume."/>
+      <doc path="docs/architecture.md" title="Architecture" section="Epic to Architecture Mapping" snippet="Epic 1: Project Foundation &amp; Product Catalog. Lives in: src/pages/Products.jsx, src/components/common/ProductCard.jsx..."/>
+    </docs>
+    <code>
+      <file path="src/pages/ProductsPage.jsx" kind="modified-component" reason="The placeholder from Story 1.4 will be fully implemented."/>
+      <file path="src/components/common/ProductCard.jsx" kind="new-component" reason="A reusable component to display a single product's summary."/>
+      <file path="api/controllers/products.js" kind="existing-controller" reason="Contains the `getAllProducts` function that serves the data."/>
+    </code>
+    <dependencies>
+      <dependency name="react" version="^18.2.0" type="npm" reason="Core frontend framework."/>
+    </dependencies>
+  </artifacts>
+  <constraints>
+    <constraint type="pattern" source="docs/architecture.md">UI components should be built using the `shadcn/ui` library (e.g., Card).</constraint>
+    <constraint type="data" source=".bmad-ephemeral/stories/tech-spec-epic-1.md">Product card must display name, description, price, and stock quantity.</constraint>
+  </constraints>
+  <interfaces>
+      <interface name="GET /api/products" kind="REST endpoint" signature="GET /api/products" path="api/routes/products.js" reason="The primary source of data for the product catalog."/>
+  </interfaces>
+  <tests>
+    <standards>Component tests should be written for data-fetching components, and E2E tests should validate the final user view. [Source: .bmad-ephemeral/stories/tech-spec-epic-1.md]</standards>
+    <locations>
+      <location type="e2e">/tests/e2e/catalog.spec.ts</location>
+      <location type="component">/tests/unit/ProductsPage.test.jsx</location>
+    </locations>
+    <ideas>
+      <idea ac_id="2">Write a component test for `ProductsPage` that provides a mock API response and asserts that `ProductCard` components are rendered with the correct data.</idea>
+      <idea ac_id="3">Write an E2E test that navigates to `/products` and asserts that product information is visible on the page.</idea>
+    </ideas>
+  </tests>
+</story-context>

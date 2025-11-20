@@ -1,0 +1,52 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.7</storyId>
+    <title>Landing Page with Store Location Map</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/1-7-landing-page-with-store-location-map.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Customer</asA>
+    <iWant>to see the store's location on a map on the landing page</iWant>
+    <soThat>I can easily find the physical store</soThat>
+    <tasks>
+      <task id="1">Obtain Google Maps Embed Code</task>
+      <task id="2">Embed Map in Landing Page</task>
+      <task id="3">Testing</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">The landing page includes an embedded Google Maps view (FR017).</criterion>
+      <criterion id="2">The map is centered on the Alta Sigar & Grill store location.</criterion>
+      <criterion id="3">A pin or marker clearly indicates the store's address.</criterion>
+      <criterion id="4">The map is interactive (zoom, pan).</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <docs>
+      <doc path="docs/PRD.md" title="Product Requirements Document" section="Functional Requirements" snippet="FR017: The system shall integrate a Google Maps view on the landing page displaying the store's location."/>
+      <doc path=".bmad-ephemeral/stories/tech-spec-epic-1.md" title="Epic 1 Technical Specification" section="Risks, Assumptions, Open Questions" snippet="Question: What is the exact physical address to be used for the pin on the Google Maps view (FR017)?"/>
+    </docs>
+    <code>
+      <file path="src/pages/LandingPage.jsx" kind="modified-component" reason="The map will be embedded into this existing component."/>
+    </code>
+    <dependencies/>
+  </artifacts>
+  <constraints>
+    <constraint type="implementation" source="Story File">The map should be implemented using a simple `<iframe>` embed from Google Maps.</constraint>
+  </constraints>
+  <interfaces>
+      <interface name="Google Maps Embed" kind="iframe" signature="<iframe src=...>" reason="The method for displaying the map."/>
+  </interfaces>
+  <tests>
+    <standards>A simple E2E test should confirm the presence of the map element.</standards>
+    <locations>
+      <location type="e2e">/tests/e2e/landing.spec.ts</location>
+    </locations>
+    <ideas>
+      <idea ac_id="1">Write an E2E test that loads the landing page and asserts that an `iframe` element with a `src` attribute containing 'google.com/maps' is present and visible.</idea>
+    </ideas>
+  </tests>
+</story-context>

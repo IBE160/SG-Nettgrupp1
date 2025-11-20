@@ -1,0 +1,57 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.6</storyId>
+    <title>Customer-Facing Product Detail Page</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/1-6-customer-facing-product-detail-page.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Customer</asA>
+    <iWant>to view detailed information for a specific product</iWant>
+    <soThat>I can make an informed decision about a purchase</soThat>
+    <tasks>
+      <task id="1">Implement Dynamic Routing</task>
+      <task id="2">Create Product Detail Page Component</task>
+      <task id="3">Display Full Product Details</task>
+      <task id="4">Testing</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">Clicking on a product in the catalog navigates to a dedicated product detail page.</criterion>
+      <criterion id="2">The product detail page displays the product's name, full description, price, real-time stock quantity, land of origin, and vitola (FR001, FR002).</criterion>
+      <criterion id="3">The product detail page includes simplified, relatable language for taste/flavor descriptions (FR003).</criterion>
+      <criterion id="4">The product detail page is responsive across mobile, tablet, and PC devices (NFR001).</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <docs>
+      <doc path=".bmad-ephemeral/stories/tech-spec-epic-1.md" title="Epic 1 Technical Specification" section="APIs and Interfaces" snippet="Defines the `GET /api/products/:id` endpoint which this story will consume."/>
+    </docs>
+    <code>
+      <file path="src/App.jsx" kind="component" reason="Main router configuration will be updated with the new dynamic route."/>
+      <file path="src/pages/ProductDetailPage.jsx" kind="new-component" reason="The main component for displaying a single product's details."/>
+      <file path="src/components/common/ProductCard.jsx" kind="modified-component" reason="Will be updated to link to the detail page."/>
+    </code>
+    <dependencies>
+      <dependency name="react-router-dom" version="^7.9.6" type="npm" reason="Used for creating the dynamic route and accessing the `productId` param."/>
+    </dependencies>
+  </artifacts>
+  <constraints>
+    <constraint type="pattern" source="docs/architecture.md">Dynamic routes should use URL parameters (e.g., `/products/:id`).</constraint>
+  </constraints>
+  <interfaces>
+      <interface name="GET /api/products/:id" kind="REST endpoint" signature="GET /api/products/:id" path="api/routes/products.js" reason="The primary source of data for the product detail page."/>
+  </interfaces>
+  <tests>
+    <standards>E2E tests should validate the full navigation flow from catalog to detail page. [Source: .bmad-ephemeral/stories/tech-spec-epic-1.md]</standards>
+    <locations>
+      <location type="e2e">/tests/e2e/catalog.spec.ts</location>
+    </locations>
+    <ideas>
+      <idea ac_id="1">Update the catalog E2E test to click on a product card and assert that the URL changes to `/products/some-id`.</idea>
+      <idea ac_id="2">In the same test, assert that the product's full name and description are visible on the detail page.</idea>
+    </ideas>
+  </tests>
+</story-context>

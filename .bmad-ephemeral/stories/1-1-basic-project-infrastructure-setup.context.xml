@@ -1,0 +1,70 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.1</storyId>
+    <title>Basic Project Infrastructure Setup</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/1-1-basic-project-infrastructure-setup.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>a developer</asA>
+    <iWant>to set up the basic project infrastructure (repository, CI/CD, deployment pipeline)</iWant>
+    <soThat>we have a deployable application and a foundation for future development</soThat>
+    <tasks>
+      <task id="1">Verify and Configure Git Repository</task>
+      <task id="2">Configure CI/CD Pipeline</task>
+      <task id="3">Deploy to Staging Environment</task>
+      <task id="4">Verify Dependencies</task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+      <criterion id="1">A Git repository is initialized and configured.</criterion>
+      <criterion id="2">A basic CI/CD pipeline is set up for automated builds and deployments to a staging environment.</criterion>
+      <criterion id="3">The application can be successfully deployed and accessed (e.g., a simple "Hello World" page).</criterion>
+      <criterion id="4">Basic project dependencies are installed and configured.</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc path="docs/epics.md" title="Epic Breakdown" section="Epic 1: Project Foundation &amp; Product Catalog" snippet="This epic aims to establish the fundamental technical infrastructure for the project, including repository setup, continuous integration/continuous deployment, and initial database configuration."/>
+      <doc path="docs/PRD.md" title="Product Requirements Document" section="Goals and Background Context" snippet="Establish a reliable and functional web presence for the business."/>
+      <doc path="docs/architecture.md" title="Architecture" section="Project Initialization" snippet="The project is already initialized with a full-stack web application setup. The first implementation story should focus on verifying this existing setup."/>
+      <doc path=".bmad-ephemeral/stories/tech-spec-epic-1.md" title="Epic 1 Technical Specification" section="System Architecture Alignment" snippet="This epic directly aligns with the established full-stack architecture... The frontend work will involve creating React components... On the backend, this epic will create the initial API endpoints for products."/>
+    </docs>
+    <code>
+      <file path="package.json" kind="configuration" reason="Defines all project dependencies and scripts required for setup and verification."/>
+      <file path="vite.config.js" kind="configuration" reason="Vite configuration, including the API proxy setup, is essential for the local dev environment."/>
+      <file path="api-server.js" kind="server-entry-point" reason="Main entry point for the backend Express server."/>
+      <file path="src/main.jsx" kind="client-entry-point" reason="Main entry point for the frontend React application."/>
+    </code>
+    <dependencies>
+      <dependency name="express" version="^5.1.0" type="npm" reason="Core backend framework."/>
+      <dependency name="react" version="^18.2.0" type="npm" reason="Core frontend framework."/>
+      <dependency name="vite" version="^7.2.2" type="npm-dev" reason="Core frontend build tool."/>
+      <dependency name="@playwright/test" version="^1.56.1" type="npm-dev" reason="E2E testing framework to be configured in the CI pipeline."/>
+      <dependency name="@biomejs/biome" version="^2.3.6" type="npm-dev" reason="Linter to be configured in the CI pipeline."/>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint type="pattern" source="docs/architecture.md">The CI/CD pipeline must run linting and testing jobs, and the build must succeed before deployment.</constraint>
+    <constraint type="pattern" source="docs/architecture.md">Deployment will be to Vercel for the frontend.</constraint>
+  </constraints>
+  <interfaces>
+    <!-- No new interfaces are defined in this story. -->
+  </interfaces>
+  <tests>
+    <standards>The test strategy is multi-layered, starting with E2E tests for user journeys. The CI pipeline must run all tests successfully for a build to be considered valid. [Source: .bmad-ephemeral/stories/tech-spec-epic-1.md]</standards>
+    <locations>
+      <location type="e2e">/tests/e2e/</location>
+    </locations>
+    <ideas>
+      <idea ac_id="2">Create a GitHub Actions workflow that runs on push/pr and includes jobs for lint, test, and build.</idea>
+      <idea ac_id="3">Write a basic Playwright test that navigates to the deployed Vercel URL and asserts that the main page loads.</idea>
+    </ideas>
+  </tests>
+</story-context>

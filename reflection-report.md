@@ -242,6 +242,6 @@ Vi brukte KI kun til ren kodehjelp og delte ikke personinformasjon eller systeme
 
 ---
 
-**Ordantall:** 1706
+**Ordantall:** 2246
 
 **Forventet lengde:** 3000-5000 ord (avhengig av gruppestørrelse og prosjektets kompleksitet)

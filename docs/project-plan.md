@@ -63,13 +63,13 @@
   - [ ] /run-agent-task sm *sprint-planning {prompt / user-input-file}
   
   - foreach epic in sprint planning:
-    - [ ] /run-agent-task sm epic-tech-content {prompt / user-input-file}
-    - [ ] /run-agent-task sm validate-epic-tech-content {prompt / user-input-file}
+    - [x] /run-agent-task sm epic-tech-content {prompt / user-input-file}
+    - [x] /run-agent-task sm validate-epic-tech-content {prompt / user-input-file}
     - foreach story in epic:
-      - [ ] /run-agent-task sm *create-story {prompt / user-input-file}
-      - [ ] /run-agent-task sm *validate-create-story {prompt / user-input-file}
-      - [ ] /run-agent-task sm *story-context {prompt / user-input-file}
-      - [ ] /run-agent-task sm *validate-story-context {prompt / user-input-file}
+      - [x] /run-agent-task sm *create-story {prompt / user-input-file}
+      - [x] /run-agent-task sm *validate-create-story {prompt / user-input-file}
+      - [x] /run-agent-task sm *story-context {prompt / user-input-file}
+      - [x] /run-agent-task sm *validate-story-context {prompt / user-input-file}
       - [ ] /run-agent-task tea *validate-story-ready {prompt / user-input-file}
       - [ ] /run-agent-task dev *implement-story {prompt / user-input-file}
       - [ ] /run-agent-task dev *validate-story {prompt / user-input-file}

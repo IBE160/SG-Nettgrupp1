@@ -1,0 +1,43 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>3.1</storyId>
+    <title>Admin Edit Full Product Details</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/3-1-admin-edit-full-product-details.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Business Owner</asA>
+    <iWant>to edit all details of an existing product, including name, description, price, stock, land of origin, and vitola</iWant>
+    <soThat>I can maintain accurate and and complete product information</soThat>
+    <tasks>
+        <task id="1">Update Frontend Edit Form</task>
+        <task id="2">Update Backend API</task>
+        <task id="3">Testing</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">From the product list in the admin interface, I can select a product to edit.</criterion>
+      <criterion id="2">The edit form pre-populates with existing product data.</criterion>
+      <criterion id="3">I can modify the product's name, description, price, stock quantity, land of origin, and vitola (FR014).</criterion>
+      <criterion id="4">Changes are saved and reflected in the customer-facing catalog.</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <code>
+        <file path="src/pages/AdminDashboard.jsx" kind="modified-component" reason="The edit dialog form will be extended with new fields."/>
+        <file path="api/controllers/products.js" kind="modified-controller" reason="The PUT handler needs to be verified to handle all new fields."/>
+    </code>
+    <dependencies/>
+  </artifacts>
+  <constraints/>
+  <interfaces>
+      <interface name="PUT /api/products/:id" kind="REST endpoint" signature="PUT /api/products/:id" path="api/routes/products.js" reason="The endpoint for updating a product."/>
+  </interfaces>
+  <tests>
+    <ideas>
+      <idea ac_id="3-4">Write an E2E test that edits all fields of a product and then verifies the changes on both the admin and public-facing pages.</idea>
+    </ideas>
+  </tests>
+</story-context>

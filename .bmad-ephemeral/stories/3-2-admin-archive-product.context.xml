@@ -1,0 +1,43 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>3.2</storyId>
+    <title>Admin Archive Product</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/3-2-admin-archive-product.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Business Owner</asA>
+    <iWant>to archive a product</iWant>
+    <soThat>it is no longer visible to customers but its data is retained for historical purposes</soThat>
+    <tasks>
+        <task id="1">Verify Database Schema</task>
+        <task id="2">Update Backend API</task>
+        <task id="3">Frontend UI</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">From the product list in the admin interface, I can select a product and choose to "Archive".</criterion>
+      <criterion id="2">Archived products are removed from the customer-facing catalog (FR015).</criterion>
+      <criterion id="3">Archived products are still accessible in the admin interface (e.g., via a filter or separate view).</criterion>
+      <criterion id="4">I can unarchive a product, making it visible again to customers.</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <code>
+        <file path="api/controllers/products.js" kind="modified-controller" reason="The GET all products handler must be updated to filter out archived products."/>
+        <file path="src/pages/AdminDashboard.jsx" kind="modified-component" reason="Will be modified to add the Archive/Unarchive buttons and filtering logic."/>
+    </code>
+    <dependencies/>
+  </artifacts>
+  <constraints>
+      <constraint type="data" source="story file">The public `GET /api/products` endpoint must filter out archived products.</constraint>
+  </constraints>
+  <interfaces/>
+  <tests>
+    <ideas>
+      <idea ac_id="2-4">Write an E2E test that archives a product, then verifies it is gone from the public catalog but still visible in the admin's 'archived' view, and then unarchives it.</idea>
+    </ideas>
+  </tests>
+</story-context>

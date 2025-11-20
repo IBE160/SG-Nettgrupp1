@@ -1,0 +1,44 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.3</storyId>
+    <title>Customer Checkout Process</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/2-3-customer-checkout-process.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Customer</asA>
+    <iWant>to provide my contact details to place a click-and-collect order</iWant>
+    <soThat>the store can prepare and contact me about my order</soThat>
+    <tasks>
+        <task id="1">Create Checkout Page</task>
+        <task id="2">Form Handling and Validation</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">A "Proceed to Checkout" button is available in the shopping cart.</criterion>
+      <criterion id="2">The checkout page prompts for essential details: email (required) and phone number (optional) (FR006).</criterion>
+      <criterion id="3">Input fields have appropriate validation (e.g., email format).</criterion>
+      <criterion id="4">The checkout process clearly states that payment occurs at pickup (FR018).</criterion>
+      <criterion id="5">The Checkout process clearly states the age limitation of 18 years for picking up orders.</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <docs>
+        <doc path="docs/PRD.md" title="Product Requirements Document" section="Functional Requirements" snippet="FR006, FR018"/>
+    </docs>
+    <code>
+        <file path="src/pages/CheckoutPage.jsx" kind="new-component" reason="The main component for the checkout form."/>
+        <file path="src/pages/CartPage.jsx" kind="modified-component" reason="Will be modified to add the 'Proceed to Checkout' button."/>
+    </code>
+    <dependencies/>
+  </artifacts>
+  <constraints/>
+  <interfaces/>
+  <tests>
+    <ideas>
+      <idea ac_id="3">Write a component test for `CheckoutPage.jsx` that tests the form validation logic.</idea>
+    </ideas>
+  </tests>
+</story-context>

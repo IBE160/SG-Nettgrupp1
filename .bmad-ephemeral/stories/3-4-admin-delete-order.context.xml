@@ -1,0 +1,43 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>3.4</storyId>
+    <title>Admin Delete Order</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/3-4-admin-delete-order.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Business Owner</asA>
+    <iWant>to delete an order</iWant>
+    <soThat>I can remove cancelled or erroneous orders from my active list</soThat>
+    <tasks>
+        <task id="1">Backend API for Deletion</task>
+        <task id="2">Frontend UI</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">From the order list or order detail page in the admin interface, I can select an order and choose to "Delete".</criterion>
+      <criterion id="2">A confirmation prompt appears before deletion.</criterion>
+      <criterion id="3">The order is permanently removed from the admin dashboard (FR012).</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <code>
+        <file path="api/routes/orders.js" kind="modified-route" reason="A new DELETE /api/orders/:id route will be added."/>
+        <file path="src/pages/AdminOrderDetailPage.jsx" kind="modified-component" reason="The delete button and confirmation dialog will be added here."/>
+    </code>
+    <dependencies/>
+  </artifacts>
+  <constraints>
+      <constraint type="workflow" source="story file">A confirmation dialog must be shown before the destructive delete action is performed.</constraint>
+  </constraints>
+  <interfaces>
+      <interface name="DELETE /api/orders/:id" kind="REST endpoint" signature="DELETE /api/orders/:id" path="api/routes/orders.js" reason="The endpoint to permanently delete an order."/>
+  </interfaces>
+  <tests>
+    <ideas>
+      <idea ac_id="1-3">Write an E2E test that creates an order via API seeding, navigates to its detail page, deletes it, and asserts that it no longer appears in the admin order list.</idea>
+    </ideas>
+  </tests>
+</story-context>

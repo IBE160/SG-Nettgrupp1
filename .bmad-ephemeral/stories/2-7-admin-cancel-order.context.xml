@@ -1,0 +1,44 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.7</storyId>
+    <title>Admin Cancel Order</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/2-7-admin-cancel-order.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Business Owner</asA>
+    <iWant>to update the status of an order to "Cancelled"</iWant>
+    <soThat>I can handle orders that are not picked up or are cancelled by the customer</soThat>
+    <tasks>
+        <task id="1">Backend API for Cancellation</task>
+        <task id="2">Frontend Button</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">From the order detail view in the admin interface, a button/action exists to "Mark as Cancelled".</criterion>
+      <criterion id="2">Clicking this action changes the order status to "Cancelled" (FR011).</criterion>
+      <criterion id="3">The stock for the items in the cancelled order is returned to the main inventory.</criterion>
+      <criterion id="4">The order remains in the system for historical records but is clearly marked as "Cancelled".</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <code>
+        <file path="src/pages/AdminOrderDetailPage.jsx" kind="modified-component" reason="Will be modified to add the cancel button."/>
+        <file path="api/controllers/orders.js" kind="modified-controller" reason="Will be modified to add the stock replenishment logic to the PUT handler."/>
+    </code>
+    <dependencies/>
+  </artifacts>
+  <constraints>
+      <constraint type="data" source="story file">The backend logic for cancellation must be transactional to ensure stock is returned correctly.</constraint>
+  </constraints>
+  <interfaces>
+      <interface name="PUT /api/orders/:id" kind="REST endpoint" signature="PUT /api/orders/:id" path="api/routes/orders.js" reason="To update the status of an order to 'Cancelled'."/>
+  </interfaces>
+  <tests>
+    <ideas>
+      <idea ac_id="2-3">Write an integration test that creates an order (decrementing stock), then cancels it, and finally asserts that the stock level for the product has been returned to its original value.</idea>
+    </ideas>
+  </tests>
+</story-context>

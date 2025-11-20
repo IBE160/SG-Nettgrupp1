@@ -1,0 +1,51 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.4</storyId>
+    <title>Order Confirmation and Store Notification</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/2-4-order-confirmation-and-store-notification.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Customer and Business Owner</asA>
+    <iWant>to receive/send notification that an order has been placed</iWant>
+    <soThat>I know the request has been received and can be processed</soThat>
+    <tasks>
+        <task id="1">Database Schema for Orders</task>
+        <task id="2">Backend API for Order Creation</task>
+        <task id="3">Frontend Order Submission</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">Upon successful order placement, a confirmation page is displayed with a unique reference number (FR007).</criterion>
+      <criterion id="2">An email containing order details is automatically sent to the store's designated email address (FR008).</criterion>
+      <criterion id="3">The system records the new order in the admin dashboard (FR009).</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <docs>
+        <doc path="docs/architecture.md" title="Architecture" section="Technology Stack Details" snippet="Email Service: Resend (resend 6.4.2)"/>
+    </docs>
+    <code>
+        <file path="src/pages/CheckoutPage.jsx" kind="modified-component" reason="Will be modified to call the new POST /api/orders endpoint."/>
+        <file path="src/pages/ConfirmationPage.jsx" kind="new-component" reason="A new page to show the customer their order is complete."/>
+        <file path="api/routes/orders.js" kind="new-route" reason="New backend route for order creation."/>
+        <file path="api/controllers/orders.js" kind="new-controller" reason="New backend controller for order logic."/>
+    </code>
+    <dependencies>
+        <dependency name="resend" version="6.4.2" type="npm" reason="The email service for notifying the store owner."/>
+    </dependencies>
+  </artifacts>
+  <constraints>
+      <constraint type="data" source="story file">The backend order creation process must be transactional.</constraint>
+  </constraints>
+  <interfaces>
+      <interface name="POST /api/orders" kind="REST endpoint" signature="POST /api/orders" path="api/routes/orders.js" reason="The endpoint to create a new order."/>
+  </interfaces>
+  <tests>
+    <ideas>
+      <idea ac_id="1-3">Write a full E2E test for the entire checkout flow, from adding an item to the cart to seeing the confirmation page.</idea>
+    </ideas>
+  </tests>
+</story-context>

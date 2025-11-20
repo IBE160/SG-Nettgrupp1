@@ -1,0 +1,60 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.2</storyId>
+    <title>Product Data Model and Database Initialization</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/1-2-product-data-model-and-database-initialization.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a developer</asA>
+    <iWant>to define the product data model and initialize the database</iWant>
+    <soThat>product information can be stored and retrieved</soThat>
+    <tasks>
+      <task id="1">Define and Apply the Database Schema</task>
+      <task id="2">Connect Express Backend to Supabase</task>
+      <task id="3">Implement Temporary CRUD API Endpoints for Testing</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">A database schema is defined for products, including fields for name, description, price, stock quantity, land of origin, and vitola.</criterion>
+      <criterion id="2">The database is initialized and accessible by the Express application.</criterion>
+      <criterion id="3">Basic CRUD operations for products can be performed (e.g., via a temporary API endpoint or direct database access for testing).</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <docs>
+      <doc path=".bmad-ephemeral/stories/tech-spec-epic-1.md" title="Epic 1 Technical Specification" section="Data Models and Contracts" snippet="A single table, `products`, will be created in the Supabase (PostgreSQL) database. Defines the full schema."/>
+      <doc path="docs/architecture.md" title="Architecture" section="Data Architecture" snippet="Database: Supabase (PostgreSQL), Schema: Relational schema for products, orders, users, and cart items."/>
+      <doc path="docs/epics.md" title="Epic Breakdown" section="Story 1.2: Product Data Model and Database Initialization" snippet="Lists the acceptance criteria for this specific story."/>
+    </docs>
+    <code>
+      <file path="api-server.js" kind="server-entry-point" reason="The Express server that will connect to the database."/>
+      <file path="package.json" kind="configuration" reason="Will need to be updated with `@supabase/supabase-js`."/>
+    </code>
+    <dependencies>
+      <dependency name="@supabase/supabase-js" version="^2.81.1" type="npm" reason="The official client library for interacting with Supabase."/>
+    </dependencies>
+  </artifacts>
+  <constraints>
+    <constraint type="pattern" source="docs/architecture.md">Database table names must be `snake_case_plural` (e.g., `products`).</constraint>
+    <constraint type="pattern" source="docs/architecture.md">Database column names must be `snake_case` (e.g., `stock_quantity`).</constraint>
+    <constraint type="pattern" source=".bmad-ephemeral/stories/tech-spec-epic-1.md">The `products` table schema defined in the tech spec must be followed exactly.</constraint>
+  </constraints>
+  <interfaces>
+    <interface name="GET /api/products" kind="REST endpoint" signature="GET /api/products" path="api/routes/products.js" reason="To be implemented for testing data retrieval."/>
+    <interface name="GET /api/products/:id" kind="REST endpoint" signature="GET /api/products/:id" path="api/routes/products.js" reason="To be implemented for testing single item retrieval."/>
+    <interface name="POST /api/products" kind="REST endpoint" signature="POST /api/products" path="api/routes/products.js" reason="To be implemented for testing data creation."/>
+  </interfaces>
+  <tests>
+    <standards>Integration tests should be written for the API endpoints to ensure they interact with the database correctly. [Source: .bmad-ephemeral/stories/tech-spec-epic-1.md]</standards>
+    <locations>
+      <location type="integration">/tests/integration/</location>
+    </locations>
+    <ideas>
+      <idea ac_id="2">Write a test script that attempts to connect to Supabase using the configured client.</idea>
+      <idea ac_id="3">Create integration tests for the `POST` and `GET` endpoints for `/api/products` that create a mock product and then retrieve it to verify the operation.</idea>
+    </ideas>
+  </tests>
+</story-context>

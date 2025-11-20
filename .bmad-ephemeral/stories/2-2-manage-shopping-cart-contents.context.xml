@@ -1,0 +1,49 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.2</storyId>
+    <title>Manage Shopping Cart Contents</title>
+    <status>Draft</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>.bmad-ephemeral/stories/2-2-manage-shopping-cart-contents.md</sourceStoryPath>
+  </metadata>
+  <story>
+    <asA>a Customer</asA>
+    <iWant>to view and modify the contents of my shopping cart</iWant>
+    <soThat>I can finalize my order before checkout</soThat>
+    <tasks>
+      <task id="1">Create Shopping Cart Page</task>
+      <task id="2">Backend API for Cart Management</task>
+      <task id="3">Frontend Logic for Cart Management</task>
+    </tasks>
+  </story>
+  <acceptanceCriteria>
+      <criterion id="1">I can view all items currently in my shopping cart, including product name, quantity, and price.</criterion>
+      <criterion id="2">I can adjust the quantity of each item in the cart.</criterion>
+      <criterion id="3">I can remove items from the cart.</criterion>
+      <criterion id="4">The cart total updates dynamically with changes.</criterion>
+      <criterion id="5">The system automatically updates the shopping cart with product changes (e.g., if stock changes) (FR005).</criterion>
+  </acceptanceCriteria>
+  <artifacts>
+    <docs>
+        <doc path="docs/epics.md" title="Epic Breakdown" section="Story 2.2" snippet="Details the user story and acceptance criteria for managing cart contents."/>
+    </docs>
+    <code>
+        <file path="src/pages/CartPage.jsx" kind="new-component" reason="The main component for the cart view."/>
+        <file path="api/controllers/cart.js" kind="modified-controller" reason="Will be modified to add GET, PUT, and DELETE handlers."/>
+    </code>
+    <dependencies/>
+  </artifacts>
+  <constraints/>
+  <interfaces>
+      <interface name="GET /api/cart/:cartId" kind="REST endpoint" signature="GET /api/cart/:cartId" path="api/routes/cart.js" reason="To fetch all items in the cart."/>
+      <interface name="PUT /api/cart/:cartId/items/:itemId" kind="REST endpoint" signature="PUT /api/cart/:cartId/items/:itemId" path="api/routes/cart.js" reason="To update item quantity."/>
+      <interface name="DELETE /api/cart/:cartId/items/:itemId" kind="REST endpoint" signature="DELETE /api/cart/:cartId/items/:itemId" path="api/routes/cart.js" reason="To remove an item."/>
+  </interfaces>
+  <tests>
+    <ideas>
+      <idea ac_id="1-4">Write an E2E test that adds an item, navigates to the cart, changes the quantity, verifies the total, and then removes the item.</idea>
+    </ideas>
+  </tests>
+</story-context>
