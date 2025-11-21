@@ -11,17 +11,17 @@
 - [x] /run-agent-task analyst *workflow-init
   - [x] File: bmm-workflow-status.yaml
 - [x] Brainstorming
-  - [x] /run-agent-task analyst *brainstorm "Root Cause Analysis and Solution Design for Player Inactivity"
+  - [x] /run-agent-task analyst *brainstorm
     - [x] File: brainstorming-session-results-date.md
-  - [x] /run-agent-task analyst *brainstorm "User Flow Deviations & Edge Cases"
+  - [x] /run-agent-task analyst *brainstorm
     - [x] File: brainstorming-session-results-date.md
-  - [x] /run-agent-task analyst *brainstorm "Brainstorm what it means to have a paid user"
+  - [x] /run-agent-task analyst *brainstorm
     - [x] File: brainstorming-session-results-date.md
-- [ ] Research
-  - [x] /run-agent-task analyst *research "Which AI library should we use for orchestrating LLM interactions?"
+- [x] Research
+  - [x] /run-agent-task analyst *research
     - [x] File: research-technical-date.md
 - [x] Product Brief
-  - [x] /run-agent-task analyst *product-brief "Read the two brainstorming sessions the research session and the @proposal.md file, and create a product brief for the project."
+  - [x] /run-agent-task analyst *product-brief
     - [x] File: product-brief.md
 
 ## Fase 1
@@ -56,16 +56,20 @@
     - [x] File: sprint-artifacts/sprint-status.yaml
   - foreach epic in sprint planning:
     - [x] /run-agent-task sm create-epic-tech-context {prompt / user-input-file}
-      - [x] File: sprint-artifacts/tech-spec-epic-1.md
-      - [x] File: sprint-artifacts/tech-spec-epic-2.md
-      - [x] File: sprint-artifacts/tech-spec-epic-3.md
+      - [x] File: .bmad-ephemeral/stories/tech-spec-epic-1.md
+      - [x] File: .bmad-ephemeral/stories/tech-spec-epic-2.md
+      - [x] File: .bmad-ephemeral/stories/tech-spec-epic-3.md
     - [x] /run-agent-task sm validate-epic-tech-context {prompt / user-input-file}
       - [x] File: validation-report-epic-1-2025-11-20.md
       - [x] File: validation-report-epic-2-2025-11-20.md
       - [x] File: validation-report-epic-3-2025-11-20.md
     - foreach story in epic:
-      - [ ] /run-agent-task sm *create-story {prompt / user-input-file}
-        - [ ] File: sprint-artifacts/{{story_key}}.md
+      - [x] /run-agent-task sm *create-story {prompt / user-input-file}
+        - [x] File: .bmad-ephemeral\stories/1-1-basic-project-infrastructure-setup.md
+        - [x] File: .bmad-ephemeral/stories/1-2-product-data-model-and-database-initialization.md
+        - [x] File: .bmad-ephemeral/stories/1-3-admin-interface-for-basic-product-management.md
+        - [x] File: .bmad-ephemeral/stories/1-4-landing-page-navigation-to-products-page.md
+        
       - [ ] /run-agent-task sm *validate-create-story {prompt / user-input-file}
       - [ ] /run-agent-task sm *create-story-context {prompt / user-input-file}
         - [ ] File: sprint-artifacts/{{story_key}}.context.xml
