@@ -26,7 +26,7 @@
 
 ## Fase 1
 
-- [ ] Planning
+- [x] Planning
   - [x] /run-agent-task pm *prd
     - [x] File: PRD.md
   - [x] /run-agent-task pm *validate-prd
@@ -55,9 +55,14 @@
   - [x] /run-agent-task sm *sprint-planning
     - [x] File: sprint-artifacts/sprint-status.yaml
   - foreach epic in sprint planning:
-    - [ ] /run-agent-task sm create-epic-tech-context {prompt / user-input-file}
-      - [ ] File: sprint-artifacts/tech-spec-epic-{{epic_id}}.md
-    - [ ] /run-agent-task sm validate-epic-tech-context {prompt / user-input-file}
+    - [x] /run-agent-task sm create-epic-tech-context {prompt / user-input-file}
+      - [x] File: sprint-artifacts/tech-spec-epic-1.md
+      - [x] File: sprint-artifacts/tech-spec-epic-2.md
+      - [x] File: sprint-artifacts/tech-spec-epic-3.md
+    - [x] /run-agent-task sm validate-epic-tech-context {prompt / user-input-file}
+      - [x] File: validation-report-epic-1-2025-11-20.md
+      - [x] File: validation-report-epic-2-2025-11-20.md
+      - [x] File: validation-report-epic-3-2025-11-20.md
     - foreach story in epic:
       - [ ] /run-agent-task sm *create-story {prompt / user-input-file}
         - [ ] File: sprint-artifacts/{{story_key}}.md
