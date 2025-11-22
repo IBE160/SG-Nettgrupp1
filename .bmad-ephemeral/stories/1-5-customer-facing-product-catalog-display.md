@@ -2,7 +2,7 @@
 
 **Date:** 2025-11-20
 **Author:** BIP
-**Status:** ready-for-dev
+**Status:** done
 **Epic:** [Epic 1: Project Foundation & Product Catalog](tech-spec-epic-1.md)
 
 ---
