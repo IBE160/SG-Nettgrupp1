@@ -8,6 +8,8 @@ import ProductCatalog from "./ProductCatalog";
 import ProductDetailPage from "./ProductDetailPage";
 import ShoppingCart from "./ShoppingCart";
 import CheckoutPage from "./CheckoutPage";
+import OrderConfirmationPage from "./OrderConfirmationPage";
+import AdminProductManagementPage from "./AdminProductManagementPage";
 
 function Home({ loggedIn }) {
 	const [count, setCount] = useState(0);
@@ -72,6 +74,10 @@ function App() {
 		setCart(prevCart => prevCart.filter(item => item.id !== productId));
 	};
 
+	const clearCart = () => {
+		setCart([]);
+	};
+
 	const getCartItemCount = () => {
 		return cart.reduce((total, item) => total + item.quantity, 0);
 	};
@@ -79,7 +85,7 @@ function App() {
 	return (
 		<div>
 			<nav>
-				<Link to="/">Home</Link> | <Link to="/login">Login</Link> | <Link to="/products">Products</Link> | <Link to="/cart">Cart ({getCartItemCount()})</Link>
+				<Link to="/">Home</Link> | <Link to="/login">Login</Link> | <Link to="/products">Products</Link> | <Link to="/cart">Cart ({getCartItemCount()})</Link> | <Link to="/admin/products">Admin Products</Link>
 			</nav>
 			<Routes>
 				<Route path="/" element={<Home loggedIn={loggedIn} />} />
@@ -90,7 +96,9 @@ function App() {
 				<Route path="/products" element={<ProductCatalog />} />
 				<Route path="/products/:id" element={<ProductDetailPage addToCart={addToCart} />} />
 				<Route path="/cart" element={<ShoppingCart cart={cart} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />} />
-				<Route path="/checkout" element={<CheckoutPage cart={cart} />} />
+				<Route path="/checkout" element={<CheckoutPage cart={cart} clearCart={clearCart} />} />
+				<Route path="/order-confirmation" element={<OrderConfirmationPage />} />
+				<Route path="/admin/products" element={<AdminProductManagementPage />} />
 			</Routes>
 		</div>
 	);

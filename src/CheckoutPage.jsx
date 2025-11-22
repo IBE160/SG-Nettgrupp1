@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function CheckoutPage({ cart }) {
+function CheckoutPage({ cart, clearCart }) {
   const [customerInfo, setCustomerInfo] = useState({
     name: '',
     email: '',
     address: '',
   });
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -17,10 +19,16 @@ function CheckoutPage({ cart }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!cart || cart.length === 0) {
+      alert('Your cart is empty. Please add items before placing an order.');
+      return;
+    }
     // In a real application, you would send this data to a backend server
     console.log('Order submitted:', { customerInfo, cart });
-    alert('Thank you for your order!');
-    // Here you would typically clear the cart and redirect the user
+    alert('Thank you for your order!'); // This alert will be removed later when full backend is implemented
+
+    clearCart(); // Clear the cart after successful order submission
+    navigate('/order-confirmation'); // Redirect to order confirmation page
   };
 
   const calculateTotal = () => {
