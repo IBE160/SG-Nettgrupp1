@@ -2,7 +2,7 @@
 
 **Date:** 2025-11-20
 **Author:** BIP
-**Status:** ready-for-dev
+**Status:** done
 **Epic:** [Epic 1: Project Foundation & Product Catalog](tech-spec-epic-1.md)
 
 ---
@@ -39,24 +39,24 @@ This story adds a key piece of informational content to the landing page: an emb
 ## 4. Technical Implementation Plan
 
 ### Task 1: Obtain Google Maps Embed Code
-- [ ] Go to Google Maps.
-- [ ] Search for the "Alta Sigar & Grill" store location.
-- [ ] Click "Share", then "Embed a map".
-- [ ] Copy the generated `<iframe>` HTML code.
-- [ ] **Note:** The exact address needs to be confirmed with the business owner, as noted as an open question in the Tech Spec. Use a placeholder address if necessary.
+- [x] Go to Google Maps.
+- [x] Search for the "Alta Sigar & Grill" store location.
+- [x] Click "Share", then "Embed a map".
+- [x] Copy the generated `<iframe>` HTML code.
+- [x] **Note:** The exact address needs to be confirmed with the business owner, as noted as an open question in the Tech Spec. Use a placeholder address if necessary.
 
 ### Task 2: Embed Map in Landing Page
-- [ ] Open the `src/pages/LandingPage.jsx` component created in Story 1.4.
-- [ ] Add a new section to the page for the map.
-- [ ] Paste the `<iframe>` code into the JSX for the component.
-- [ ] Adjust the `width` and `height` attributes of the iframe to be responsive (e.g., `width="100%"`).
+- [x] Open the `src/pages/LandingPage.jsx` component created in Story 1.4.
+- [x] Add a new section to the page for the map.
+- [x] Paste the `<iframe>` code into the JSX for the component.
+- [x] Adjust the `width` and `height` attributes of the iframe to be responsive (e.g., `width="100%"`).
 
 ### Task 3: Testing
-- [ ] Run the application locally and navigate to the landing page.
-- [ ] Verify that the map is displayed correctly.
-- [ ] Confirm that the map is interactive (can be zoomed and panned).
-- [ ] Check the responsiveness of the map container on different screen sizes.
-- [ ] Write an E2E test to assert that the `iframe` element exists on the landing page.
+- [x] Run the application locally and navigate to the landing page.
+- [x] Verify that the map is displayed correctly.
+- [x] Confirm that the map is interactive (can be zoomed and panned).
+- [x] Check the responsiveness of the map container on different screen sizes.
+- [x] Write an E2E test to assert that the `iframe` element exists on the landing page.
 
 ---
 
@@ -84,3 +84,18 @@ This story adds a key piece of informational content to the landing page: an emb
 |---|---|---|---|
 | 1.0 | 2025-11-20 | BIP | Initial draft |
 | 1.1 | 2025-11-20 | BIP | Marked ready-for-dev and added context reference. |
+| 1.2 | 2025-11-22 | BIP | Story approved and marked as done after successful review. |
+---
+## Senior Developer Review (AI)
+- **Reviewer:** BIP
+- **Date:** 2025-11-22
+- **Outcome:** Approve
+
+### Summary
+The implementation correctly embeds a responsive Google Map on the landing page, meeting all acceptance criteria. The developer proactively created the `LandingPage.jsx` component, which was a dependency from an incomplete story, allowing this story to be completed. The work is high quality and includes a new E2E test.
+
+### Key Findings
+- No findings. The implementation is clean and correct.
+
+### Acceptance Criteria Coverage
+- **Summary:** 4 of 4 acceptance criteria fully implemented and verified.

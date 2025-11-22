@@ -1,12 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 
-// It's crucial to use environment variables for Supabase credentials
-// and not to hardcode them in the source file.
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+// These variables are loaded from the .env file by 'dotenv/config' in api-server.js
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Supabase URL and Anon Key must be provided in environment variables.');
+  throw new Error('Server environment variables VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY must be set.');
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
