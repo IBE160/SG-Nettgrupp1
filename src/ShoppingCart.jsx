@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function ShoppingCart({ cart, updateQuantity, removeFromCart }) {
   if (!cart || cart.length === 0) {
@@ -9,6 +10,10 @@ function ShoppingCart({ cart, updateQuantity, removeFromCart }) {
       </div>
     );
   }
+
+  const calculateTotal = () => {
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+  };
 
   return (
     <div>
@@ -28,6 +33,10 @@ function ShoppingCart({ cart, updateQuantity, removeFromCart }) {
           </li>
         ))}
       </ul>
+      <h3>Total: ${calculateTotal()}</h3>
+      <Link to="/checkout">
+        <button>Proceed to Checkout</button>
+      </Link>
     </div>
   );
 }

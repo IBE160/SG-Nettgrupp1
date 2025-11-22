@@ -48,7 +48,7 @@ development_status:
   epic-2: contexted
   2-1-add-products-to-shopping-cart: ready-for-dev
   2-2-manage-shopping-cart-contents: done
-  2-3-customer-checkout-process: ready-for-dev
+  2-3-customer-checkout-process: done
   2-4-order-confirmation-and-store-notification: ready-for-dev
   2-5-admin-view-new-orders: ready-for-dev
   2-6-admin-mark-order-as-prepared: ready-for-dev

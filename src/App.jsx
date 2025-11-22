@@ -7,6 +7,7 @@ import LoginPage from "./LoginPage";
 import ProductCatalog from "./ProductCatalog";
 import ProductDetailPage from "./ProductDetailPage";
 import ShoppingCart from "./ShoppingCart";
+import CheckoutPage from "./CheckoutPage";
 
 function Home({ loggedIn }) {
 	const [count, setCount] = useState(0);
@@ -89,6 +90,7 @@ function App() {
 				<Route path="/products" element={<ProductCatalog />} />
 				<Route path="/products/:id" element={<ProductDetailPage addToCart={addToCart} />} />
 				<Route path="/cart" element={<ShoppingCart cart={cart} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />} />
+				<Route path="/checkout" element={<CheckoutPage cart={cart} />} />
 			</Routes>
 		</div>
 	);
