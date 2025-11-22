@@ -65,20 +65,21 @@
       - [x] File: validation-report-epic-3-2025-11-20.md
     - foreach story in epic:
       - [x] /run-agent-task sm *create-story {prompt / user-input-file}
-        - [x] File: .bmad-ephemeral\stories/1-1-basic-project-infrastructure-setup.md
+        - [x] File: .bmad-ephemeral/stories/1-1-basic-project-infrastructure-setup.md
         - [x] File: .bmad-ephemeral/stories/1-2-product-data-model-and-database-initialization.md
         - [x] File: .bmad-ephemeral/stories/1-3-admin-interface-for-basic-product-management.md
         - [x] File: .bmad-ephemeral/stories/1-4-landing-page-navigation-to-products-page.md
         
-      - [ ] /run-agent-task sm *validate-create-story {prompt / user-input-file}
-      - [ ] /run-agent-task sm *create-story-context {prompt / user-input-file}
+      - [x] /run-agent-task sm *validate-create-story {prompt / user-input-file}
+      - [x] /run-agent-task sm *create-story-context {prompt / user-input-file}
         - [ ] File: sprint-artifacts/{{story_key}}.context.xml
-      - [ ] /run-agent-task sm *validate-story-context {prompt / user-input-file}
-      - [ ] /run-agent-task sm *story-ready-for-dev {prompt / user-input-file}
+      - [x] /run-agent-task sm *validate-story-context {prompt / user-input-file}
+      - [x] /run-agent-task sm *story-ready-for-dev {prompt / user-input-file}
       while code-review != approved:
         - [ ] /run-agent-task dev *develop-story {prompt / user-input-file}
         - [ ] /run-agent-task dev *code-review {prompt / user-input-file}
       - [ ] /run-agent-task dev *story-done {prompt / user-input-file}
+      (Denne har vi gjort på de to første stories)
       - [ ] /run-agent-task sm *test-review {prompt / user-input-file}
     - [ ] /run-agent-task sm *epic-retrospective {prompt / user-input-file}
 

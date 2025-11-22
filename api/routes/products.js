@@ -1,20 +1,17 @@
-import { protect } from '../middleware/auth.js';
 import express from 'express';
 import {
   createProduct,
   getAllProducts,
   getProductById,
-  updateProduct // Add this line
 } from '../controllers/products.js';
 
 const router = express.Router();
 
 router.route('/')
   .get(getAllProducts)
-  .post(protectcreateProduct);
+  .post(createProduct);
 
 router.route('/:id')
-  .get(getProductById)
-  .put(protect, updateProduct); // Add this line, protected by middleware
+  .get(getProductById);
 
 export default router;
