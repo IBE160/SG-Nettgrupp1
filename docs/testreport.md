@@ -1,11 +1,42 @@
-PS C:\Users\Kunde\Documents\HIM\IBE160\SG-Nettgrupp1> npm run test:e2e -- --reporter=list
+PS C:\Users\Kunde\Documents\HIM\IBE160\SG-Nettgrupp1> npx playwright test tests/e2e/add-to-cart.spec.ts --project=e2e-chromium
 
-> ibe160-react@0.0.0 test:e2e    
-> playwright test --reporter=list
+Running 1 test using 1 worker
+
+  ✘  1 … › tests\e2e\add-to-cart.spec.ts:4:3 › Add to Cart User Flow › should allow a user to add a product to the cart and update the cart icon (18.9s)
+
+  1) [e2e-chromium] › tests\e2e\add-to-cart.spec.ts:4:3 › Add to Cart User Flow › should allow a user to add a product to the cart and update the cart icon 
+
+    TimeoutError: page.waitForSelector: Timeout 15000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="product-card"]') to be visible
 
 
-Running 15 tests using 2 workers
+       8 |
+       9 |     // Wait for at least one product card to be visible, indicating products have loaded
+    > 10 |     await page.waitForSelector('[data-testid="product-card"]', { state: 'visible' });
+         |                ^
+      11 |
+      12 |     // Look for an "Add to Cart" button and click it
+      13 |     // Using a more generic selector, but data-testid is preferred.
+        at C:\Users\Kunde\Documents\HIM\IBE160\SG-Nettgrupp1\tests\e2e\add-to-cart.spec.ts:10:16
 
-  ✓   1 …ce Criteria Verification › AC2: A basic CI/CD pipeline is set up (68ms)  ✓   2 …rification › AC1: A Git repository is initialized and configured (29ms)  ✓   3 … › AC3: The application can be successfully accessed via its URL (1.5s)  ✓   4 …n › AC4: Basic project dependencies are installed and configured (11ms)  ✓   5 …rification › AC1: A Git repository is initialized and configured (41ms)  ✓   6 … › AC3: The application can be successfully accessed via its URL (5.3s)  ✓   7 …ce Criteria Verification › AC2: A basic CI/CD pipeline is set up (45ms)  ✓   8 …on › AC4: Basic project dependencies are installed and configured (9ms)  ✓   9 …rification › AC1: A Git repository is initialized and configured (30ms)  ✓  10 … › AC3: The application can be successfully accessed via its URL (2.3s)  ✓  11 …on › AC4: Basic project dependencies are installed and configured (7ms)  ✓  12 …ce Criteria Verification › AC2: A basic CI/CD pipeline is set up (28ms)  ✓  13 …ification › AC3: POST /api/products should create a new product (362ms)  ✓  14 …ion › AC3: GET /api/products/:id should return a single product (258ms)  ✓  15 …ation › AC3: GET /api/products should return a list of products (310ms)
-  15 passed (24.7s)
-PS C:\Users\Kunde\Documents\HIM\IBE160\SG-Nettgrupp1> 
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\all\add-to-cart-Add-to-Cart-Us-3ca51-rt-and-update-the-cart-icon-e2e-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\all\add-to-cart-Add-to-Cart-Us-3ca51-rt-and-update-the-cart-icon-e2e-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\all\add-to-cart-Add-to-Cart-Us-3ca51-rt-and-update-the-cart-icon-e2e-chromium\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\all\add-to-cart-Add-to-Cart-Us-3ca51-rt-and-update-the-cart-icon-e2e-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\all\add-to-cart-Add-to-Cart-Us-3ca51-rt-and-update-the-cart-icon-e2e-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [e2e-chromium] › tests\e2e\add-to-cart.spec.ts:4:3 › Add to Cart User Flow › should allow a user to add a product to the cart and update the cart icon 

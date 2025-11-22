@@ -1,9 +1,4 @@
-
-
-
-@plugin "tailwindcss-animate";
-
-@custom-variant dark (&:is(.dark *));
+@import "tailwindcss";
 
 @tailwind base;
 @tailwind components;
@@ -188,10 +183,11 @@ button:focus-visible {
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+	* {
+		@apply border-border outline-ring/50;
 	}
-  body {
-    @apply bg-background text-foreground;
+
+	body {
+		@apply bg-background text-foreground;
 	}
 }

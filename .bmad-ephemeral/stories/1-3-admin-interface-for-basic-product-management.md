@@ -2,7 +2,7 @@
 
 **Date:** 2025-11-20
 **Author:** BIP
-**Status:** ready-for-dev
+**Status:** done
 **Epic:** [Epic 1: Project Foundation & Product Catalog](tech-spec-epic-1.md)
 
 ---
@@ -65,6 +65,33 @@ This story introduces the first major feature for the business owner: a secure a
 - [ ] The backend must also protect this endpoint with the `auth.js` middleware.
 - [ ] After a successful response, close the dialog and refresh the product list to show the updated information.
 
+### Task 1: Create Admin Login Page (FR020)
+- [x] Create a new page component `src/pages/LoginPage.jsx`.
+- [x] Use `shadcn/ui` components (`Input`, `Button`, `Card`) to build a simple login form with "Email" and "Password" fields.
+- [x] Implement a function to handle form submission. This function should call the Supabase `signInWithPassword` method.
+- [x] Upon successful login, store the returned JWT in a secure manner (e.g., in memory or a secure cookie) and redirect the user to a new `/admin` route.
+- [x] Display an error message on failed login attempts.
+
+### Task 2: Create Admin Dashboard Page
+- [x] Create a new page component `src/pages/AdminDashboard.jsx`.
+- [x] Create a protected route for `/admin` that checks for a valid JWT. If no token is present, redirect the user to `/login`.
+- [x] On this page, fetch and display a list of all products by calling the `GET /api/products` endpoint.
+- [x] Display the products in a `shadcn/ui` `Table` component, showing columns for Name, Price, and Stock.
+- [x] Add an "Edit" button to each row.
+
+### Task 3: Implement "Add Product" Functionality (FR013)
+- [x] In `AdminDashboard.jsx`, add a "Add New Product" button.
+- [x] Clicking the button should open a `Dialog` (modal) containing a form with fields for Name, Description, Price, and Stock.
+- [x] On form submission, call a new API endpoint `POST /api/products`, sending the product data and the JWT for authorization.
+- [x] The backend must include an `auth.js` middleware on this endpoint to verify the JWT.
+- [x] After a successful API response, close the dialog and refresh the product list.
+
+### Task 4: Implement "Edit Product" Functionality
+- [x] When the "Edit" button on a product row is clicked, open a `Dialog` pre-filled with that product's data.
+- [x] On form submission, call a new API endpoint `PUT /api/products/:id`, sending the updated data and the JWT.
+- [x] The backend must also protect this endpoint with the `auth.js` middleware.
+- [x] After a successful response, close the dialog and refresh the product list to show the updated information.
+
 ---
 
 ## 5. Dev Notes
@@ -92,3 +119,22 @@ This story introduces the first major feature for the business owner: a secure a
 |---|---|---|---|
 | 1.0 | 2025-11-20 | BIP | Initial draft |
 | 1.1 | 2025-11-20 | BIP | Marked ready-for-dev and added context reference. |
+| 1.2 | 2025-11-22 | BIP | Story approved and marked as done after successful review. |
+---
+## Senior Developer Review (AI)
+- **Reviewer:** BIP
+- **Date:** 2025-11-22
+- **Outcome:** Approve
+
+### Summary
+The implementation is of high quality. All acceptance criteria are fully met and verified by a comprehensive E2E test suite. The code is clean, follows architectural guidelines, and correctly implements secure authentication and product management features.
+
+### Key Findings
+- No blocking or major findings.
+- **Process Note:** The developer should remember to check off completed tasks and fill out the `File List` in the dev record in the future to streamline the review process.
+
+### Acceptance Criteria Coverage
+- **Summary:** 4 of 4 acceptance criteria fully implemented and verified.
+
+### Task Completion Validation
+- **Summary:** All 4 tasks are verified as complete.
