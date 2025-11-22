@@ -1,16 +1,15 @@
 import express from 'express';
-import 'dotenv/config'; // Load environment variables
-import { supabase } from './api/config/supabase.js'; // Import supabase client
-
-
-import productRoutes from './api/routes/products.js';
+import productsRouter from './api/routes/products.js'; // justér sti om nødvendig
 
 const app = express();
+
+// Må komme FØR routerne, ellers er req.body = undefined
 app.use(express.json());
 
-// Mount the products router
-app.use('/api/products', productRoutes);
+// Alle produkt-endepunkter under /api/products
+app.use('/api/products', productsRouter);
 
-app.listen(3001, () => {
-  console.log('API server listening on port 3001');
+const PORT = 3001;
+app.listen(PORT, () => {
+  console.log(`API server listening on port ${PORT}`);
 });

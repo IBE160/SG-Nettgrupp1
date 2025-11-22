@@ -2,7 +2,7 @@
 
 **Date:** 2025-11-20
 **Author:** BIP
-**Status:** ready-for-dev
+**Status:** in-progress
 **Epic:** [Epic 1: Project Foundation & Product Catalog](tech-spec-epic-1.md)
 
 ---
@@ -38,23 +38,23 @@ This story connects the main landing page of the application to the product cata
 ## 4. Technical Implementation Plan
 
 ### Task 1: Create Landing Page Component
-- [ ] Create a new page component `src/pages/LandingPage.jsx`.
-- [ ] Add a heading and a brief welcome message.
-- [ ] Add a `Button` component from `shadcn/ui` with the label "View Products".
+- [x] Create a new page component `src/pages/LandingPage.jsx`.
+- [x] Add a heading and a brief welcome message.
+- [x] Add a `Button` component from `shadcn/ui` with the label "View Products".
 
 ### Task 2: Implement Routing
-- [ ] In `src/App.jsx` (or your main router configuration), ensure `react-router-dom` is set up.
-- [ ] Define the routes for the application:
+- [x] In `src/App.jsx` (or your main router configuration), ensure `react-router-dom` is set up.
+- [x] Define the routes for the application:
     - `/` should render the `LandingPage.jsx` component.
     - `/products` should render a placeholder `ProductsPage.jsx` component for now.
-- [ ] In `LandingPage.jsx`, use the `Link` component from `react-router-dom` to wrap the "View Products" button, pointing it to the `/products` route.
+- [x] In `LandingPage.jsx`, use the `Link` component from `react-router-dom` to wrap the "View Products" button, pointing it to the `/products` route.
 
 ### Task 3: Test Navigation
-- [ ] Run the application locally (`npm run dev`).
-- [ ] Navigate to the root URL (`/`).
-- [ ] Click the "View Products" button.
-- [ ] Verify that the URL changes to `/products` and the placeholder content for the products page is displayed.
-- [ ] Verify the button is responsive and works on different screen sizes using browser dev tools.
+- [x] Run the application locally (`npm run dev`).
+- [x] Navigate to the root URL (`/`).
+- [x] Click the "View Products" button.
+- [x] Verify that the URL changes to `/products` and the placeholder content for the products page is displayed.
+- [x] Verify the button is responsive and works on different screen sizes using browser dev tools.
 
 ---
 
