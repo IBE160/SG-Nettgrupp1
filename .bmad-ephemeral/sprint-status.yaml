@@ -42,7 +42,7 @@ development_status:
   1-3-admin-interface-for-basic-product-management: ready-for-dev
   1-4-landing-page-navigation-to-products-page: ready-for-dev
   1-5-customer-facing-product-catalog-display: ready-for-dev
-  1-6-customer-facing-product-detail-page: ready-for-dev
+  1-6-customer-facing-product-detail-page: done
   1-7-landing-page-with-store-location-map: ready-for-dev
   epic-1-retrospective: optional
   epic-2: contexted

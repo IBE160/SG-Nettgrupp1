@@ -5,6 +5,7 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 import LoginPage from "./LoginPage";
 import ProductCatalog from "./ProductCatalog";
+import ProductDetailPage from "./ProductDetailPage";
 
 function Home({ loggedIn }) {
 	const [count, setCount] = useState(0);
@@ -51,9 +52,11 @@ function App() {
 					element={<LoginPage setLoggedIn={setLoggedIn} />}
 				/>
 				<Route path="/products" element={<ProductCatalog />} />
+				<Route path="/products/:id" element={<ProductDetailPage />} />
 			</Routes>
 		</div>
 	);
 }
 
 export default App;
+

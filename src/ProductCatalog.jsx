@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function ProductCatalog() {
   const [products, setProducts] = useState([]);
@@ -37,7 +38,9 @@ function ProductCatalog() {
       <h2>Product Catalog</h2>
       <ul>
         {products.map(product => (
-          <li key={product.id}>{product.name}</li>
+          <li key={product.id}>
+            <Link to={`/products/${product.id}`}>{product.name}</Link>
+          </li>
         ))}
       </ul>
     </div>
