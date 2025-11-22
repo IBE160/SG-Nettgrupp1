@@ -1,7 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests',
+  // Point to the default test directory for E2E tests
+  testDir: './tests/e2e', 
   outputDir: './test-results/all',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
@@ -13,8 +14,8 @@ export default defineConfig({
     timeout: 15 * 1000, // Assertion timeout: 15s
   },
 
+  // This `use` block is the default for all projects
   use: {
-    baseURL: process.env.BASE_URL || 'http://localhost:5173',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -25,8 +26,40 @@ export default defineConfig({
   reporter: [['html', { outputFolder: 'test-results/html' }], ['junit', { outputFile: 'test-results/junit.xml' }], ['list']],
 
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+    // Project for E2E tests (browser-based)
+    { 
+      name: 'e2e-chromium', 
+      testDir: './tests/e2e',
+      use: { 
+        ...devices['Desktop Chrome'],
+        baseURL: process.env.BASE_URL || 'http://localhost:5173',
+      } 
+    },
+    { 
+      name: 'e2e-firefox', 
+      testDir: './tests/e2e',
+      use: { 
+        ...devices['Desktop Firefox'],
+        baseURL: process.env.BASE_URL || 'http://localhost:5173',
+      } 
+    },
+    { 
+      name: 'e2e-webkit', 
+      testDir: './tests/e2e',
+      use: { 
+        ...devices['Desktop Safari'],
+        baseURL: process.env.BASE_URL || 'http://localhost:5173',
+      } 
+    },
+
+    // Project for API tests (direct API calls)
+    {
+      name: 'api-tests',
+      testDir: './tests/api',
+      use: {
+        // The baseURL for API tests should point directly to the API server
+        baseURL: 'http://localhost:3001',
+      },
+    },
   ],
 });

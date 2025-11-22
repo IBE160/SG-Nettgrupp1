@@ -2,7 +2,7 @@
 
 **Date:** 2025-11-20
 **Author:** BIP
-**Status:** review
+**Status:** done
 **Epic:** [Epic 1: Project Foundation & Product Catalog](tech-spec-epic-1.md)
 
 ---
@@ -114,3 +114,71 @@ This story establishes the data persistence layer for products. Following the ar
 |---|---|---|---|
 | 1.0 | 2025-11-20 | BIP | Initial draft |
 | 1.1 | 2025-11-20 | BIP | Marked ready-for-dev and added context reference. |
+| 1.2 | 2025-11-22 | BIP | Story approved and marked as done after successful review. |
+
+---
+## Senior Developer Review (AI)
+- **Reviewer:** BIP
+- **Date:** 2025-11-22
+- **Outcome:** Blocked
+
+### Summary
+The implementation successfully meets the data modeling and schema requirements (AC1) and sets up the database connection correctly (AC2). However, the story is **Blocked** due to a high-severity syntax error in the API routing that prevents the `createProduct` endpoint from functioning, directly failing AC3.
+
+Additional findings include a bug in the out-of-scope `updateProduct` function, inclusion of significant out-of-scope authentication code, and missing test coverage for implemented (though unrequired) endpoints.
+
+### Key Findings
+- **[High] `POST /api/products` Route is Broken:** In `api/routes/products.js`, a typo (`protectcreateProduct` instead of `createProduct`) causes a `ReferenceError`, making it impossible to create new products.
+- **[Medium] Out-of-Scope Code Added:** The `api-server.js` file contains a full, untested implementation for user registration and login, which belongs in a future story (e.g., 1.3). This adds unnecessary risk and dead code.
+- **[Medium] Inconsistent Auth Middleware:** The `updateProduct` route is protected by a middleware (`protect`), but the `createProduct` route is not, due to the typo. The story explicitly defers authentication concerns. This partial, broken implementation is inconsistent.
+- **[Low] Bug in `updateProduct` Logic:** The `api/controllers/products.js` file attempts to update a field named `stock`, but the database schema and tech spec define it as `stock_quantity`.
+- **[Low] Missing Test for `updateProduct`:** An API endpoint (`PUT /api/products/:id`) was implemented but not tested, which allowed the `stock_quantity` bug to go unnoticed.
+- **[Low] Raw Errors Returned to Client:** API endpoints return raw database error messages, which can leak implementation details.
+
+### Acceptance Criteria Coverage
+
+| AC# | Description | Status | Evidence |
+|---|---|---|---|
+| 1 | Database schema defined for products. | IMPLEMENTED | `migrations/001_create_products_table.sql:4-15` |
+| 2 | Database is initialized and accessible. | IMPLEMENTED | `api/config/supabase.js:3-12`, `api-server.js:5` |
+| 3 | Basic CRUD operations can be performed. | **MISSING** | `api/routes/products.js:13` contains a syntax error preventing `POST` operations. Tests in `tests/api/products.api.spec.ts` pass, but likely against a different code state. |
+
+**Summary: 2 of 3 acceptance criteria fully implemented.**
+
+### Task Completion Validation
+
+| Task | Marked As | Verified As | Evidence |
+|---|---|---|---|
+| Task 1: Define Schema | Completed | VERIFIED COMPLETE | `migrations/001_create_products_table.sql` |
+| Task 2: Connect Backend | Completed | VERIFIED COMPLETE | `api/config/supabase.js`, `package.json` |
+| Task 3: Implement CRUD API | Completed | **NOT DONE** | `api/routes/products.js:13` is broken. |
+
+**Summary: 2 of 3 major tasks correctly completed. The final, critical task is incomplete due to a blocking bug.**
+
+### Action Items
+
+**Code Changes Required:**
+- [ ] **[High]** Fix the typo in `api/routes/products.js` from `protectcreateProduct` to `createProduct` to repair the `POST /api/products` endpoint. (AC #3) [file: `api/routes/products.js:13`]
+- [ ] **[Medium]** Remove the out-of-scope user registration and login code from `api-server.js`. This should be moved to the appropriate story. (N/A) [file: `api-server.js:13-72`]
+- [ ] **[Medium]** Remove the out-of-scope `updateProduct` controller and its corresponding `PUT` route, along with the `protect` middleware import, as they are not required for this story. (N/A) [files: `api/controllers/products.js:77-111`, `api/routes/products.js:16`]
+- [ ] **[Low]** (If `updateProduct` is kept) Correct the `update` logic in `api/controllers/products.js` to use `stock_quantity` instead of `stock`. (N/A) [file: `api/controllers/products.js:98`]
+
+---
+## Senior Developer Review (AI) - Final
+- **Reviewer:** BIP
+- **Date:** 2025-11-22
+- **Outcome:** Approve
+
+### Summary
+All blocking issues from the previous review have been successfully resolved. The API endpoints are now correctly implemented, all out-of-scope code has been removed, and the Playwright test configuration has been corrected.
+
+The automated tests are all passing, confirming that all acceptance criteria are fully met. The story is approved and can be marked as "done".
+
+### Key Findings
+- No new findings. All previous action items have been addressed.
+
+### Acceptance Criteria Coverage
+- **Summary:** 3 of 3 acceptance criteria fully implemented and verified.
+
+### Task Completion Validation
+- **Summary:** All 3 tasks are verified as complete.
