@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-function ProductDetailPage() {
+function ProductDetailPage({ addToCart }) {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -26,6 +27,13 @@ function ProductDetailPage() {
     fetchProduct();
   }, [id]);
 
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product, quantity);
+      alert(`${quantity} of ${product.name} added to cart!`);
+    }
+  };
+
   if (loading) {
     return <div>Loading product details...</div>;
   }
@@ -44,7 +52,21 @@ function ProductDetailPage() {
       <p>Description: {product.description}</p>
       <p>Price: ${product.price}</p>
       <p>Stock: {product.stock}</p>
-      {/* Add more product details here as needed */}
+      <div>
+        <label htmlFor="quantity">Quantity:</label>
+        <input
+          type="number"
+          id="quantity"
+          name="quantity"
+          min="1"
+          max={product.stock}
+          value={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+        />
+        <button onClick={handleAddToCart} disabled={product.stock === 0}>
+          {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+        </button>
+      </div>
     </div>
   );
 }

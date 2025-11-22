@@ -6,6 +6,7 @@ import "./App.css";
 import LoginPage from "./LoginPage";
 import ProductCatalog from "./ProductCatalog";
 import ProductDetailPage from "./ProductDetailPage";
+import ShoppingCart from "./ShoppingCart";
 
 function Home({ loggedIn }) {
 	const [count, setCount] = useState(0);
@@ -39,11 +40,45 @@ function Home({ loggedIn }) {
 
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
+	const [cart, setCart] = useState([]);
+
+	const addToCart = (product, quantity) => {
+		setCart(prevCart => {
+			const itemInCart = prevCart.find(item => item.id === product.id);
+			if (itemInCart) {
+				return prevCart.map(item =>
+					item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
+				);
+			} else {
+				return [...prevCart, { ...product, quantity }];
+			}
+		});
+	};
+
+	const updateQuantity = (productId, newQuantity) => {
+		if (newQuantity <= 0) {
+			removeFromCart(productId);
+		} else {
+			setCart(prevCart =>
+				prevCart.map(item =>
+					item.id === productId ? { ...item, quantity: newQuantity } : item
+				)
+			);
+		}
+	};
+
+	const removeFromCart = (productId) => {
+		setCart(prevCart => prevCart.filter(item => item.id !== productId));
+	};
+
+	const getCartItemCount = () => {
+		return cart.reduce((total, item) => total + item.quantity, 0);
+	};
 
 	return (
 		<div>
 			<nav>
-				<Link to="/">Home</Link> | <Link to="/login">Login</Link> | <Link to="/products">Products</Link>
+				<Link to="/">Home</Link> | <Link to="/login">Login</Link> | <Link to="/products">Products</Link> | <Link to="/cart">Cart ({getCartItemCount()})</Link>
 			</nav>
 			<Routes>
 				<Route path="/" element={<Home loggedIn={loggedIn} />} />
@@ -52,7 +87,8 @@ function App() {
 					element={<LoginPage setLoggedIn={setLoggedIn} />}
 				/>
 				<Route path="/products" element={<ProductCatalog />} />
-				<Route path="/products/:id" element={<ProductDetailPage />} />
+				<Route path="/products/:id" element={<ProductDetailPage addToCart={addToCart} />} />
+				<Route path="/cart" element={<ShoppingCart cart={cart} updateQuantity={updateQuantity} removeFromCart={removeFromCart} />} />
 			</Routes>
 		</div>
 	);
