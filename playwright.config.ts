@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import 'dotenv/config';
 
 export default defineConfig({
   // Point to the default test directory for E2E tests
@@ -13,6 +14,22 @@ export default defineConfig({
   expect: {
     timeout: 15 * 1000, // Assertion timeout: 15s
   },
+
+  // Start the web servers before running tests
+  webServer: [
+    {
+      command: 'npm run dev',
+      port: 5173,
+      timeout: 120 * 1000,
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: 'node api-server.js',
+      port: 3001,
+      timeout: 120 * 1000,
+      reuseExistingServer: !process.env.CI,
+    },
+  ],
 
   // This `use` block is the default for all projects
   use: {

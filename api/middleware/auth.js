@@ -1,4 +1,4 @@
-import { supabase } from './config/supabase.js';
+import { supabase } from '../config/supabase.js';
 
 export const protect = async (req, res, next) => {
   let token;
