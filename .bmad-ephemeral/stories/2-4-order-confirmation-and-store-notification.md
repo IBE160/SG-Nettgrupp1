@@ -2,7 +2,7 @@
 
 **Date:** 2025-11-20
 **Author:** BIP
-**Status:** Draft
+**Status:** done
 **Epic:** Epic 2: Click-and-Collect Ordering
 
 ---

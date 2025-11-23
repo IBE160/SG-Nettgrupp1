@@ -1,54 +1,59 @@
-import { useState } from 'react';
-import { Link, Route, Routes, Outlet, Navigate } from 'react-router-dom'; // Kombinerer Link, Route, Routes, Outlet, Navigate
-import { useSupabaseAuth } from './lib/supabase-auth-provider'; // Fra Incoming
-import LoginPage from './pages/LoginPage'; // Fra Current
-import LandingPage from './pages/LandingPage'; // Fra Incoming
-import AdminDashboard from './pages/AdminDashboard'; // Fra Incoming
-import ProductCatalog from './pages/ProductCatalog'; // Fra Current
-import ProductPage from './pages/ProductPage'; // Begge har, behold én
-import ProductDetailPage from './pages/ProductDetailpage'; // Fra Incoming
-import Layout from './components/Layout'; // Fra Incoming
-// viteLogo, reactLogo, og App.css er sannsynligvis ikke nødvendig hvis du bruker Layout, men kan inkluderes om de trengs.
+import { useState } from "react";
+import { Link, Route, Routes } from "react-router-dom";
+import viteLogo from "/vite.svg";
+import reactLogo from "./assets/react.svg";
+import "./App.css";
+import LoginPage from "./LoginPage";
+import ProductCatalog from "./ProductCatalog";
 
-// Legg til ProtectedRoute funksjonen (fra linje 12-17 i Incoming)
-const ProtectedRoute = ({ children }) => {
-  const { session } = useSupabaseAuth();
-  if (!session) {
-    return <Navigate to="/login" replace />;
-  }
-  return <Outlet />;
-};
+function Home({ loggedIn }) {
+	const [count, setCount] = useState(0);
+
+	return (
+		<>
+			{loggedIn && <div data-testid="user-menu">User Menu</div>}
+			<div>
+				<a href="https://vitejs.dev" target="_blank" rel="noopener">
+					<img src={viteLogo} className="logo" alt="Vite logo" />
+				</a>
+				<a href="https://react.dev" target="_blank" rel="noopener">
+					<img src={reactLogo} className="logo react" alt="React logo" />
+				</a>
+			</div>
+			<h1>Vite + React</h1>
+			<div className="card">
+				<button onClick={() => setCount((count) => count + 1)}>
+					count is {count}
+				</button>
+				<p>
+					Edit <code>src/App.jsx</code> and save to test HMR
+				</p>
+			</div>
+			<p className="read-the-docs">
+				Click on the Vite and React logos to learn more
+			</p>
+		</>
+	);
+}
 
 function App() {
-  function App() {
-    return (
-      <Routes>
-        {/* 1. Ruter inni Layout-komponenten (Incoming) */}
-        <Route element={<Layout />}>
-          {/* Ruter som skal ha Layout-header/footer osv. */}
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/products" element={<ProductPage />} />
-          <Route path="/products/:id" element={<ProductDetailPage />} />
-        </Route>
+	const [loggedIn, setLoggedIn] = useState(false);
 
-        {/* 2. Ruter uten Layout (f.eks. login/404) (Kombinerer fra Current) */}
-        <Route path="/login" element={<LoginPage />} />
-        {/* Current har også /settings, hvis den trengs */}
-        {/* <Route path="/settings" element={<settingsLogin />} /> */}
-
-        {/* 3. Protected Route (Incoming) */}
-        <Route path="/protected" element={<ProtectedRoute />}>
-          {/* Rute under beskyttelse */}
-          <Route path="admin" element={<AdminDashboard />} />
-        </Route>
-      </Routes>
-      // Fjern alle hardkodede lenker som er i Current-versjonen
-    );
-  }
-
-  export default App;
+	return (
+		<div>
+			<nav>
+				<Link to="/">Home</Link> | <Link to="/login">Login</Link> | <Link to="/products">Products</Link>
+			</nav>
+			<Routes>
+				<Route path="/" element={<Home loggedIn={loggedIn} />} />
+				<Route
+					path="/login"
+					element={<LoginPage setLoggedIn={setLoggedIn} />}
+				/>
+				<Route path="/products" element={<ProductCatalog />} />
+			</Routes>
+		</div>
+	);
 }
 
 export default App;
-
-
