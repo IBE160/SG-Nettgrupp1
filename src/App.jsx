@@ -5,8 +5,13 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 import LoginPage from "./LoginPage";
 import ProductCatalog from "./ProductCatalog";
+<<<<<<< HEAD
 import AdminProductManagementPage from "./AdminProductManagementPage"; // Import AdminProductManagementPage
 import AdminOrderDetailPage from "./AdminOrderDetailPage"; // Import AdminOrderDetailPage
+=======
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminOrderDetailPage from "./pages/AdminOrderDetailPage";
+>>>>>>> hajar
 
 function Home({ loggedIn }) {
 	const [count, setCount] = useState(0);
@@ -53,8 +58,13 @@ function App() {
 					element={<LoginPage setLoggedIn={setLoggedIn} />}
 				/>
 				<Route path="/products" element={<ProductCatalog />} />
+<<<<<<< HEAD
 				<Route path="/admin" element={<AdminProductManagementPage />} /> {/* Admin Dashboard Route */}
 				<Route path="/admin/orders/:orderId" element={<AdminOrderDetailPage />} /> {/* Admin Order Detail Route */}
+=======
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/order/:id" element={<AdminOrderDetailPage />} />
+>>>>>>> hajar
 			</Routes>
 		</div>
 	);
