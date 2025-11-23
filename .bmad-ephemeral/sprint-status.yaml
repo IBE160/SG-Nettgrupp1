@@ -50,7 +50,7 @@ development_status:
   2-2-manage-shopping-cart-contents: done
   2-3-customer-checkout-process: done
   2-4-order-confirmation-and-store-notification: done
-  2-5-admin-view-new-orders: done
+  2-5-admin-view-new-orders: review
   2-6-admin-mark-order-as-prepared: ready-for-dev
   2-7-admin-cancel-order: ready-for-dev
   epic-2-retrospective: optional
