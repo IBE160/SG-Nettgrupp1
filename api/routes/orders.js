@@ -3,7 +3,7 @@ import { protect } from '../middleware/auth.js';
 import {
   getAllOrders,
   getOrderById,
-  updateOrderStatus
+  updateOrder,
 } from '../controllers/orders.js';
 
 const router = express.Router();
@@ -13,6 +13,6 @@ router.route('/')
 
 router.route('/:id')
   .get(protect, getOrderById)
-  .put(protect, updateOrderStatus);
+  .put(protect, updateOrder);
 
 export default router;
