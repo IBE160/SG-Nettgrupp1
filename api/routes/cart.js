@@ -2,7 +2,9 @@ import express from 'express';
 import {
   createCart,
   addCartItem,
-  getCartItems
+  getCartItems,
+  updateCartItem,
+  deleteCartItem
 } from '../controllers/cart.js';
 
 const router = express.Router();
@@ -15,5 +17,9 @@ router.route('/:cartId')
 
 router.route('/:cartId/items')
   .post(addCartItem);
+
+router.route('/:cartId/items/:itemId')
+  .put(updateCartItem)
+  .delete(deleteCartItem);
 
 export default router;

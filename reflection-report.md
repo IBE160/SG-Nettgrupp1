@@ -70,10 +70,10 @@ Hovedmålet med dette prosjektet er å produsere et fungerende nettstedet der be
 - Løsning: Hyppige endringer i rammeverket gjorde at vi måtte passe på at vi alltid startet hver arbeidsøkt med å laste ned og merge remote repository inn i vår lokale versjon, i tillegg til å merge dette inn i hver vår egne branch som vi arbeidet i. Dette kunne for eksempel få den effekten at dersom vi var i gang med en prosess mens det kom oppdatering på main-branchen så oppstod det en merge konflikt når vi skulle synkronisere vår arbeid.
 - KI sin rolle: KI viste seg å være god på å rydde opp i slike konflikter, spesielt i de tilfellene der vi  klarte å beskrive for KI hva konflikten gikk ut på og hvor feilen var oppstått.
 
-**Utfordring 3: [Overskrift]**
-- Problem: [Beskriv problemet]
-- Løsning: [Hvordan løste dere det?]
-- KI sin rolle: [Hvordan hjalp eller hindret KI dere?]
+**Utfordring 3 Merge-konfikter**
+- Problem: Når vi alle jobber med hver vår story viser det seg at flere av oss tidvis jobber opp mot de samme filene, JavaScript og lignende, og når vi så kjører en merge på disse oppstår det konflikter.
+- Løsning: Ingen av oss hadde noe særlig peiling på hvordan vi skulle løse merge-konflikter, derfor ble løsningen å spørre KI om hjelp.
+- KI sin rolle: Det virket som KI hadde en mye bedre forståelse av merge-konfliktene og hva som måtte gjøres for å løse disse, så dette hadde vært omtrent umulig for oss å løse på vårt nivå uten hjelp fra KI.
 
 ### 3.2 Samarbeidsutfordringer
 [Utfordringer knyttet til teamarbeid og kommunikasjon]

@@ -1,28 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext.jsx';
 
-function ShoppingCart({ cart, updateQuantity, removeFromCart }) {
-  if (!cart || cart.length === 0) {
+function CartPage() {
+  const { cartItems, updateQuantity, removeFromCart } = useCart();
+
+  if (!cartItems || cartItems.length === 0) {
     return (
       <div>
         <h2>Shopping Cart</h2>
         <p>Your cart is empty.</p>
+        <Link to="/products">Continue Shopping</Link>
       </div>
     );
   }
 
   const calculateTotal = () => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
+    return cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2);
   };
 
   return (
     <div>
       <h2>Shopping Cart</h2>
       <ul>
-        {cart.map(item => (
+        {cartItems.map(item => (
           <li key={item.id}>
             <div>
-              <strong>{item.name}</strong> - ${item.price}
+              <strong>{item.product.name}</strong> - ${item.product.price}
             </div>
             <div>
               Quantity: {item.quantity}
@@ -41,4 +45,4 @@ function ShoppingCart({ cart, updateQuantity, removeFromCart }) {
   );
 }
 
-export default ShoppingCart;
+export default CartPage;

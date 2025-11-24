@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useCart } from './context/CartContext';
 
-function ProductDetailPage({ addToCart }) {
+function ProductDetailPage() {
   const { id } = useParams();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,8 +31,7 @@ function ProductDetailPage({ addToCart }) {
 
   const handleAddToCart = () => {
     if (product) {
-      addToCart(product, quantity);
-      alert(`${quantity} of ${product.name} added to cart!`);
+      addToCart(product.id, quantity);
     }
   };
 
@@ -51,7 +52,7 @@ function ProductDetailPage({ addToCart }) {
       <h2>{product.name}</h2>
       <p>Description: {product.description}</p>
       <p>Price: ${product.price}</p>
-      <p>Stock: {product.stock}</p>
+      <p>Stock: {product.stock_quantity}</p>
       <div>
         <label htmlFor="quantity">Quantity:</label>
         <input
@@ -59,12 +60,12 @@ function ProductDetailPage({ addToCart }) {
           id="quantity"
           name="quantity"
           min="1"
-          max={product.stock}
+          max={product.stock_quantity}
           value={quantity}
           onChange={(e) => setQuantity(Number(e.target.value))}
         />
-        <button onClick={handleAddToCart} disabled={product.stock === 0}>
-          {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+        <button onClick={handleAddToCart} disabled={product.stock_quantity === 0}>
+          {product.stock_quantity === 0 ? 'Out of Stock' : 'Add to Cart'}
         </button>
       </div>
     </div>

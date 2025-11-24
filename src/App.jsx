@@ -3,15 +3,15 @@ import { Link, Route, Routes } from "react-router-dom";
 import viteLogo from "/vite.svg";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
+
+// Page Imports
 import LoginPage from "./LoginPage";
 import ProductCatalog from "./ProductCatalog";
-<<<<<<< HEAD
-import AdminProductManagementPage from "./AdminProductManagementPage"; // Import AdminProductManagementPage
-import AdminOrderDetailPage from "./AdminOrderDetailPage"; // Import AdminOrderDetailPage
-=======
+import ProductDetailPage from "./ProductDetailPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminOrderDetailPage from "./pages/AdminOrderDetailPage";
->>>>>>> hajar
+import CartPage from "./pages/CartPage.jsx"; // Added for cart page
+import { useCart } from "./context/CartContext";
 
 function Home({ loggedIn }) {
 	const [count, setCount] = useState(0);
@@ -45,11 +45,13 @@ function Home({ loggedIn }) {
 
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
+	const { cartItems } = useCart();
+	const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
 	return (
 		<div>
 			<nav>
-				<Link to="/">Home</Link> | <Link to="/login">Login</Link> | <Link to="/products">Products</Link> | <Link to="/admin">Admin</Link>
+				<Link to="/">Home</Link> | <Link to="/login">Login</Link> | <Link to="/products">Products</Link> | <Link to="/admin">Admin</Link> | <Link to="/cart">Cart (<span data-testid="cart-item-count">{totalItems}</span>)</Link>
 			</nav>
 			<Routes>
 				<Route path="/" element={<Home loggedIn={loggedIn} />} />
@@ -58,13 +60,11 @@ function App() {
 					element={<LoginPage setLoggedIn={setLoggedIn} />}
 				/>
 				<Route path="/products" element={<ProductCatalog />} />
-<<<<<<< HEAD
-				<Route path="/admin" element={<AdminProductManagementPage />} /> {/* Admin Dashboard Route */}
-				<Route path="/admin/orders/:orderId" element={<AdminOrderDetailPage />} /> {/* Admin Order Detail Route */}
-=======
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/order/:id" element={<AdminOrderDetailPage />} />
->>>>>>> hajar
+				<Route path="/products/:id" element={<ProductDetailPage />} />
+				<Route path="/cart" element={<CartPage />} />
+                {/* Admin Routes */}
+				<Route path="/admin" element={<AdminDashboard />} />
+				<Route path="/admin/orders/:orderId" element={<AdminOrderDetailPage />} />
 			</Routes>
 		</div>
 	);

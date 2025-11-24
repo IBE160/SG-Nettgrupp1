@@ -9,7 +9,9 @@
 		"lint": "biome check",
 		"preview": "vite preview",
 		"test:e2e": "playwright test",
-		"check-db": "node scripts/check-db.js"
+		"check-db": "node scripts/check-db.js",
+		"db:seed": "node scripts/seed-db.js",
+		"start:api": "node api-server.js"
 	},
 	"dependencies": {
 		"@radix-ui/react-dialog": "^1.1.15",

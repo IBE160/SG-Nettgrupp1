@@ -1,5 +1,7 @@
 import { supabase } from '../config/supabase.js';
-<<<<<<< HEAD
+// import { Resend } from 'resend';
+
+// const resend = new Resend(process.env.RESEND_API_KEY);
 
 // @desc    Get all orders
 // @route   GET /api/orders
@@ -50,26 +52,10 @@ export const getOrderById = async (req, res) => {
           )
         )
       `)
-=======
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-// @desc    Get order by ID
-// @route   GET /api/orders/:id
-export const getOrderById = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const { data, error } = await supabase
-      .from('orders')
-      .select('*')
->>>>>>> hajar
       .eq('id', id)
       .single();
 
     if (error) {
-<<<<<<< HEAD
       if (error.code === 'PGRST116') { // No rows found
         return res.status(404).json({ message: `Order with ID ${id} not found` });
       }
@@ -79,22 +65,12 @@ export const getOrderById = async (req, res) => {
 
     if (!data) {
       return res.status(404).json({ message: `Order with ID ${id} not found` });
-=======
-      if (error.code === 'PGRST116') {
-        return res.status(404).json({ message: 'Order not found' });
-      }
-      throw error;
->>>>>>> hajar
     }
 
     res.status(200).json(data);
   } catch (error) {
-<<<<<<< HEAD
     console.error('Server error in getOrderById:', error);
     res.status(500).json({ message: 'Server Error' });
-=======
-    console.error('Supabase Error in getOrderById:', error);
-    res.status(400).json({ message: error.message });
   }
 };
 
@@ -124,6 +100,8 @@ export const updateOrderStatus = async (req, res) => {
       throw error;
     }
 
+    // TODO: Re-enable email notifications when RESEND_API_KEY is available.
+    /*
     if (status === 'Prepared') {
       try {
         await resend.emails.send({
@@ -139,11 +117,11 @@ export const updateOrderStatus = async (req, res) => {
         // For now, just log it and continue
       }
     }
+    */
 
     res.status(200).json(data);
   } catch (error) {
     console.error('Supabase Error in updateOrderStatus:', error);
     res.status(400).json({ message: error.message });
->>>>>>> hajar
   }
 };

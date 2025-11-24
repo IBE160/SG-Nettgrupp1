@@ -60,9 +60,9 @@
       - [x] File: .bmad-ephemeral/stories/tech-spec-epic-2.md
       - [x] File: .bmad-ephemeral/stories/tech-spec-epic-3.md
     - [x] /run-agent-task sm validate-epic-tech-context {prompt / user-input-file}
-      - [x] File: validation-report-epic-1-2025-11-20.md
-      - [x] File: validation-report-epic-2-2025-11-20.md
-      - [x] File: validation-report-epic-3-2025-11-20.md
+      - [x] File: docs/validation-report-epic-1-2025-11-20.md
+      - [x] File: docs/validation-report-epic-2-2025-11-20.md
+      - [x] File: docs/validation-report-epic-3-2025-11-20.md
     - foreach story in epic:
       - [x] /run-agent-task sm *create-story {prompt / user-input-file}
         - [x] File: .bmad-ephemeral/stories/1-1-basic-project-infrastructure-setup.md
@@ -103,14 +103,67 @@
         - [x] File: docs/validation-report-story-3-3.md
         - [x] File: docs/validation-report-story-3-4.md
   - [x] /run-agent-task sm *create-story-context {prompt / user-input-file}
-        - [ ] File: sprint-artifacts/{{story_key}}.context.xml
+        - [x] File: .bmad-ephemeral/stories/1-1-basic-project-infrastructure-setup.context.xml
+        - [x] File: .bmad-ephemeral/stories/1-2-product-data-model-and-database-initialization.context.xml
+        - [x] File: .bmad-ephemeral/stories/1-3-admin-interface-for-basic-product-management.context.xml
+        - [x] File: .bmad-ephemeral/stories/1-4-landing-page-navigation-to-products-page.context.xml
+        - [x] File: .bmad-ephemeral/stories/1-5-landing-page-navigation-to-products-page.context.xml
+        - [x] File: .bmad-ephemeral/stories/1-6-landing-page-navigation-to-products-page.context.xml
+        - [x] File: .bmad-ephemeral/stories/1-7-landing-page-navigation-to-products-page.context.xml
+        - [x] File: .bmad-ephemeral/stories/2-1-add-products-to-shopping-cart.context.xml
+        - [x] File: .bmad-ephemeral/stories/2-2-manage-shopping-cart-contents.context.xml
+        - [x] File: .bmad-ephemeral/stories/2-3-customer-checkout-process.context.xml
+        - [x] File: .bmad-ephemeral/stories/2-4-order-confirmation-and-store-notification.context.xml
+        - [x] File: .bmad-ephemeral/stories/2-5-admin-view-new-orders.context.xml
+        - [x] File: .bmad-ephemeral/stories/2-6-admin-mark-order-as-prepared.context.xml
+        - [x] File: .bmad-ephemeral/stories/2-7-admin-cancel-order.context.xml
+        - [x] File: .bmad-ephemeral/stories/3-1-admin-edit-full-product-details.context.xml
+        - [x] File: .bmad-ephemeral/stories/3-2-admin-archive-product.context.xml
+        - [x] File: .bmad-ephemeral/stories/3-3-admin-update-product-stock-levels.context.xml
+        - [x] File: .bmad-ephemeral/stories/3-4-admin-delete-order.context.xml
       - [x] /run-agent-task sm *validate-story-context {prompt / user-input-file}
+        - [x] File: docs\validation-report-story-context-1-1.md
+        - [x] File: docs\validation-report-story-context-1-2.md
+        - [x] File: docs\validation-report-story-context-1-3.md
+        - [x] File: docs\validation-report-story-context-1-4.md
+        - [x] File: docs\validation-report-story-context-1-5.md
+        - [x] File: docs\validation-report-story-context-1-6.md
+        - [x] File: docs\validation-report-story-context-1-7.md
+        - [x] File: docs\validation-report-story-context-2-1.md
+        - [x] File: docs\validation-report-story-context-2-2.md
+        - [x] File: docs\validation-report-story-context-2-3.md
+        - [x] File: docs\validation-report-story-context-2-4.md
+        - [x] File: docs\validation-report-story-context-2-5.md
+        - [x] File: docs\validation-report-story-context-2-6.md
+        - [x] File: docs\validation-report-story-context-2-7.md
+        - [x] File: docs\validation-report-story-context-3-1.md
+        - [x] File: docs\validation-report-story-context-3-2.md
+        - [x] File: docs\validation-report-story-context-3-3.md
+        - [x] File: docs\validation-report-story-context-3-4.md
       - [x] /run-agent-task sm *story-ready-for-dev {prompt / user-input-file}
       while code-review != approved:
         - [ ] /run-agent-task dev *develop-story {prompt / user-input-file}
+        <!--
+        1-1 done
+        1-2 done
+        1-3 done
+        1-4 in progress
+        1-5 done
+        1-6 done
+        1-7 done
+        2-1 completed
+        2-2 done
+        2-3 done
+        2-4
+        2-5
+        2-6
+        2-7
+        3-1
+        3-2
+        3-3
+        3-4
+        -->
         - [ ] /run-agent-task dev *code-review {prompt / user-input-file}
-      - [ ] /run-agent-task dev *code-review {prompt / user-input-file}
-      (Denne har vi gjort på de to første stories)      
     - [ ] /run-agent-task sm *test-review {prompt / user-input-file}
     - [ ] /run-agent-task sm *epic-retrospective {prompt / user-input-file}
 
