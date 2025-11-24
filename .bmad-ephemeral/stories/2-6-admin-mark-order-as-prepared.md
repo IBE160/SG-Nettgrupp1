@@ -2,7 +2,7 @@
 
 **Date:** 2025-11-20
 **Author:** BIP
-**Status:** Draft
+**Status:** Done
 **Epic:** Epic 2: Click-and-Collect Ordering
 
 ---
@@ -36,19 +36,19 @@ This story adds a key action to the order management workflow: marking an order 
 ## 4. Technical Implementation Plan
 
 ### Task 1: Backend API for Status Update
-- [ ] Create a `PUT /api/orders/:id` endpoint, protected by admin auth middleware.
-- [ ] The endpoint should accept a new `status` in the request body.
-- [ ] The controller logic should update the `status` field for the given order in the `orders` table.
+- [x] Create a `PUT /api/orders/:id` endpoint, protected by admin auth middleware.
+- [x] The endpoint should accept a new `status` in the request body.
+- [x] The controller logic should update the `status` field for the given order in the `orders` table.
 
 ### Task 2: Email Notification
-- [ ] After successfully updating the order status to "Prepared", the controller should use the Resend service to send an email to the `customer_email` associated with the order.
-- [ ] The email should state that their order is ready for pickup and include the reference number.
+- [x] After successfully updating the order status to "Prepared", the controller should use the Resend service to send an email to the `customer_email` associated with the order.
+- [x] The email should state that their order is ready for pickup and include the reference number.
 
 ### Task 3: Frontend Button
-- [ ] In the `AdminOrderDetailPage.jsx` component, add a "Mark as Prepared" button.
-- [ ] This button should only be visible if the order status is currently 'pending'.
-- [ ] Clicking the button should call the `PUT /api/orders/:id` endpoint with the new status "Prepared".
-- [ ] Upon success, the status displayed on the page should update.
+- [x] In the `AdminOrderDetailPage.jsx` component, add a "Mark as Prepared" button.
+- [x] This button should only be visible if the order status is currently 'pending'.
+- [x] Clicking the button should call the `PUT /api/orders/:id` endpoint with the new status "Prepared".
+- [x] Upon success, the status displayed on the page should update.
 
 ---
 ## 5. Dev Notes
@@ -57,4 +57,21 @@ This story adds a key action to the order management workflow: marking an order 
 ## 6. Change Log
 | Version | Date | Author | Changes |
 |---|---|---|---|
-| 1.0 | 2025-11-20 | BIP | Initial draft |
+
+---
+## 7. Code Review
+**Reviewer:** Amelia (Developer Agent)
+**Date:** 2025-11-23
+
+### Summary
+The implementation of the story is good. The backend and frontend changes are well-structured and follow the requirements.
+
+### Issues Found
+- The `AdminOrderDetailPage.jsx` component was calling a `GET /api/orders/:id` endpoint that was not defined in the backend.
+
+### Resolution
+- Added a `getOrderById` controller function to `api/controllers/orders.js`.
+- Added a `GET /api/orders/:id` route to `api/routes/orders.js`.
+
+### Conclusion
+All files have been reviewed and are now correct. The story is ready for the next stage.
