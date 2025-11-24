@@ -95,3 +95,48 @@ export const addCartItem = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// @desc    Get cart items by cart ID
+// @route   GET /api/cart/:cartId
+export const getCartItems = async (req, res) => {
+  const { cartId } = req.params;
+
+  try {
+    const { data, error } = await supabase
+      .from('cart_items')
+      .select(`
+        *,
+        products (
+          id,
+          name,
+          description,
+          price,
+          image_url
+        )
+      `)
+      .eq('cart_id', cartId);
+
+    if (error) {
+      throw error;
+    }
+
+    // Transform data to a more friendly format if needed, e.g., flattening product details
+    const cartItems = data.map(item => ({
+      id: item.id,
+      productId: item.product_id,
+      quantity: item.quantity,
+      product: {
+        id: item.products.id,
+        name: item.products.name,
+        description: item.products.description,
+        price: item.products.price,
+        imageUrl: item.products.image_url,
+      },
+    }));
+
+    res.status(200).json({ id: cartId, items: cartItems });
+  } catch (error) {
+    console.error('Supabase Error in getCartItems:', error);
+    res.status(400).json({ message: error.message });
+  }
+};
