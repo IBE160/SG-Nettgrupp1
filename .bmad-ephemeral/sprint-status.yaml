@@ -53,11 +53,15 @@ development_status:
 <<<<<<< HEAD
   2-5-admin-view-new-orders: review
   2-6-admin-mark-order-as-prepared: ready-for-dev
+<<<<<<< HEAD
 =======
   2-5-admin-view-new-orders: ready-for-dev
   2-6-admin-mark-order-as-prepared: done
 >>>>>>> hajar
   2-7-admin-cancel-order: ready-for-dev
+=======
+  2-7-admin-cancel-order: done
+>>>>>>> cam3_
   epic-2-retrospective: optional
   epic-3: contexted
   3-1-admin-edit-full-product-details: ready-for-dev
