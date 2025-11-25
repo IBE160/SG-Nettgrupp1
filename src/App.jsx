@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+
+// Component Imports
+import Header from "./components/Header";
 
 // Page Imports
 import LoginPage from "./LoginPage";
@@ -11,34 +14,31 @@ import AdminOrderDetailPage from "./pages/AdminOrderDetailPage";
 import CartPage from "./pages/CartPage.jsx";
 import CheckoutPage from "./CheckoutPage";
 import OrderConfirmationPage from "./OrderConfirmationPage";
-import { useCart } from "./context/CartContext";
 import LandingPage from "./pages/LandingPage";
 
 function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
-	const { cartItems } = useCart();
-	const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
 	return (
-		<div>
-			<nav>
-				<Link to="/">Home</Link> | <Link to="/login">Login</Link> | <Link to="/products">Products</Link> | <Link to="/admin">Admin</Link> | <Link to="/cart">Cart (<span data-testid="cart-item-count">{totalItems}</span>)</Link>
-			</nav>
-			<Routes>
-				<Route path="/" element={<LandingPage />} />
-				<Route
-					path="/login"
-					element={<LoginPage setLoggedIn={setLoggedIn} />}
-				/>
-				<Route path="/products" element={<ProductCatalog />} />
-				<Route path="/products/:id" element={<ProductDetailPage />} />
-				<Route path="/cart" element={<CartPage />} />
-				<Route path="/checkout" element={<CheckoutPage />} />
-                <Route path="/confirmation/:orderRef" element={<OrderConfirmationPage />} />
-                {/* Admin Routes */}
-				<Route path="/admin" element={<AdminDashboard />} />
-				<Route path="/admin/orders/:orderId" element={<AdminOrderDetailPage />} />
-			</Routes>
+		<div className="min-h-screen flex flex-col">
+			<Header />
+			<main className="flex-grow">
+				<Routes>
+					<Route path="/" element={<LandingPage />} />
+					<Route
+						path="/login"
+						element={<LoginPage setLoggedIn={setLoggedIn} />}
+					/>
+					<Route path="/products" element={<ProductCatalog />} />
+					<Route path="/products/:id" element={<ProductDetailPage />} />
+					<Route path="/cart" element={<CartPage />} />
+					<Route path="/checkout" element={<CheckoutPage />} />
+					<Route path="/confirmation/:orderRef" element={<OrderConfirmationPage />} />
+					{/* Admin Routes */}
+					<Route path="/admin" element={<AdminDashboard />} />
+					<Route path="/admin/orders/:orderId" element={<AdminOrderDetailPage />} />
+				</Routes>
+			</main>
 		</div>
 	);
 }
