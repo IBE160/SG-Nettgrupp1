@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSupabaseAuth } from "./lib/supabase-auth-provider";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-const LoginPage = ({ setLoggedIn }) => {
+const LoginPage = () => {
 	const navigate = useNavigate();
+	const { signIn } = useSupabaseAuth();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
@@ -12,55 +18,59 @@ const LoginPage = ({ setLoggedIn }) => {
 		setError("");
 
 		try {
-			const response = await fetch("/api/users/login", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ email, password }),
-			});
-
-			if (!response.ok) {
-				const data = await response.json();
-				throw new Error(data.message || "Login failed");
+			const { error } = await signIn({ email, password });
+			if (error) {
+				throw error;
 			}
-
-			const { token } = await response.json();
-			localStorage.setItem("token", token);
-			setLoggedIn(true);
-			navigate("/");
+			navigate("/admin"); // Redirect to admin dashboard on successful login
 		} catch (err) {
-			setError(err.message);
+			setError(err.message || "Login failed");
 		}
 	};
 
 	return (
-		<div>
-			<h1>Login</h1>
-			{error && <p style={{ color: "red" }}>{error}</p>}
-			<form onSubmit={handleSubmit}>
-				<div>
-					<label htmlFor="email">Email</label>
-					<input
-						type="email"
-						id="email"
-						data-testid="email-input"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-					/>
-				</div>
-				<div>
-					<label htmlFor="password">Password</label>
-					<input
-						type="password"
-						id="password"
-						data-testid="password-input"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-					/>
-				</div>
-				<button type="submit" data-testid="login-button">
-					Login
-				</button>
-			</form>
+		<div className="flex justify-center items-center pb-20" style={{ paddingTop: '20px' }}>
+			<Card className="w-full" style={{ maxWidth: '600px' }}>
+				<CardHeader className="text-center">
+					<CardTitle className="text-2xl">Admin Login</CardTitle>
+					<CardDescription>Enter your credentials to access the dashboard.</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<form onSubmit={handleSubmit}>
+						<div className="grid w-full items-center gap-4">
+							<div className="flex flex-col space-y-1.5">
+								<Label htmlFor="email">Email</Label>
+								<Input
+									type="email"
+									id="email"
+									data-testid="email-input"
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
+									placeholder="your@email.com"
+									style={{ boxSizing: 'border-box', width: '100%' }}
+								/>
+							</div>
+							<div className="flex flex-col space-y-1.5">
+								<Label htmlFor="password">Password</Label>
+								<Input
+									type="password"
+									id="password"
+									data-testid="password-input"
+									value={password}
+									onChange={(e) => setPassword(e.target.value)}
+									style={{ boxSizing: 'border-box', width: '100%' }}
+								/>
+							</div>
+							{error && <p className="text-sm text-destructive">{error}</p>}
+						</div>
+					</form>
+				</CardContent>
+				<CardFooter className="flex flex-col gap-4">
+					<Button onClick={handleSubmit} className="w-full" data-testid="login-button">
+						Login
+					</Button>
+				</CardFooter>
+			</Card>
 		</div>
 	);
 };

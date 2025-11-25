@@ -3,8 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useCart } from './context/CartContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-
+import { Card, CardContent } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
 
 function ProductDetailPage() {
   const { id } = useParams();
@@ -52,43 +53,57 @@ function ProductDetailPage() {
   }
 
   return (
-    <div className="container mx-auto py-12">
+    <div className="container mx-auto py-16">
       <div className="grid md:grid-cols-2 gap-12 items-start">
         {/* Left Column: Image */}
         <div className="w-full">
-          {product.image_url ? (
-            <img src={product.image_url} alt={product.name} className="w-full h-auto object-cover rounded-lg shadow-lg" />
-          ) : (
-            <div className="w-full h-96 bg-secondary flex items-center justify-center rounded-lg shadow-lg">
-              <span className="text-secondary-foreground">No Image Available</span>
-            </div>
-          )}
+          <Card>
+            {product.image_url ? (
+              <img src={product.image_url} alt={product.name} className="w-full h-auto object-cover rounded-lg" />
+            ) : (
+              <div className="w-full h-[400px] bg-muted flex items-center justify-center rounded-lg">
+                <span className="text-muted-foreground">No Image Available</span>
+              </div>
+            )}
+          </Card>
         </div>
 
         {/* Right Column: Details */}
         <div className="flex flex-col gap-6">
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight">{product.name}</h1>
-            <p className="text-lg text-muted-foreground mt-2">
-              Origin: {product.land_of_origin} | Vitola: {product.vitola}
-            </p>
+          <div className="flex flex-col gap-2">
+            <h1 className="text-3xl lg:text-4xl font-bold tracking-tight">{product.name}</h1>
+            <p className="text-2xl font-semibold text-primary">${product.price}</p>
           </div>
 
-          <p className="text-base leading-relaxed">{product.description}</p>
+          <p className="text-base text-muted-foreground leading-relaxed">{product.description}</p>
           
-          <div className="text-4xl font-bold text-primary">${product.price}</div>
+          <Separator />
 
-          <Card className="bg-background/50">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-sm font-medium">Origin</p>
+              <p className="text-lg">{product.land_of_origin}</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium">Vitola</p>
+              <p className="text-lg">{product.vitola}</p>
+            </div>
+          </div>
+          
+          <Separator />
+
+          <Card className="bg-background/50 border shadow-sm">
             <CardContent className="pt-6">
               <div className="flex flex-col gap-4">
                 <p className="text-sm">
                   <span className="font-medium">Availability:</span> 
-                  <span className={product.stock_quantity > 0 ? 'text-green-600' : 'text-destructive'}>
+                  <span className={product.stock_quantity > 10 ? 'text-green-600' : (product.stock_quantity > 0 ? 'text-orange-500' : 'text-destructive')}>
                     {product.stock_quantity > 0 ? ` ${product.stock_quantity} in Stock` : ' Out of Stock'}
+                    {product.stock_quantity > 0 && product.stock_quantity <= 10 && ' (Low Stock)'}
                   </span>
                 </p>
                 <div className="flex items-center gap-4">
-                  <Label htmlFor="quantity" className="text-sm font-medium">Quantity:</Label>
+                  <Label htmlFor="quantity" className="text-sm font-medium">Quantity</Label>
                   <Input
                     type="number"
                     id="quantity"
@@ -103,10 +118,10 @@ function ProductDetailPage() {
                 </div>
                 <Button 
                     onClick={handleAddToCart} 
-                    disabled={product.stock_quantity === 0 || quantity > product.stock_quantity}
+                    disabled={product.stock_quantity === 0 || quantity > product.stock_quantity || quantity < 1}
                     size="lg"
                 >
-                  {product.stock_quantity === 0 ? 'Out of Stock' : 'Add to Cart'}
+                  Add to Cart
                 </Button>
               </div>
             </CardContent>

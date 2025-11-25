@@ -26,17 +26,20 @@ function ProductCatalog() {
   }, []);
 
   if (loading) {
-    return <div className="container mx-auto text-center">Loading...</div>;
+    return <div className="container mx-auto text-center py-20">Loading products...</div>;
   }
 
   if (error) {
-    return <div className="container mx-auto text-center">Error: {error.message}</div>;
+    return <div className="container mx-auto text-center py-20">Error: {error.message}</div>;
   }
 
   return (
-    <div className="container mx-auto py-10">
-      <h2 className="text-3xl font-bold text-center mb-8">Our Products</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="container mx-auto py-16">
+      <div className="text-center mb-12">
+        <h1 className="text-4xl font-bold">Product Catalog</h1>
+        <p className="text-lg text-muted-foreground mt-2">Browse our hand-picked selection of premium cigars.</p>
+      </div>
+      <div className="flex flex-wrap justify-center">
         {products.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}

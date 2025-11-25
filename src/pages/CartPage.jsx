@@ -10,7 +10,7 @@ function CartPage() {
 
   if (!cartItems || cartItems.length === 0) {
     return (
-      <div className="container mx-auto py-10 text-center">
+      <div className="container mx-auto text-center" style={{ maxWidth: '1000px', paddingTop: '20px' }}>
         <h2 className="text-3xl font-bold mb-4">Shopping Cart</h2>
         <p className="mb-6">Your cart is empty.</p>
         <Button asChild>
@@ -25,7 +25,7 @@ function CartPage() {
   };
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto" style={{ maxWidth: '1000px', paddingTop: '20px' }}>
       <Card>
         <CardHeader>
           <CardTitle>Shopping Cart</CardTitle>
