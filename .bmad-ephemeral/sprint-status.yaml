@@ -46,17 +46,17 @@ development_status:
   1-7-landing-page-with-store-location-map: done
   epic-1-retrospective: optional
   epic-2: contexted
-  2-1-add-products-to-shopping-cart: completed
+  2-1-add-products-to-shopping-cart: done
   2-2-manage-shopping-cart-contents: done
   2-3-customer-checkout-process: done
   2-4-order-confirmation-and-store-notification: done
-  2-5-admin-view-new-orders: review
+  2-5-admin-view-new-orders: done
   2-6-admin-mark-order-as-prepared: done
   2-7-admin-cancel-order: done
   epic-2-retrospective: optional
   epic-3: contexted
   3-1-admin-edit-full-product-details: ready-for-dev
   3-2-admin-archive-product: ready-for-dev
-  3-3-admin-update-product-stock-levels: ready-for-dev
-  3-4-admin-delete-order: ready-for-dev
+  3-3-admin-update-product-stock-levels: done
+  3-4-admin-delete-order: done
   epic-3-retrospective: optional
