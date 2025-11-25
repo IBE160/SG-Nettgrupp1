@@ -20,6 +20,7 @@ export const CartProvider = ({ children }) => {
       setCartItems(data.items || []); // Assuming the API returns { id: ..., items: [...] }
     } catch (error) {
       console.error('[CartContext] Error in fetchCartItems:', error);
+      setCartItems([]); // Clear items on error
     }
   };
 
@@ -123,12 +124,19 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const clearCart = () => {
+    localStorage.removeItem('cartId');
+    setCartId(null);
+    setCartItems([]);
+  };
+
   const value = {
     cartId,
     cartItems,
     addToCart,
     updateQuantity,
     removeFromCart,
+    clearCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

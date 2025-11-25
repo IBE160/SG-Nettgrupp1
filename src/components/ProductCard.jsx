@@ -1,6 +1,7 @@
 import { useCart } from '../context/CartContext';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { Link } from 'react-router-dom';
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
@@ -10,16 +11,18 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{product.name}</CardTitle>
-        <CardDescription>Origin: {product.land_of_origin}</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <p>{product.description}</p>
-        <p className="mt-2 font-bold text-lg">${product.price}</p>
-        <p className="text-sm text-gray-500">Stock: {product.stock_quantity}</p>
-      </CardContent>
+    <Card className="flex flex-col">
+      <Link to={`/products/${product.id}`} className="flex-grow">
+        <CardHeader>
+          <CardTitle>{product.name}</CardTitle>
+          <CardDescription>Origin: {product.land_of_origin}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p>{product.description}</p>
+          <p className="mt-2 font-bold text-lg">${product.price}</p>
+          <p className="text-sm text-gray-500">Stock: {product.stock_quantity}</p>
+        </CardContent>
+      </Link>
       <CardFooter>
         <Button 
           onClick={handleAddToCart} 

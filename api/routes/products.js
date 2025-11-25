@@ -4,7 +4,6 @@ import {
   createProduct,
   getAllProducts,
   getProductById,
-  updateProduct,
 } from '../controllers/products.js';
 
 const router = express.Router();
@@ -14,7 +13,6 @@ router.route('/')
   .post(protect, createProduct);
 
 router.route('/:id')
-  .get(getProductById)
-  .put(protect, updateProduct);
+  .get(getProductById);
 
 export default router;

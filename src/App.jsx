@@ -8,7 +8,9 @@ import ProductCatalog from "./ProductCatalog";
 import ProductDetailPage from "./ProductDetailPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminOrderDetailPage from "./pages/AdminOrderDetailPage";
-import CartPage from "./pages/CartPage.jsx"; // Added for cart page
+import CartPage from "./pages/CartPage.jsx";
+import CheckoutPage from "./CheckoutPage";
+import OrderConfirmationPage from "./OrderConfirmationPage";
 import { useCart } from "./context/CartContext";
 import LandingPage from "./pages/LandingPage";
 
@@ -31,6 +33,8 @@ function App() {
 				<Route path="/products" element={<ProductCatalog />} />
 				<Route path="/products/:id" element={<ProductDetailPage />} />
 				<Route path="/cart" element={<CartPage />} />
+				<Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/confirmation/:orderRef" element={<OrderConfirmationPage />} />
                 {/* Admin Routes */}
 				<Route path="/admin" element={<AdminDashboard />} />
 				<Route path="/admin/orders/:orderId" element={<AdminOrderDetailPage />} />

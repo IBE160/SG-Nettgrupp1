@@ -66,35 +66,3 @@ export const getProductById = async (req, res) => {
   }
 };
 
-// @desc    Update a product
-// @route   PUT /api/products/:id
-export const updateProduct = async (req, res) => {
-  try {
-    const { id } = req.params;
-    
-    // Only allow updating specific fields
-    const { name, description, price, stock_quantity } = req.body;
-    const updateData = { name, description, price, stock_quantity };
-
-    const { data, error } = await supabase
-      .from('products')
-      .update(updateData)
-      .eq('id', id)
-      .select()
-      .single();
-
-    if (error) {
-      // Check for a not-found error specifically
-      if (error.code === 'PGRST116') {
-        return res.status(404).json({ message: 'Product not found' });
-      }
-      throw error;
-    }
-
-    res.status(200).json(data);
-  } catch (error) {
-    console.error('Supabase Error in updateProduct:', error);
-    res.status(400).json({ message: error.message });
-  }
-};
-

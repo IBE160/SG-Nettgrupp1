@@ -1,8 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+
 
 function AdminOrderDetailPage() {
   const { orderId } = useParams();
+  const navigate = useNavigate();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,6 +51,31 @@ function AdminOrderDetailPage() {
       } finally {
         setIsUpdating(false);
       }
+    }
+  };
+
+  const handleDelete = async () => {
+    setIsUpdating(true);
+    setError(null);
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`/api/orders/${orderId}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (!response.ok && response.status !== 204) {
+            const errData = await response.json();
+            throw new Error(errData.message || 'Failed to delete order');
+        }
+        
+        // On success, redirect to the main admin page
+        navigate('/admin');
+
+    } catch (error) {
+        setError(error);
+    } finally {
+        setIsUpdating(false);
     }
   };
 
@@ -88,29 +127,50 @@ function AdminOrderDetailPage() {
       <h2 className="text-2xl font-bold mb-4">Order Details #{order.id}</h2>
       
       <div className="bg-white shadow-md rounded-lg p-6 mb-6">
-        <p><strong>Reference Number:</strong> {order.reference_number}</p>
-        <p><strong>Customer Email:</strong> {order.customer_email}</p>
-        <p><strong>Order Date:</strong> {new Date(order.created_at).toLocaleString()}</p>
-        <p className="mb-4"><strong>Status:</strong> <span className={`font-semibold ${order.status === 'Cancelled' ? 'text-red-500' : 'text-green-500'}`}>{order.status}</span></p>
+        <div className="flex justify-between items-start">
+            <div>
+                <p><strong>Reference Number:</strong> {order.reference_number}</p>
+                <p><strong>Customer Email:</strong> {order.customer_email}</p>
+                <p><strong>Order Date:</strong> {new Date(order.created_at).toLocaleString()}</p>
+                <p className="mb-4"><strong>Status:</strong> <span className={`font-semibold ${order.status === 'Cancelled' ? 'text-red-500' : 'text-green-500'}`}>{order.status}</span></p>
+            </div>
+            <AlertDialog>
+                <AlertDialogTrigger asChild>
+                    <Button variant="destructive" disabled={isUpdating}>Delete Order</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        This action cannot be undone. This will permanently delete the order from the database.
+                    </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleDelete}>Continue</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </div>
+
 
         {canUpdate && (
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 mt-4 border-t pt-4">
             {order.status === 'pending' && (
-                <button
-                onClick={() => handleUpdateStatus('prepared')}
-                disabled={isUpdating}
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:bg-gray-400"
-              >
-                {isUpdating ? 'Updating...' : 'Mark as Prepared'}
-              </button>
+                <Button
+                    onClick={() => handleUpdateStatus('prepared')}
+                    disabled={isUpdating}
+                >
+                    {isUpdating ? 'Updating...' : 'Mark as Prepared'}
+                </Button>
             )}
-            <button
+            <Button
               onClick={() => handleUpdateStatus('Cancelled')}
               disabled={isUpdating}
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded disabled:bg-gray-400"
+              variant="outline"
             >
               {isUpdating ? 'Cancelling...' : 'Mark as Cancelled'}
-            </button>
+            </Button>
           </div>
         )}
         {error && isUpdating && <p className="text-red-500 mt-2">Update failed: {error.message}</p>}
