@@ -147,21 +147,21 @@
         1-1 done
         1-2 done
         1-3 done
-        1-4 in progress
+        1-4 done
         1-5 done
         1-6 done
         1-7 done
-        2-1 completed
+        2-1 done
         2-2 done
         2-3 done
-        2-4
-        2-5
-        2-6
-        2-7
-        3-1
-        3-2
-        3-3
-        3-4
+        2-4 done
+        2-5 done
+        2-6 done
+        2-7 done
+        3-1 ready-for-dev
+        3-2 ready-for-dev ?
+        3-3 done
+        3-4 done
         -->
         - [ ] /run-agent-task dev *code-review {prompt / user-input-file}
     - [ ] /run-agent-task sm *test-review {prompt / user-input-file}
