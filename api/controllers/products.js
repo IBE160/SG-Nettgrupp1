@@ -25,9 +25,16 @@ export const createProduct = async (req, res) => {
 // @route   GET /api/products
 export const getAllProducts = async (req, res) => {
   try {
-    const { data, error } = await supabase
+    const { includeArchived } = req.query;
+    let query = supabase
       .from('products')
       .select('*');
+
+    if (includeArchived !== 'true') {
+      query = query.eq('is_archived', false);
+    }
+
+    const { data, error } = await query;
 
     if (error) {
       throw error;
@@ -73,8 +80,8 @@ export const updateProduct = async (req, res) => {
     const { id } = req.params;
     
     // Only allow updating specific fields
-    const { name, description, price, stock_quantity } = req.body;
-    const updateData = { name, description, price, stock_quantity };
+    const { name, description, price, stock_quantity, is_archived } = req.body;
+    const updateData = { name, description, price, stock_quantity, is_archived };
 
     const { data, error } = await supabase
       .from('products')

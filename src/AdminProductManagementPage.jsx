@@ -78,37 +78,68 @@ function AdminProductManagementPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('products'); // 'products' or 'orders'
+  const [showArchived, setShowArchived] = useState(false); // New state for showing archived products
+
+  const fetchProducts = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+
+      const response = await fetch(`/api/products?includeArchived=${showArchived}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const { data } = await response.json();
+      setProducts(data);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (activeTab === 'products') {
-      const fetchProducts = async () => {
-        try {
-          // Assuming product fetching also needs auth
-          const token = localStorage.getItem('token');
-          if (!token) {
-            throw new Error('No authentication token found');
-          }
-
-          const response = await fetch('/api/products', {
-            headers: {
-              'Authorization': `Bearer ${token}`
-            }
-          });
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          const data = await response.json();
-          setProducts(data);
-          setLoading(false);
-        } catch (error) {
-          setError(error);
-          setLoading(false);
-        }
-      };
-
       fetchProducts();
     }
-  }, [activeTab]);
+  }, [activeTab, showArchived]); // Add showArchived to dependency array
+
+  const handleArchiveToggle = async (productId, currentIsArchived) => {
+    const action = currentIsArchived ? 'Unarchive' : 'Archive';
+    if (window.confirm(`Are you sure you want to ${action} this product?`)) {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          throw new Error('No authentication token found');
+        }
+
+        const response = await fetch(`/api/products/${productId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ is_archived: !currentIsArchived })
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        // Re-fetch products to update the list
+        fetchProducts();
+      } catch (error) {
+        console.error('Error toggling archive status:', error);
+        setError(error);
+      }
+    }
+  };
 
   if (loading && activeTab === 'products') {
     return <div>Loading products...</div>;
@@ -133,6 +164,16 @@ function AdminProductManagementPage() {
       {activeTab === 'products' && (
         <div>
           <h3>Product List</h3>
+          <div>
+            <label>
+              <input
+                type="checkbox"
+                checked={showArchived}
+                onChange={() => setShowArchived(!showArchived)}
+              />
+              Show Archived Products
+            </label>
+          </div>
           <table>
             <thead>
               <tr>
@@ -141,6 +182,7 @@ function AdminProductManagementPage() {
                 <th>Description</th>
                 <th>Price</th>
                 <th>Stock</th>
+                <th>Status</th> {/* New column */}
                 <th>Actions</th>
               </tr>
             </thead>
@@ -152,9 +194,13 @@ function AdminProductManagementPage() {
                   <td>{product.description}</td>
                   <td>{product.price}</td>
                   <td>{product.stock}</td>
+                  <td>{product.is_archived ? 'Archived' : 'Active'}</td> {/* Display status */}
                   <td>
                     <button>Edit</button>
                     <button>Delete</button>
+                    <button onClick={() => handleArchiveToggle(product.id, product.is_archived)}>
+                      {product.is_archived ? 'Unarchive' : 'Archive'}
+                    </button>
                   </td>
                 </tr>
               ))}
