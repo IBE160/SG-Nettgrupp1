@@ -20,7 +20,7 @@ function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
 
 	return (
-		<div className="min-h-screen flex flex-col">
+		<div className="min-h-screen flex flex-col bg-black text-white">
 			<Header />
 			<main className="flex-grow">
 				<Routes>

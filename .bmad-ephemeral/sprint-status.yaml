@@ -56,7 +56,7 @@ development_status:
   epic-2-retrospective: optional
   epic-3: contexted
   3-1-admin-edit-full-product-details: ready-for-dev
-  3-2-admin-archive-product: ready-for-dev
+  3-2-admin-archive-product: done
   3-3-admin-update-product-stock-levels: done
   3-4-admin-delete-order: done
   epic-3-retrospective: optional
