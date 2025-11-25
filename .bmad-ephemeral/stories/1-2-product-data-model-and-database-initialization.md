@@ -158,10 +158,10 @@ Additional findings include a bug in the out-of-scope `updateProduct` function, 
 ### Action Items
 
 **Code Changes Required:**
-- [ ] **[High]** Fix the typo in `api/routes/products.js` from `protectcreateProduct` to `createProduct` to repair the `POST /api/products` endpoint. (AC #3) [file: `api/routes/products.js:13`]
-- [ ] **[Medium]** Remove the out-of-scope user registration and login code from `api-server.js`. This should be moved to the appropriate story. (N/A) [file: `api-server.js:13-72`]
-- [ ] **[Medium]** Remove the out-of-scope `updateProduct` controller and its corresponding `PUT` route, along with the `protect` middleware import, as they are not required for this story. (N/A) [files: `api/controllers/products.js:77-111`, `api/routes/products.js:16`]
-- [ ] **[Low]** (If `updateProduct` is kept) Correct the `update` logic in `api/controllers/products.js` to use `stock_quantity` instead of `stock`. (N/A) [file: `api/controllers/products.js:98`]
+- [x] **[High]** Fix the typo in `api/routes/products.js` from `protectcreateProduct` to `createProduct` to repair the `POST /api/products` endpoint. (AC #3) [file: `api/routes/products.js:13`]
+- [x] **[Medium]** Remove the out-of-scope user registration and login code from `api-server.js`. This should be moved to the appropriate story. (N/A) [file: `api-server.js:13-72`]
+- [x] **[Medium]** Remove the out-of-scope `updateProduct` controller and its corresponding `PUT` route, along with the `protect` middleware import, as they are not required for this story. (N/A) [files: `api/controllers/products.js:77-111`, `api/routes/products.js:16`]
+- [x] **[Low]** (If `updateProduct` is kept) Correct the `update` logic in `api/controllers/products.js` to use `stock_quantity` instead of `stock`. (N/A) [file: `api/controllers/products.js:98`]
 
 ---
 ## Senior Developer Review (AI) - Final

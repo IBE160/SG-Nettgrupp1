@@ -11,6 +11,11 @@ test.describe('Shopping Cart Management', () => {
     // On the product detail page, wait for the add to cart button and click it
     await page.waitForSelector('button:has-text("Add to Cart")');
     await page.locator('button:has-text("Add to Cart")').click();
+    
+    // Wait for the cart count to update to 1
+    const cartItemCount = page.locator('[data-testid="cart-item-count"]');
+    await expect(cartItemCount).toHaveText('1');
+
     // Go to the cart page
     await page.goto('/cart');
   });
@@ -28,7 +33,6 @@ test.describe('Shopping Cart Management', () => {
     const initialTotal = parseFloat((await page.locator('h3').textContent()).replace('Total: $', ''));
 
     await page.locator('button:has-text("+")').click();
-    await page.waitForTimeout(500); // Wait for potential async update
 
     await expect(page.locator('text=Quantity: 2')).toBeVisible();
 
@@ -42,12 +46,10 @@ test.describe('Shopping Cart Management', () => {
     // First, increase the quantity to 2
     await page.locator('button:has-text("+")').click();
     await expect(page.locator('text=Quantity: 2')).toBeVisible();
-    await page.waitForTimeout(500);
 
     const initialTotal = parseFloat((await page.locator('h3').textContent()).replace('Total: $', ''));
 
     await page.locator('button:has-text("-")').click();
-    await page.waitForTimeout(500);
 
     await expect(page.locator('text=Quantity: 1')).toBeVisible();
 
@@ -57,13 +59,11 @@ test.describe('Shopping Cart Management', () => {
 
   test('should remove item from cart when quantity is decreased to 0', async ({ page }) => {
     await page.locator('button:has-text("-")').click();
-    await page.waitForTimeout(500);
     await expect(page.locator('p:has-text("Your cart is empty.")')).toBeVisible();
   });
 
   test('should remove item from cart using the remove button', async ({ page }) => {
     await page.locator('button:has-text("Remove")').click();
-    await page.waitForTimeout(500);
     await expect(page.locator('p:has-text("Your cart is empty.")')).toBeVisible();
   });
 });

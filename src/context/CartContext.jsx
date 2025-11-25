@@ -11,24 +11,22 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
   const fetchCartItems = async (id) => {
-    console.log(`[CartContext] Fetching items for cartId: ${id}`);
     try {
       const response = await fetch(`/api/cart/${id}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch cart items. Status: ${response.status}`);
       }
       const data = await response.json();
-      console.log('[CartContext] Fetched cart data:', data);
       setCartItems(data.items || []); // Assuming the API returns { id: ..., items: [...] }
     } catch (error) {
       console.error('[CartContext] Error in fetchCartItems:', error);
+      setCartItems([]); // Clear items on error
     }
   };
 
   useEffect(() => {
     // Load cartId from localStorage on initial render
     const storedCartId = localStorage.getItem('cartId');
-    console.log(`[CartContext] Initial load. Stored cartId: ${storedCartId}`);
     if (storedCartId) {
       setCartId(storedCartId);
       fetchCartItems(storedCartId); // Fetch cart items if cartId exists
@@ -36,7 +34,6 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   const createCart = async () => {
-    console.log('[CartContext] Creating a new cart...');
     try {
       const response = await fetch('/api/cart', {
         method: 'POST',
@@ -45,7 +42,6 @@ export const CartProvider = ({ children }) => {
         throw new Error('Failed to create cart');
       }
       const data = await response.json();
-      console.log(`[CartContext] New cart created with id: ${data.id}`);
       setCartId(data.id);
       localStorage.setItem('cartId', data.id);
       // After creating a cart, immediately fetch its items (which should be empty initially)
@@ -59,11 +55,9 @@ export const CartProvider = ({ children }) => {
   const addToCart = async (productId, quantity) => {
     let currentCartId = cartId;
     if (!currentCartId) {
-      console.log('[CartContext] No cartId found, creating a new one.');
       currentCartId = await createCart();
     }
 
-    console.log(`[CartContext] Adding to cart ${currentCartId}: productId=${productId}, quantity=${quantity}`);
     try {
       const response = await fetch(`/api/cart/${currentCartId}/items`, {
         method: 'POST',
@@ -73,14 +67,11 @@ export const CartProvider = ({ children }) => {
         body: JSON.stringify({ productId, quantity }),
       });
 
-      console.log('[CartContext] addToCart response status:', response.status);
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('[CartContext] addToCart API error:', errorData);
         throw new Error(errorData.message || 'Failed to add item to cart');
       }
       
-      console.log('[CartContext] Item added, re-fetching cart items.');
       // After successfully adding an item, re-fetch the entire cart to ensure state is synchronized
       await fetchCartItems(currentCartId);
       
@@ -133,12 +124,19 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  const clearCart = () => {
+    localStorage.removeItem('cartId');
+    setCartId(null);
+    setCartItems([]);
+  };
+
   const value = {
     cartId,
     cartItems,
     addToCart,
     updateQuantity,
     removeFromCart,
+    clearCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

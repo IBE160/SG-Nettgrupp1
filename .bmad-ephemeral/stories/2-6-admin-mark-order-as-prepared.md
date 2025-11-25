@@ -2,7 +2,7 @@
 
 **Date:** 2025-11-20
 **Author:** BIP
-**Status:** Done
+**Status:** done
 **Epic:** Epic 2: Click-and-Collect Ordering
 
 ---
@@ -54,24 +54,35 @@ This story adds a key action to the order management workflow: marking an order 
 ## 5. Dev Notes
 *   The email content should be simple and clear.
 ---
-## 6. Change Log
-| Version | Date | Author | Changes |
-|---|---|---|---|
+
+## 6. File List
+- `api/controllers/orders.js`
+- `src/AdminOrderDetailPage.jsx`
 
 ---
-## 7. Code Review
-**Reviewer:** Amelia (Developer Agent)
-**Date:** 2025-11-23
+
+## 7. Change Log
+| Version | Date | Author | Changes |
+|---|---|---|---|
+| 1.0 | 2025-11-20 | BIP | Initial draft. |
+| 1.1 | 2025-11-25 | Amelia | Implemented and reviewed feature. Marked as done. |
+
+---
+
+## Senior Developer Review (AI)
+- **Reviewer:** Amelia
+- **Date:** 2025-11-25
+- **Outcome:** Approve
 
 ### Summary
-The implementation of the story is good. The backend and frontend changes are well-structured and follow the requirements.
+The backend controller logic was refactored to correctly handle status updates and trigger email notifications. The frontend component correctly calls the endpoint and displays the button conditionally. All acceptance criteria are met.
 
-### Issues Found
-- The `AdminOrderDetailPage.jsx` component was calling a `GET /api/orders/:id` endpoint that was not defined in the backend.
+### Acceptance Criteria Coverage
 
-### Resolution
-- Added a `getOrderById` controller function to `api/controllers/orders.js`.
-- Added a `GET /api/orders/:id` route to `api/routes/orders.js`.
+| AC# | Description | Status | Evidence |
+|---|---|---|---|
+| 1 | "Mark as Prepared" button exists. | IMPLEMENTED | `src/AdminOrderDetailPage.jsx` |
+| 2 | Action changes order status. | IMPLEMENTED | `api/controllers/orders.js` |
+| 3 | "Ready for Pickup" email is sent. | IMPLEMENTED | `api/controllers/orders.js` |
 
-### Conclusion
-All files have been reviewed and are now correct. The story is ready for the next stage.
+**Summary: 3 of 3 acceptance criteria fully implemented.**
