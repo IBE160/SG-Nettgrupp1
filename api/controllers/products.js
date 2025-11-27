@@ -1,14 +1,33 @@
 import { supabase } from '../config/supabase.js';
 
+const ALLOWED_PRODUCT_FIELDS = ['name', 'description', 'price', 'stock_quantity', 'is_archived', 'land_of_origin', 'vitola'];
+
+// Helper to build a data object with only allowed fields that are present in the body
+const buildDataFromRequest = (body) => {
+  const data = {};
+  for (const field of ALLOWED_PRODUCT_FIELDS) {
+    if (body[field] !== undefined) {
+      data[field] = body[field];
+    }
+  }
+  return data;
+};
+
 // @desc    Create a new product
 // @route   POST /api/products
 export const createProduct = async (req, res) => {
   try {
+    const productData = buildDataFromRequest(req.body);
+
+    if (Object.keys(productData).length === 0) {
+      return res.status(400).json({ message: 'No valid fields provided for creation' });
+    }
+
     const { data, error } = await supabase
       .from('products')
-      .insert([req.body])
+      .insert([productData])
       .select()
-      .single(); // .single() to get the object directly
+      .single();
 
     if (error) {
       throw error;
@@ -78,10 +97,11 @@ export const getProductById = async (req, res) => {
 export const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    
-    // Only allow updating specific fields
-    const { name, description, price, stock_quantity, is_archived } = req.body;
-    const updateData = { name, description, price, stock_quantity, is_archived };
+    const updateData = buildDataFromRequest(req.body);
+
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({ message: 'No valid fields provided for update' });
+    }
 
     const { data, error } = await supabase
       .from('products')

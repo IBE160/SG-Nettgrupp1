@@ -38,7 +38,10 @@ const addProduct = async (product, session) => {
         headers: getAuthHeader(session),
         body: JSON.stringify(product),
     });
-    if (!response.ok) throw new Error('Failed to add product');
+    if (!response.ok) {
+        const errorBody = await response.json();
+        throw new Error(`Failed to add product: ${errorBody.message}`);
+    }
     return await response.json();
 };
 
@@ -48,7 +51,10 @@ const editProduct = async (product, session) => {
         headers: getAuthHeader(session),
         body: JSON.stringify(product),
     });
-    if (!response.ok) throw new Error('Failed to edit product');
+    if (!response.ok) {
+        const errorBody = await response.json();
+        throw new Error(`Failed to edit product: ${errorBody.message}`);
+    }
     return await response.json();
 };
 
@@ -120,6 +126,7 @@ export default function AdminDashboard() {
       handleCloseDialog();
       await loadProducts(); // Refresh the list
     } catch (err) {
+      console.error('handleSubmit error:', err);
       setApiError(err.message);
     } finally {
       setFormLoading(false);

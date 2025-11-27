@@ -8,6 +8,8 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [stockQuantity, setStockQuantity] = useState('');
+  const [landOfOrigin, setLandOfOrigin] = useState('');
+  const [vitola, setVitola] = useState('');
 
   useEffect(() => {
     if (product) {
@@ -15,12 +17,16 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
       setDescription(product.description || '');
       setPrice(product.price || '');
       setStockQuantity(product.stock_quantity || '');
+      setLandOfOrigin(product.land_of_origin || '');
+      setVitola(product.vitola || '');
     } else {
         // Reset form for 'Add'
         setName('');
         setDescription('');
         setPrice('');
         setStockQuantity('');
+        setLandOfOrigin('');
+        setVitola('');
     }
   }, [product]);
 
@@ -31,6 +37,8 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
       description,
       price: parseFloat(price),
       stock_quantity: parseInt(stockQuantity, 10),
+      land_of_origin: landOfOrigin,
+      vitola: vitola,
     };
     // If it's an edit, we pass the id
     if (product) {
@@ -90,6 +98,28 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
             onChange={(e) => setStockQuantity(e.target.value)}
             className="col-span-3"
             required
+          />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="land_of_origin" className="text-right">
+            Origin
+          </Label>
+          <Input
+            id="land_of_origin"
+            value={landOfOrigin}
+            onChange={(e) => setLandOfOrigin(e.target.value)}
+            className="col-span-3"
+          />
+        </div>
+        <div className="grid grid-cols-4 items-center gap-4">
+          <Label htmlFor="vitola" className="text-right">
+            Vitola
+          </Label>
+          <Input
+            id="vitola"
+            value={vitola}
+            onChange={(e) => setVitola(e.target.value)}
+            className="col-span-3"
           />
         </div>
       </div>

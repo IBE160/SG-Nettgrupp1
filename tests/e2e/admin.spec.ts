@@ -21,7 +21,7 @@ test.describe('Story 1.3: Admin Product Management', () => {
     await page.goto('/login');
     await page.getByLabel('Email').fill('wrong@test.com');
     await page.getByLabel('Password').fill('wrongpassword');
-    await page.getByRole('button', { name: 'Sign In' }).click();
+    await page.getByRole('button', { name: 'Login' }).click();
 
     // Expect an error message to be visible
     await expect(page.getByText('Invalid login credentials')).toBeVisible();
@@ -41,7 +41,7 @@ test.describe('Story 1.3: Admin Product Management', () => {
       await page.goto('/login');
       await page.getByLabel('Email').fill(email);
       await page.getByLabel('Password').fill(password);
-      await page.getByRole('button', { name: 'Sign In' }).click();
+      await page.getByRole('button', { name: 'Login' }).click();
       
       // Wait for navigation to the dashboard and for the table to be ready
       await expect(page).toHaveURL('/admin');
@@ -104,5 +104,38 @@ test.describe('Story 1.3: Admin Product Management', () => {
       await expect(updatedRow).toBeVisible();
       await expect(updatedRow.getByRole('cell', { name: '$12.99' })).toBeVisible();
     });
+
+    test('Story 3.1: Admin can edit all product details', async ({ page }) => {
+        // --- Step 1: Add a product to ensure a clean state ---
+        await page.getByRole('button', { name: 'Add New Product' }).click();
+        const dialog = page.getByRole('dialog');
+        await dialog.getByLabel('Name').fill(productName);
+        await dialog.getByLabel('Description').fill('Base description.');
+        await dialog.getByLabel('Price').fill('25.00');
+        await dialog.getByLabel('Stock').fill('100');
+        await dialog.getByRole('button', { name: 'Save' }).click();
+  
+        // --- Step 2: Edit the product to add new details ---
+        const productRow = page.getByRole('row', { name: productName });
+        await productRow.getByRole('button', { name: 'Edit' }).click();
+  
+        const editDialog = page.getByRole('dialog');
+        await expect(editDialog.getByRole('heading', { name: 'Edit Product' })).toBeVisible();
+        
+        // Add the new fields
+        await editDialog.getByLabel('Origin').fill('Test Origin');
+        await editDialog.getByLabel('Vitola').fill('Test Vitola');
+        await editDialog.getByRole('button', { name: 'Save' }).click();
+        await expect(editDialog).not.toBeVisible();
+  
+        // --- Step 3: Verify the changes on the public-facing page ---
+        await page.goto('/');
+        // Find the product in the public catalog and click it
+        await page.getByRole('link', { name: new RegExp(productName) }).click();
+  
+        // Assert the new details are visible on the product detail page
+        await expect(page.getByText('Land of Origin: Test Origin')).toBeVisible();
+        await expect(page.getByText('Vitola: Test Vitola')).toBeVisible();
+      });
   });
 });
