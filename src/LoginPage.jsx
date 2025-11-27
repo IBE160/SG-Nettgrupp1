@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSupabaseAuth } from "./lib/supabase-auth-provider";
 import { Button } from "@/components/ui/button";
@@ -8,10 +8,17 @@ import { Label } from "@/components/ui/label";
 
 const LoginPage = () => {
 	const navigate = useNavigate();
-	const { signIn } = useSupabaseAuth();
+	const { session, signIn } = useSupabaseAuth();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
+
+	useEffect(() => {
+		// If a session exists, the user is logged in, so redirect to the admin dashboard.
+		if (session) {
+			navigate("/admin");
+		}
+	}, [session, navigate]);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -22,7 +29,7 @@ const LoginPage = () => {
 			if (error) {
 				throw error;
 			}
-			navigate("/admin"); // Redirect to admin dashboard on successful login
+			// Navigation is now handled by the useEffect hook
 		} catch (err) {
 			setError(err.message || "Login failed");
 		}
@@ -36,7 +43,7 @@ const LoginPage = () => {
 					<CardDescription>Enter your credentials to access the dashboard.</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<form onSubmit={handleSubmit}>
+					<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 						<div className="grid w-full items-center gap-4">
 							<div className="flex flex-col space-y-1.5">
 								<Label htmlFor="email">Email</Label>
@@ -63,13 +70,12 @@ const LoginPage = () => {
 							</div>
 							{error && <p className="text-sm text-destructive">{error}</p>}
 						</div>
+						<Button type="submit" className="w-full" data-testid="login-button">
+							Login
+						</Button>
 					</form>
 				</CardContent>
-				<CardFooter className="flex flex-col gap-4">
-					<Button onClick={handleSubmit} className="w-full" data-testid="login-button">
-						Login
-					</Button>
-				</CardFooter>
+				<CardFooter className="flex flex-col gap-4" />
 			</Card>
 		</div>
 	);

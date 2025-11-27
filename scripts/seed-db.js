@@ -2,11 +2,11 @@ import { createClient } from '@supabase/supabase-js';
 import { faker } from '@faker-js/faker';
 import 'dotenv/config';
 
-const supabaseUrl = process.env.VITE_SUPABASE_URL;
-const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
-  console.error('Error: VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY must be set in .env');
+  console.error('Error: SUPABASE_URL and SUPABASE_ANON_KEY must be set in .env');
   process.exit(1);
 }
 

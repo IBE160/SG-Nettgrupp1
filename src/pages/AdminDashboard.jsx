@@ -119,12 +119,14 @@ export default function AdminDashboard() {
     setApiError(null);
     try {
       if (editingProduct) {
-        await editProduct(productData, session);
+        const updatedProduct = await editProduct(productData, session);
+        setProducts(products.map(p => p.id === updatedProduct.id ? updatedProduct : p));
       } else {
-        await addProduct(productData, session);
+        const newProduct = await addProduct(productData, session);
+        setProducts([...products, newProduct]);
+        setStockValues(prev => ({ ...prev, [newProduct.id]: newProduct.stock_quantity }));
       }
       handleCloseDialog();
-      await loadProducts(); // Refresh the list
     } catch (err) {
       console.error('handleSubmit error:', err);
       setApiError(err.message);

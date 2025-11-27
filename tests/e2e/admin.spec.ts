@@ -77,7 +77,7 @@ test.describe('Story 1.3: Admin Product Management', () => {
       const newProductRow = page.getByRole('row', { name: productName });
       await expect(newProductRow).toBeVisible();
       await expect(newProductRow.getByRole('cell', { name: '$10.99' })).toBeVisible();
-      await expect(newProductRow.getByRole('cell', { name: '50' })).toBeVisible();
+      await expect(newProductRow.locator('input[value="50"]')).toBeVisible();
 
       // --- Step 3: Edit the product ---
       await newProductRow.getByRole('button', { name: 'Edit' }).click();
