@@ -88,6 +88,16 @@ export default function AdminOrderDetailPage() {
             </Button>
           </>
         )}
+        {order.status === 'Prepared' && (
+            <>
+                <Button onClick={() => handleUpdateStatus('Completed')}>
+                    Mark as Completed
+                </Button>
+                <Button variant="destructive" onClick={() => handleUpdateStatus('Cancelled')}>
+                    Cancel Order
+                </Button>
+            </>
+        )}
       </div>
     </div>
   );
