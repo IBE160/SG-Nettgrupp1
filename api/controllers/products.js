@@ -23,7 +23,7 @@ export const createProduct = async (req, res) => {
       return res.status(400).json({ message: 'No valid fields provided for creation' });
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await req.supabase // USE REQ.SUPABASE
       .from('products')
       .insert([productData])
       .select()
@@ -40,20 +40,14 @@ export const createProduct = async (req, res) => {
   }
 };
 
-// @desc    Get all products
+// @desc    Get all PUBLIC products
 // @route   GET /api/products
 export const getAllProducts = async (req, res) => {
   try {
-    const { includeArchived } = req.query;
-    let query = supabase
+    const { data, error } = await supabase
       .from('products')
-      .select('*');
-
-    if (includeArchived !== 'true') {
-      query = query.eq('is_archived', false);
-    }
-
-    const { data, error } = await query;
+      .select('*')
+      .eq('is_archived', false);
 
     if (error) {
       throw error;
@@ -62,7 +56,7 @@ export const getAllProducts = async (req, res) => {
     res.status(200).json({ data });
   } catch (error) {
     console.error('Supabase Error in getAllProducts:', error);
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: 'Server Error' });
   }
 };
 
@@ -103,7 +97,7 @@ export const updateProduct = async (req, res) => {
       return res.status(400).json({ message: 'No valid fields provided for update' });
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await req.supabase // USE REQ.SUPABASE
       .from('products')
       .update(updateData)
       .eq('id', id)
@@ -123,5 +117,32 @@ export const updateProduct = async (req, res) => {
     console.error('Supabase Error in updateProduct:', error);
     res.status(400).json({ message: error.message });
   }
+};
+
+// @desc    Delete a product
+// @route   DELETE /api/products/:id
+export const deleteProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { error } = await req.supabase
+            .from('products')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            if (error.code === 'PGRST116') { // no rows found
+                return res.status(404).json({ message: 'Product not found' });
+            }
+            throw error;
+        }
+
+        res.status(204).send();
+    } catch (error) {
+        console.error(`Error deleting product ${req.params.id}:`, error);
+        if (error.code === '23503') { // Foreign key violation
+            return res.status(400).json({ message: 'Cannot delete product because it is part of an existing order.' });
+        }
+        res.status(500).json({ message: 'Server Error' });
+    }
 };
 

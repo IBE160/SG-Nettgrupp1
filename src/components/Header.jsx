@@ -36,8 +36,11 @@ export default function Header() {
           </Link>
           {session ? (
             <>
-              <Link to="/admin" style={linkStyle} className="hover:text-primary transition-colors">
-                Admin
+              <Link to="/admin/products" style={linkStyle} className="hover:text-primary transition-colors">
+                Admin: Products
+              </Link>
+              <Link to="/admin/orders" style={linkStyle} className="hover:text-primary transition-colors">
+                Admin: Orders
               </Link>
               <button onClick={handleSignOut} style={linkStyle} className="hover:text-primary transition-colors">
                 Logout

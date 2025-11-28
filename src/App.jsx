@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
 
 // Component Imports
@@ -9,7 +9,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./LoginPage";
 import ProductCatalog from "./ProductCatalog";
 import ProductDetailPage from "./ProductDetailPage";
-import AdminDashboard from "./pages/AdminDashboard";
+import AdminProductManagementPage from "./pages/AdminProductManagementPage";
+import AdminOrderManagementPage from "./pages/AdminOrderManagementPage";
 import AdminOrderDetailPage from "./pages/AdminOrderDetailPage";
 import CartPage from "./pages/CartPage.jsx";
 import CheckoutPage from "./CheckoutPage";
@@ -32,7 +33,9 @@ function App() {
 					
 					{/* Protected Admin Routes */}
 					<Route element={<ProtectedRoute />}>
-						<Route path="/admin" element={<AdminDashboard />} />
+						<Route path="/admin" element={<Navigate to="/admin/products" replace />} />
+						<Route path="/admin/products" element={<AdminProductManagementPage />} />
+						<Route path="/admin/orders" element={<AdminOrderManagementPage />} />
 						<Route path="/admin/orders/:orderId" element={<AdminOrderDetailPage />} />
 					</Route>
 				</Routes>

@@ -60,7 +60,7 @@ export const createOrder = async (req, res) => {
 // @access  Private (Admin)
 export const getAllOrders = async (req, res) => {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await req.supabase // USE REQ.SUPABASE
       .from('orders')
       .select(`
         *,
@@ -92,7 +92,7 @@ export const getAllOrders = async (req, res) => {
 export const getOrderById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { data, error } = await supabase
+    const { data, error } = await supabase // USE GLOBAL SUPABASE CLIENT
       .from('orders')
       .select(`
         *,
@@ -142,7 +142,8 @@ export const updateOrder = async (req, res) => {
     let error;
 
     if (status === 'Cancelled') {
-      // Use an RPC call for transactional update
+      // Use an RPC call for transactional update. RPC should use the admin client.
+      // For now, let's stick to the service client for RPCs as they are trusted operations.
       const { data: rpcData, error: rpcError } = await supabase.rpc('cancel_order_and_restock', {
         p_order_id: id,
       });
@@ -150,7 +151,7 @@ export const updateOrder = async (req, res) => {
       data = rpcData;
     } else {
       // Standard update for other statuses like 'prepared'
-      const { data: updateData, error: updateError } = await supabase
+      const { data: updateData, error: updateError } = await req.supabase // USE REQ.SUPABASE
         .from('orders')
         .update({ status })
         .eq('id', id)
@@ -197,7 +198,7 @@ export const deleteOrder = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const { error } = await supabase
+        const { error } = await req.supabase // USE REQ.SUPABASE
             .from('orders')
             .delete()
             .eq('id', id);

@@ -27,7 +27,7 @@ const updateOrderStatus = async (orderId, status, session) => {
 };
 
 export default function AdminOrderDetailPage() {
-  const { id } = useParams();
+  const { orderId } = useParams();
   const { session } = useSupabaseAuth();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -37,7 +37,7 @@ export default function AdminOrderDetailPage() {
     try {
       setLoading(true);
       setError(null);
-      const orderData = await fetchOrder(id, session);
+      const orderData = await fetchOrder(orderId, session);
       setOrder(orderData);
     } catch (err) {
       setError(err.message);
@@ -50,12 +50,12 @@ export default function AdminOrderDetailPage() {
     if (session) {
       loadOrder();
     }
-  }, [id, session]);
+  }, [orderId, session]);
 
-  const handleMarkAsPrepared = async () => {
+  const handleUpdateStatus = async (status) => {
     try {
       setError(null);
-      const updatedOrder = await updateOrderStatus(id, 'Prepared', session);
+      const updatedOrder = await updateOrderStatus(orderId, status, session);
       setOrder(updatedOrder);
     } catch (err) {
       setError(err.message);
@@ -71,16 +71,24 @@ export default function AdminOrderDetailPage() {
       <h1 className="text-3xl font-bold mb-6">Order Details</h1>
       <div className="space-y-4">
         <p><strong>Order ID:</strong> {order.id}</p>
+        <p><strong>Order Reference:</strong> {order.reference_number}</p>
         <p><strong>Customer Email:</strong> {order.customer_email}</p>
         <p><strong>Total Price:</strong> ${order.total_price}</p>
         <p><strong>Status:</strong> {order.status}</p>
       </div>
 
-      {order.status === 'pending' && (
-        <Button onClick={handleMarkAsPrepared} className="mt-6">
-          Mark as Prepared
-        </Button>
-      )}
+      <div className="mt-6 flex gap-4">
+        {order.status === 'pending' && (
+          <>
+            <Button onClick={() => handleUpdateStatus('Prepared')}>
+              Mark as Prepared
+            </Button>
+            <Button variant="destructive" onClick={() => handleUpdateStatus('Cancelled')}>
+              Cancel Order
+            </Button>
+          </>
+        )}
+      </div>
     </div>
   );
 }
