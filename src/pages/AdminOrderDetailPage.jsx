@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSupabaseAuth } from '@/lib/supabase-auth-provider';
 import { Button } from '@/components/ui/button';
 
@@ -29,6 +29,7 @@ const updateOrderStatus = async (orderId, status, session) => {
 export default function AdminOrderDetailPage() {
   const { orderId } = useParams();
   const { session } = useSupabaseAuth();
+  const navigate = useNavigate();
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -55,8 +56,8 @@ export default function AdminOrderDetailPage() {
   const handleUpdateStatus = async (status) => {
     try {
       setError(null);
-      const updatedOrder = await updateOrderStatus(orderId, status, session);
-      setOrder(updatedOrder);
+      await updateOrderStatus(orderId, status, session);
+      navigate('/admin/orders');
     } catch (err) {
       setError(err.message);
     }
@@ -75,6 +76,32 @@ export default function AdminOrderDetailPage() {
         <p><strong>Customer Email:</strong> {order.customer_email}</p>
         <p><strong>Total Price:</strong> ${order.total_price}</p>
         <p><strong>Status:</strong> {order.status}</p>
+      </div>
+
+      <div className="mt-8">
+        <h2 className="text-2xl font-bold mb-4">Order Items</h2>
+        <div className="rounded-md border">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unit Price</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {order.order_items.map((item) => (
+                <tr key={item.id}>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{item.products.name}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.quantity}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.products.price}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${(item.quantity * item.products.price).toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div className="mt-6 flex gap-4">

@@ -155,7 +155,16 @@ export const updateOrder = async (req, res) => {
         .from('orders')
         .update({ status })
         .eq('id', id)
-        .select()
+        .select(`
+          *,
+          order_items (
+            *,
+            products (
+              name,
+              price
+            )
+          )
+        `)
         .single();
       if (updateError) throw updateError;
       data = updateData;
