@@ -133,6 +133,8 @@ export const updateOrder = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
+  console.log(`updateOrder called for ID: ${id} with status: ${status}`);
+
   if (!status) {
     return res.status(400).json({ message: 'Status is required' });
   }
@@ -141,36 +143,27 @@ export const updateOrder = async (req, res) => {
     let data;
     let error;
 
-    if (status === 'Cancelled') {
-      // Use an RPC call for transactional update. RPC should use the admin client.
-      // For now, let's stick to the service client for RPCs as they are trusted operations.
-      const { data: rpcData, error: rpcError } = await supabase.rpc('cancel_order_and_restock', {
-        p_order_id: id,
-      }).single();
-      if (rpcError) throw rpcError;
-      data = rpcData;
-    } else {
-      // Standard update for other statuses like 'prepared'
-      const { data: updateData, error: updateError } = await req.supabase // USE REQ.SUPABASE
-        .from('orders')
-        .update({ status })
-        .eq('id', id)
-        .select(`
+    // Standard update for all statuses including 'Cancelled'
+    const { data: updateData, error: updateError } = await req.supabase // USE REQ.SUPABASE
+      .from('orders')
+      .update({ status })
+      .eq('id', id)
+      .select(`
+        *,
+        order_items (
           *,
-          order_items (
-            *,
-            products (
-              name,
-              price
-            )
+          products (
+            name,
+            price
           )
-        `)
-        .single();
-      if (updateError) throw updateError;
-      data = updateData;
-    }
+        )
+      `)
+      .single();
+    if (updateError) throw updateError;
+    data = updateData;
 
     if (!data) {
+      console.log('Order not found or no data returned.');
       return res.status(404).json({ message: `Order with ID ${id} not found.` });
     }
     
@@ -196,7 +189,7 @@ export const updateOrder = async (req, res) => {
     if (error.code === 'PGRST116') {
       return res.status(404).json({ message: `Order with ID ${id} not found` });
     }
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: error.message || 'Server Error' });
   }
 };
 

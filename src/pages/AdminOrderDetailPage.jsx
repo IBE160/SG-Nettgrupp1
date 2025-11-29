@@ -31,8 +31,22 @@ const updateOrderStatus = async (orderId, status, session) => {
     headers: getAuthHeader(session),
     body: JSON.stringify({ status }),
   });
-  if (!response.ok) throw new Error('Failed to update order status');
-  return await response.json();
+
+  console.log('Update Status Response:', response.status, response.statusText);
+
+  let data;
+  try {
+    data = await response.json();
+  } catch (e) {
+    console.error('Failed to parse JSON response');
+    throw new Error(`Server Error: ${response.status} ${response.statusText}`);
+  }
+
+  if (!response.ok) {
+    console.error('Update failed data:', data);
+    throw new Error(data.message || `Failed to update order status (${response.status})`);
+  }
+  return data;
 };
 
 export default function AdminOrderDetailPage() {
@@ -68,6 +82,7 @@ export default function AdminOrderDetailPage() {
       await updateOrderStatus(orderId, status, session);
       navigate('/admin/orders');
     } catch (err) {
+      console.error('Update failed:', err);
       setError(err.message);
     }
   };
