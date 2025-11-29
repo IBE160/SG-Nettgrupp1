@@ -48,73 +48,79 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: '672px', margin: '0 auto' }}>
-      <div className="grid grid-cols-4 items-center gap-4 py-4">
-        <Label htmlFor="name" className="text-right">
-          Name
-        </Label>
-        <Input 
-          id="name" 
-          value={name} 
-          onChange={(e) => setName(e.target.value)} 
-          className="col-span-3" 
-          required 
-        />
+    <form onSubmit={handleSubmit} style={{ maxWidth: '448px', margin: '0 auto' }}>
+      <div className="py-4">
+        <div style={{ marginBottom: '1rem' }}>
+          <Label htmlFor="name">
+            Name
+          </Label>
+          <Input 
+            id="name" 
+            value={name} 
+            onChange={(e) => setName(e.target.value)} 
+            required 
+          />
+        </div>
         
-        <Label htmlFor="description" className="text-right">
-          Description
-        </Label>
-        <Input 
-          id="description" 
-          value={description} 
-          onChange={(e) => setDescription(e.target.value)} 
-          className="col-span-3" 
-        />
+        <div style={{ marginBottom: '1rem' }}>
+          <Label htmlFor="description">
+            Description
+          </Label>
+          <Input 
+            id="description" 
+            value={description} 
+            onChange={(e) => setDescription(e.target.value)} 
+          />
+        </div>
         
-        <Label htmlFor="price" className="text-right">
-          Price
-        </Label>
-        <Input
-          id="price"
-          type="number"
-          step="0.01"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          className="col-span-3"
-          required
-        />
+        <div style={{ marginBottom: '1rem' }}>
+          <Label htmlFor="price">
+            Price
+          </Label>
+          <Input
+            id="price"
+            type="number"
+            step="0.01"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+        </div>
         
-        <Label htmlFor="stock" className="text-right">
-          Stock
-        </Label>
-        <Input
-          id="stock"
-          type="number"
-          value={stockQuantity}
-          onChange={(e) => setStockQuantity(e.target.value)}
-          className="col-span-3"
-          required
-        />
+        <div style={{ marginBottom: '1rem' }}>
+          <Label htmlFor="stock">
+            Stock
+          </Label>
+          <Input
+            id="stock"
+            type="number"
+            value={stockQuantity}
+            onChange={(e) => setStockQuantity(e.target.value)}
+            required
+          />
+        </div>
         
-        <Label htmlFor="land_of_origin" className="text-right">
-          Origin
-        </Label>
-        <Input
-          id="land_of_origin"
-          value={landOfOrigin}
-          onChange={(e) => setLandOfOrigin(e.target.value)}
-          className="col-span-3"
-        />
+        <div style={{ marginBottom: '1rem' }}>
+          <Label htmlFor="land_of_origin">
+            Origin
+          </Label>
+          <Input
+            id="land_of_origin"
+            value={landOfOrigin}
+            onChange={(e) => setLandOfOrigin(e.target.value)}
+          />
+        </div>
         
-        <Label htmlFor="vitola" className="text-right">
-          Vitola
-        </Label>
-        <Input
-          id="vitola"
-          value={vitola}
-          onChange={(e) => setVitola(e.target.value)}
-          className="col-span-3"
-        />
+        <div style={{ marginBottom: '1rem' }}>
+          <Label htmlFor="vitola">
+            Vitola
+          </Label>
+          <Input
+            id="vitola"
+            value={vitola}
+            onChange={(e) => setVitola(e.target.value)}
+          />
+        </div>
       </div>
       <div className="flex justify-end space-x-2">
         <Button type="button" variant="outline" onClick={onCancel}>Cancel</Button>

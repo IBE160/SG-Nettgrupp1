@@ -153,7 +153,7 @@ function AdminProductManagementPage() {
   }
 
   return (
-    <div>
+    <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1rem' }}>
       <h2>Product Management</h2>
       
       {isDialogOpen && (
