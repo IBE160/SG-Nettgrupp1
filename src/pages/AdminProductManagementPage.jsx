@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ProductForm from '../components/ProductForm';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '../components/ui/dialog';
 import { useSupabaseAuth } from '../lib/supabase-auth-provider';
 
 function AdminProductManagementPage() {
@@ -161,6 +155,19 @@ function AdminProductManagementPage() {
   return (
     <div>
       <h2>Product Management</h2>
+      
+      {isDialogOpen && (
+        <div className="mb-8 p-4 border rounded-lg">
+          <h3 className="text-lg font-semibold mb-4">{editingProduct ? 'Edit Product' : 'Add New Product'}</h3>
+          <ProductForm 
+            product={editingProduct} 
+            onSubmit={handleFormSubmit} 
+            onCancel={handleDialogClose}
+            loading={formLoading}
+          />
+        </div>
+      )}
+
       <div>
         <label>
           <input
@@ -170,7 +177,9 @@ function AdminProductManagementPage() {
           />
           Show Archived Products
         </label>
-        <button onClick={handleAddClick} style={{ float: 'right' }}>Add New Product</button>
+        {!isDialogOpen && (
+          <button onClick={handleAddClick} style={{ float: 'right' }}>Add New Product</button>
+        )}
       </div>
       <table>
         <thead>
@@ -202,20 +211,6 @@ function AdminProductManagementPage() {
           ))}
         </tbody>
       </table>
-
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent>
-              <DialogHeader>
-                  <DialogTitle>{editingProduct ? 'Edit Product' : 'Add New Product'}</DialogTitle>
-              </DialogHeader>
-              <ProductForm 
-                product={editingProduct} 
-                onSubmit={handleFormSubmit} 
-                onCancel={handleDialogClose}
-                loading={formLoading}
-              />
-          </DialogContent>
-      </Dialog>
     </div>
   );
 }
