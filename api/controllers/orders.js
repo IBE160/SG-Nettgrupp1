@@ -146,7 +146,7 @@ export const updateOrder = async (req, res) => {
       // For now, let's stick to the service client for RPCs as they are trusted operations.
       const { data: rpcData, error: rpcError } = await supabase.rpc('cancel_order_and_restock', {
         p_order_id: id,
-      });
+      }).single();
       if (rpcError) throw rpcError;
       data = rpcData;
     } else {

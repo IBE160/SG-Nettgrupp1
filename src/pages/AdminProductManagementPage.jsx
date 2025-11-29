@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ProductForm from '../components/ProductForm';
 import { useSupabaseAuth } from '../lib/supabase-auth-provider';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 
 function AdminProductManagementPage() {
   const [products, setProducts] = useState([]);
@@ -124,98 +128,94 @@ function AdminProductManagementPage() {
     }
   };
 
-  const actionButtonStyle = {
-    minWidth: '80px',
-    textAlign: 'center',
-    padding: '0.5rem 1rem',
-    borderRadius: 'var(--radius)',
-    border: '1px solid hsl(var(--border))',
-    cursor: 'pointer',
-    backgroundColor: 'hsl(var(--background))',
-    color: 'hsl(var(--foreground))'
-  };
-
   if (loading) {
-    return <div>Loading products...</div>;
+    return <div className="container mx-auto py-10 text-center">Loading products...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div className="container mx-auto py-10 text-center text-destructive">Error: {error.message}</div>;
   }
 
   return (
-    <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1rem' }}>
-      <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>Product Management</h2>
+    <div className="container mx-auto py-10 max-w-5xl">
+      <h2 className="text-3xl font-bold tracking-tight mb-8">Product Management</h2>
       
-      {isDialogOpen && (
-        <div style={{ marginBottom: '2rem', padding: '1.5rem', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)' }}>
-          <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem' }}>
-            {editingProduct ? 'Edit Product' : 'Add New Product'}
-          </h3>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>{editingProduct ? 'Edit Product' : 'Add New Product'}</DialogTitle>
+          </DialogHeader>
           <ProductForm 
             product={editingProduct} 
             onSubmit={handleFormSubmit} 
             onCancel={handleDialogClose}
             loading={formLoading}
           />
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
 
-      <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <label>
-          <input
-            type="checkbox"
-            checked={showArchived}
-            onChange={() => setShowArchived(!showArchived)}
-            style={{ marginRight: '0.5rem' }}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center space-x-2">
+          <Checkbox 
+            id="showArchived" 
+            checked={showArchived} 
+            onCheckedChange={(checked) => setShowArchived(checked)} 
           />
-          Show Archived Products
-        </label>
-        {!isDialogOpen && (
-          <button onClick={handleAddClick}>Add New Product</button>
-        )}
+          <label
+            htmlFor="showArchived"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Show Archived Products
+          </label>
+        </div>
+        <Button onClick={handleAddClick}>Add New Product</Button>
       </div>
       
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
-        {products.map(product => {
-          const cardStyle = {
-            border: '1px solid hsl(var(--border))',
-            borderRadius: 'var(--radius)',
-            padding: '1rem',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: '1rem'
-          };
-
-          if (product.is_archived) {
-            cardStyle.backgroundColor = 'hsl(var(--muted))';
-            cardStyle.color = 'hsl(var(--muted-foreground))';
-          }
-
-          return (
-            <div key={product.id} style={cardStyle}>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <h3 style={{ fontSize: '1.125rem', fontWeight: '600' }}>{product.name}</h3>
-                <p style={{ fontSize: '0.875rem', color: 'hsl(var(--muted-foreground))', marginTop: '0.25rem' }}>
-                  {product.description}
-                </p>
-                <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.5rem', fontSize: '0.875rem' }}>
-                  <span><strong>Price:</strong> ${product.price}</span>
-                  <span><strong>Stock:</strong> {product.stock_quantity}</span>
-                  <span><strong>Status:</strong> {product.is_archived ? 'Archived' : 'Active'}</span>
+      <div className="grid gap-4">
+        {products.map(product => (
+            <Card 
+                key={product.id} 
+                className={`${product.is_archived ? 'bg-slate-800 text-slate-200 border-slate-700' : 'bg-card'}`}
+            >
+              <CardContent className="p-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-lg font-semibold truncate">{product.name}</h3>
+                        {product.is_archived && (
+                            <span className="inline-flex items-center rounded-full border border-slate-600 px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-slate-200">
+                                Archived
+                            </span>
+                        )}
+                    </div>
+                  <p className={`text-sm mb-2 ${product.is_archived ? 'text-slate-400' : 'text-muted-foreground'}`}>
+                    {product.description}
+                  </p>
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                    <span><span className="font-semibold">Price:</span> ${product.price}</span>
+                    <span><span className="font-semibold">Stock:</span> {product.stock_quantity}</span>
+                    <span>
+                        <span className="font-semibold">Status:</span> 
+                        <span className={product.is_archived ? 'text-slate-400 ml-1' : 'text-green-600 ml-1'}>
+                            {product.is_archived ? 'Archived' : 'Active'}
+                        </span>
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                <button onClick={() => handleEditClick(product)} style={actionButtonStyle}>Edit</button>
-                <button onClick={() => handleDelete(product.id)} style={{...actionButtonStyle, color: 'hsl(var(--destructive))' }}>Delete</button>
-                <button onClick={() => handleArchiveToggle(product.id, product.is_archived)} style={actionButtonStyle}>
-                  {product.is_archived ? 'Unarchive' : 'Archive'}
-                </button>
-              </div>
-            </div>
-          );
-        })}
+                <div className="flex flex-row sm:flex-col gap-2 w-full sm:w-auto">
+                  <Button variant={product.is_archived ? "secondary" : "outline"} size="sm" onClick={() => handleEditClick(product)}>Edit</Button>
+                  <Button variant="destructive" size="sm" onClick={() => handleDelete(product.id)}>Delete</Button>
+                  <Button 
+                    variant={product.is_archived ? "secondary" : "outline"} 
+                    size="sm" 
+                    onClick={() => handleArchiveToggle(product.id, product.is_archived)}
+                    className={product.is_archived ? "hover:bg-slate-700" : ""}
+                  >
+                    {product.is_archived ? 'Unarchive' : 'Archive'}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+        ))}
       </div>
     </div>
   );

@@ -1,74 +1,49 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { Button } from './ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
+import { Card, CardContent, CardFooter } from './ui/card';
 import { Link } from 'react-router-dom';
-import { ShoppingCart } from 'lucide-react';
 
 export default function ProductCard({ product }) {
   const { addToCart } = useCart();
-  const [quantity, setQuantity] = useState(1);
+  const [quantity] = useState(1); // Default quantity to 1
 
   const handleAddToCart = (e) => {
     e.preventDefault(); // Prevent navigating to product page
     addToCart(product.id, quantity);
   };
 
-  const cardStyle = {
-    border: '1px solid hsl(var(--border))',
-    borderRadius: 'var(--radius)',
-    display: 'flex',
-    flexDirection: 'column',
-    overflow: 'hidden',
-  };
-
-  const imagePlaceholderStyle = {
-    backgroundColor: 'hsl(var(--muted))',
-    height: '16rem',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'hsl(var(--muted-foreground))',
-    fontStyle: 'italic',
-  };
-
-  const imageStyle = {
-    height: '100%',
-    width: '100%',
-    objectFit: 'cover',
-  };
-
   return (
-    <div style={cardStyle}>
-      <Link to={`/products/${product.id}`} style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, textDecoration: 'none', color: 'inherit' }}>
-        <div style={{ position: 'relative' }}>
-          <div style={imagePlaceholderStyle}>
-            <span>
-              {product.image_url ? 
-                <img src={product.image_url} alt={product.name} style={imageStyle} /> : 
-                'Product Image'
-              }
-            </span>
-          </div>
+    <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow duration-300">
+      <Link to={`/products/${product.id}`} className="flex flex-col flex-grow group">
+        <div className="aspect-square relative bg-muted flex items-center justify-center overflow-hidden">
+            {product.image_url ? (
+              <img 
+                src={product.image_url} 
+                alt={product.name} 
+                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" 
+              />
+            ) : (
+              <span className="text-muted-foreground italic">Product Image</span>
+            )}
         </div>
-        <div style={{ padding: '1rem', flexGrow: 1 }}>
-          <h3 style={{ fontSize: '1.125rem', fontWeight: '600' }}>{product.name}</h3>
-          <p style={{ marginTop: '0.5rem', fontWeight: 'bold', color: 'hsl(var(--primary))', fontSize: '1.25rem' }}>${product.price}</p>
-        </div>
+        <CardContent className="p-4 flex-grow flex flex-col">
+          <h3 className="font-semibold text-lg line-clamp-2 group-hover:text-primary transition-colors">{product.name}</h3>
+          <p className="text-xl font-bold text-primary mt-2">${product.price}</p>
+        </CardContent>
       </Link>
-      <div style={{ padding: '1rem', paddingTop: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-          <p style={{ fontSize: '0.875rem', color: 'hsl(var(--muted-foreground))' }}>
+      <CardFooter className="p-4 pt-0 flex flex-col gap-3">
+          <p className={`text-sm ${product.stock_quantity > 0 ? 'text-muted-foreground' : 'text-destructive font-medium'}`}>
             {product.stock_quantity > 0 ? `${product.stock_quantity} in stock` : 'Out of Stock'}
           </p>
-          <button 
+          <Button 
             onClick={handleAddToCart} 
             disabled={product.stock_quantity === 0}
-            style={{ width: '80%', padding: '0.5rem 1rem', borderRadius: 'var(--radius)', opacity: product.stock_quantity === 0 ? 0.5 : 1 }}
+            className="w-full"
           >
             Add to Cart
-          </button>
-      </div>
-    </div>
+          </Button>
+      </CardFooter>
+    </Card>
   );
 }

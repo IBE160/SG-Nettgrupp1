@@ -19,7 +19,7 @@ import LandingPage from "./pages/LandingPage";
 
 function App() {
 	return (
-		<div className="min-h-screen flex flex-col bg-black text-white">
+		<div className="min-h-screen flex flex-col">
 			<Header />
 			<main className="flex-grow">
 				<Routes>

@@ -4,8 +4,8 @@
  
 @layer base {
   :root {
-    --background: 240 10% 98%; /* #F8F9FA Neutral Light */
-    --foreground: 220 9% 23%; /* #343A40 Neutral Dark */
+    --background: 240 11% 10%; /* #1A1A1A Deep Black (Matches Secondary) */
+    --foreground: 0 0% 100%; /* White text */
 
     --card: 240 0% 100%; /* #FFFFFF */
     --card-foreground: 220 9% 23%;

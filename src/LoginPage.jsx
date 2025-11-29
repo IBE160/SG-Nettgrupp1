@@ -36,8 +36,8 @@ const LoginPage = () => {
 	};
 
 	return (
-		<div className="flex justify-center items-center pb-20" style={{ paddingTop: '20px' }}>
-			<Card className="w-full" style={{ maxWidth: '600px' }}>
+		<div className="flex justify-center items-center min-h-[80vh] pb-20 pt-5">
+			<Card className="w-full max-w-md">
 				<CardHeader className="text-center">
 					<CardTitle className="text-2xl">Admin Login</CardTitle>
 					<CardDescription>Enter your credentials to access the dashboard.</CardDescription>
@@ -54,7 +54,6 @@ const LoginPage = () => {
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 									placeholder="your@email.com"
-									style={{ boxSizing: 'border-box', width: '100%' }}
 								/>
 							</div>
 							<div className="flex flex-col space-y-1.5">
@@ -65,7 +64,6 @@ const LoginPage = () => {
 									data-testid="password-input"
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
-									style={{ boxSizing: 'border-box', width: '100%' }}
 								/>
 							</div>
 							{error && <p className="text-sm text-destructive">{error}</p>}
