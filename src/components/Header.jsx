@@ -22,7 +22,9 @@ export default function Header() {
     <header className="bg-secondary text-secondary-foreground shadow-md py-4">
       <nav className="container mx-auto flex flex-col items-center">
         <div className="flex flex-col items-center gap-2">
-          <img src={logo} alt="Alta Sigar & Grill Logo" style={{ height: '300px', width: '300px', marginBottom: '20px' }} />
+          <Link to="/">
+            <img src={logo} alt="Alta Sigar & Grill Logo" style={{ height: '300px', width: '300px', marginBottom: '20px' }} />
+          </Link>
         </div>
         <div className="flex items-center text-lg font-medium mt-4">
           <Link to="/" style={linkStyle} className="hover:text-primary transition-colors">

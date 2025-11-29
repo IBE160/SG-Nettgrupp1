@@ -29,7 +29,7 @@ export default function ProductCard({ product }) {
         </div>
         <CardContent className="p-4 flex-grow flex flex-col">
           <h3 className="font-semibold text-lg line-clamp-2 group-hover:text-primary transition-colors">{product.name}</h3>
-          <p className="text-xl font-bold text-primary mt-2">${product.price}</p>
+          <p className="text-xl font-bold text-primary mt-2">{product.price} kr</p>
         </CardContent>
       </Link>
       <CardFooter className="p-4 pt-0 flex flex-col gap-3">

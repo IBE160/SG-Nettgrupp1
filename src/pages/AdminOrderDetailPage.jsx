@@ -114,8 +114,12 @@ export default function AdminOrderDetailPage() {
                     <p>{order.customer_email}</p>
                 </div>
                 <div>
+                    <p className="text-sm font-medium text-muted-foreground">Customer Phone</p>
+                    <p>{order.customer_phone || 'N/A'}</p>
+                </div>
+                <div>
                     <p className="text-sm font-medium text-muted-foreground">Total Price</p>
-                    <p>${order.total_price}</p>
+                    <p>{Math.round(order.total_price)} kr</p>
                 </div>
                 <div>
                     <p className="text-sm font-medium text-muted-foreground">Status</p>
@@ -130,26 +134,43 @@ export default function AdminOrderDetailPage() {
             <CardTitle>Order Items</CardTitle>
         </CardHeader>
         <CardContent>
-            <Table>
-            <TableHeader>
-                <TableRow>
-                <TableHead>Product</TableHead>
-                <TableHead>Quantity</TableHead>
-                <TableHead>Unit Price</TableHead>
-                <TableHead>Subtotal</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
+            <div className="hidden md:block">
+                <Table>
+                <TableHeader>
+                    <TableRow>
+                    <TableHead>Product</TableHead>
+                    <TableHead>Quantity</TableHead>
+                    <TableHead>Unit Price</TableHead>
+                    <TableHead>Subtotal</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {order.order_items.map((item) => (
+                    <TableRow key={item.id}>
+                        <TableCell className="font-medium">{item.products.name}</TableCell>
+                        <TableCell>{item.quantity}</TableCell>
+                        <TableCell>{Math.round(item.products.price)} kr</TableCell>
+                        <TableCell>{(item.quantity * item.products.price).toFixed(0)} kr</TableCell>
+                    </TableRow>
+                    ))}
+                </TableBody>
+                </Table>
+            </div>
+
+            <div className="md:hidden flex flex-col gap-4">
                 {order.order_items.map((item) => (
-                <TableRow key={item.id}>
-                    <TableCell className="font-medium">{item.products.name}</TableCell>
-                    <TableCell>{item.quantity}</TableCell>
-                    <TableCell>${item.products.price}</TableCell>
-                    <TableCell>${(item.quantity * item.products.price).toFixed(2)}</TableCell>
-                </TableRow>
+                    <div key={item.id} className="border rounded-lg p-4 flex flex-col gap-2 bg-card text-card-foreground">
+                        <div className="flex justify-between items-start">
+                            <span className="font-medium">{item.products.name}</span>
+                            <span className="font-semibold">{(item.quantity * item.products.price).toFixed(0)} kr</span>
+                        </div>
+                        <div className="flex justify-between text-sm text-muted-foreground">
+                            <span>Qty: {item.quantity}</span>
+                            <span>{Math.round(item.products.price)} kr / unit</span>
+                        </div>
+                    </div>
                 ))}
-            </TableBody>
-            </Table>
+            </div>
         </CardContent>
       </Card>
 

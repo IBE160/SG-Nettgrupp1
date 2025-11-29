@@ -72,7 +72,7 @@ function ProductDetailPage() {
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <h1 className="text-3xl lg:text-4xl font-bold tracking-tight">{product.name}</h1>
-            <p className="text-2xl font-semibold text-primary">${product.price}</p>
+            <p className="text-2xl font-semibold text-primary">{product.price} kr</p>
           </div>
 
           <p className="text-base text-muted-foreground leading-relaxed">{product.description}</p>
@@ -92,7 +92,7 @@ function ProductDetailPage() {
           
           <Separator />
 
-          <Card className="bg-background/50 border shadow-sm">
+          <Card className="bg-card border shadow-sm">
             <CardContent className="pt-6">
               <div className="flex flex-col gap-4">
                 <p className="text-sm">
@@ -112,7 +112,7 @@ function ProductDetailPage() {
                     max={product.stock_quantity}
                     value={quantity}
                     onChange={(e) => setQuantity(Number(e.target.value))}
-                    className="w-24"
+                    className="w-24 bg-white text-black"
                     disabled={product.stock_quantity === 0}
                   />
                 </div>

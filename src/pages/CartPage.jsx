@@ -28,7 +28,7 @@ function CartPage() {
   }
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(2);
+    return cartItems.reduce((total, item) => total + item.product.price * item.quantity, 0).toFixed(0);
   };
 
   return (
@@ -39,62 +39,113 @@ function CartPage() {
             <CardDescription>Review and manage the items in your cart.</CardDescription>
         </CardHeader>
         <CardContent>
-            <Table>
-            <TableHeader>
-                <TableRow>
-                <TableHead className="w-[40%]">Product</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead className="text-center">Quantity</TableHead>
-                <TableHead className="text-right">Total</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-            </TableHeader>
-            <TableBody>
-                {cartItems.map(item => (
-                <TableRow key={item.id}>
-                    <TableCell className="font-medium">{item.product.name}</TableCell>
-                    <TableCell>${item.product.price}</TableCell>
-                    <TableCell>
-                        <div className="flex items-center justify-center gap-2">
+            {/* Desktop View */}
+            <div className="hidden md:block">
+                <Table>
+                <TableHeader>
+                    <TableRow>
+                    <TableHead className="w-[40%]">Product</TableHead>
+                    <TableHead>Price</TableHead>
+                    <TableHead className="text-center">Quantity</TableHead>
+                    <TableHead className="text-right">Total</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {cartItems.map(item => (
+                    <TableRow key={item.id}>
+                        <TableCell className="font-medium">{item.product.name}</TableCell>
+                        <TableCell>{Math.round(item.product.price)} kr</TableCell>
+                        <TableCell>
+                            <div className="flex items-center justify-center gap-2">
+                                <Button 
+                                    variant="outline" 
+                                    size="icon" 
+                                    className="h-8 w-8 bg-white text-black hover:bg-gray-300 transition-colors border-gray-300" 
+                                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                    disabled={item.quantity <= 1}
+                                >
+                                    <Minus className="h-4 w-4" />
+                                </Button>
+                                <span className="w-8 text-center">{item.quantity}</span>
+                                <Button 
+                                    variant="outline" 
+                                    size="icon" 
+                                    className="h-8 w-8 bg-white text-black hover:bg-gray-300 transition-colors border-gray-300" 
+                                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                    disabled={item.quantity >= item.product.stock_quantity}
+                                >
+                                    <Plus className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </TableCell>
+                        <TableCell className="text-right">{(item.product.price * item.quantity).toFixed(0)} kr</TableCell>
+                        <TableCell className="text-right">
                             <Button 
-                                variant="outline" 
-                                size="icon" 
-                                className="h-8 w-8" 
-                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                disabled={item.quantity <= 1}
+                                variant="destructive" 
+                                size="sm" 
+                                onClick={() => removeFromCart(item.id)}
                             >
-                                <Minus className="h-4 w-4" />
+                                <Trash2 className="h-4 w-4 mr-2" /> Remove
                             </Button>
-                            <span className="w-8 text-center">{item.quantity}</span>
+                        </TableCell>
+                    </TableRow>
+                    ))}
+                </TableBody>
+                </Table>
+            </div>
+
+            {/* Mobile View */}
+            <div className="md:hidden flex flex-col gap-4">
+                {cartItems.map(item => (
+                    <div key={item.id} className="border rounded-lg p-4 flex flex-col gap-3 bg-card text-card-foreground">
+                        <div className="flex justify-between items-start">
+                            <span className="font-medium text-lg">{item.product.name}</span>
+                            <span className="font-semibold">{Math.round(item.product.price)} kr</span>
+                        </div>
+                        
+                        <div className="flex justify-between items-center mt-2">
+                            <div className="flex items-center gap-3">
+                                <span className="text-sm text-muted-foreground">Qty:</span>
+                                <Button 
+                                    variant="outline" 
+                                    size="icon" 
+                                    className="h-8 w-8 bg-white text-black hover:bg-gray-300 transition-colors border-gray-300" 
+                                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                    disabled={item.quantity <= 1}
+                                >
+                                    <Minus className="h-4 w-4" />
+                                </Button>
+                                <span className="w-4 text-center">{item.quantity}</span>
+                                <Button 
+                                    variant="outline" 
+                                    size="icon" 
+                                    className="h-8 w-8 bg-white text-black hover:bg-gray-300 transition-colors border-gray-300" 
+                                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                    disabled={item.quantity >= item.product.stock_quantity}
+                                >
+                                    <Plus className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-between items-center mt-2 pt-2 border-t">
+                            <span className="font-bold">Total: {(item.product.price * item.quantity).toFixed(0)} kr</span>
                             <Button 
-                                variant="outline" 
-                                size="icon" 
-                                className="h-8 w-8" 
-                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                disabled={item.quantity >= item.product.stock_quantity}
+                                variant="destructive" 
+                                size="sm" 
+                                onClick={() => removeFromCart(item.id)}
                             >
-                                <Plus className="h-4 w-4" />
+                                <Trash2 className="h-4 w-4 mr-2" /> Remove
                             </Button>
                         </div>
-                    </TableCell>
-                    <TableCell className="text-right">${(item.product.price * item.quantity).toFixed(2)}</TableCell>
-                    <TableCell className="text-right">
-                        <Button 
-                            variant="destructive" 
-                            size="sm" 
-                            onClick={() => removeFromCart(item.id)}
-                        >
-                            <Trash2 className="h-4 w-4 mr-2" /> Remove
-                        </Button>
-                    </TableCell>
-                </TableRow>
+                    </div>
                 ))}
-            </TableBody>
-            </Table>
+            </div>
         </CardContent>
         <CardFooter className="flex flex-col sm:flex-row justify-between items-center bg-muted/50 p-6 rounded-b-lg">
             <div className="text-2xl font-bold mb-4 sm:mb-0">
-                Total: ${calculateTotal()}
+                Total: {calculateTotal()} kr
             </div>
             <Button size="lg" asChild>
                 <Link to="/checkout">Proceed to Checkout</Link>

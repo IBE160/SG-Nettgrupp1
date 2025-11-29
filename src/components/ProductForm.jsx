@@ -54,8 +54,8 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
     padding: '0.5rem 0.75rem',
     border: '1px solid hsl(var(--border))',
     borderRadius: 'var(--radius)',
-    backgroundColor: 'hsl(var(--background))',
-    color: 'hsl(var(--foreground))',
+    backgroundColor: 'white',
+    color: 'black',
     boxSizing: 'border-box',
     fontFamily: 'inherit', // Ensure textarea uses the same font as other inputs
     fontSize: 'inherit',

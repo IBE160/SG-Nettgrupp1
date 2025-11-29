@@ -191,7 +191,7 @@ function AdminProductManagementPage() {
                     {product.description}
                   </p>
                   <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-                    <span><span className="font-semibold">Price:</span> ${product.price}</span>
+                    <span><span className="font-semibold">Price:</span> {product.price} kr</span>
                     <span><span className="font-semibold">Stock:</span> {product.stock_quantity}</span>
                     <span>
                         <span className="font-semibold">Status:</span> 
@@ -202,13 +202,12 @@ function AdminProductManagementPage() {
                   </div>
                 </div>
                 <div className="flex flex-row sm:flex-col gap-2 w-full sm:w-auto">
-                  <Button variant={product.is_archived ? "secondary" : "outline"} size="sm" onClick={() => handleEditClick(product)}>Edit</Button>
+                  <Button size="sm" onClick={() => handleEditClick(product)} className="bg-black text-white hover:bg-gray-800">Edit</Button>
                   <Button variant="destructive" size="sm" onClick={() => handleDelete(product.id)}>Delete</Button>
                   <Button 
-                    variant={product.is_archived ? "secondary" : "outline"} 
                     size="sm" 
                     onClick={() => handleArchiveToggle(product.id, product.is_archived)}
-                    className={product.is_archived ? "hover:bg-slate-700" : ""}
+                    className="bg-black text-white hover:bg-gray-800"
                   >
                     {product.is_archived ? 'Unarchive' : 'Archive'}
                   </Button>

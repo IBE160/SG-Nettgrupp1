@@ -77,6 +77,7 @@ function CheckoutPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={isSubmitting}
+                className="bg-white text-black"
               />
             </div>
             <div className="space-y-2">
@@ -88,6 +89,7 @@ function CheckoutPage() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 disabled={isSubmitting}
+                className="bg-white text-black"
               />
             </div>
             

@@ -12,7 +12,7 @@ const ProtectedRoute = () => {
 
   // If there is no session, redirect the user to the login page.
   if (!session) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   // If there is a session, render the child routes.
