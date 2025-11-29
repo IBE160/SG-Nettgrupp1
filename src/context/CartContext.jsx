@@ -10,6 +10,12 @@ export const CartProvider = ({ children }) => {
   const [cartId, setCartId] = useState(null);
   const [cartItems, setCartItems] = useState([]);
 
+  const clearCart = () => {
+    localStorage.removeItem('cartId');
+    setCartId(null);
+    setCartItems([]);
+  };
+
   const fetchCartItems = async (id) => {
     try {
       const response = await fetch(`/api/cart/${id}`);
@@ -20,7 +26,7 @@ export const CartProvider = ({ children }) => {
       setCartItems(data.items || []); // Assuming the API returns { id: ..., items: [...] }
     } catch (error) {
       console.error('[CartContext] Error in fetchCartItems:', error);
-      setCartItems([]); // Clear items on error
+      clearCart(); // If cart fetch fails (e.g., invalid ID), clear the cart
     }
   };
 
@@ -44,8 +50,7 @@ export const CartProvider = ({ children }) => {
       const data = await response.json();
       setCartId(data.id);
       localStorage.setItem('cartId', data.id);
-      // After creating a cart, immediately fetch its items (which should be empty initially)
-      fetchCartItems(data.id);
+      setCartItems([]); // New cart is always empty
       return data.id;
     } catch (error) {
       console.error('[CartContext] Error in createCart:', error);
@@ -56,6 +61,10 @@ export const CartProvider = ({ children }) => {
     let currentCartId = cartId;
     if (!currentCartId) {
       currentCartId = await createCart();
+      if (!currentCartId) {
+        console.error("Failed to create cart, cannot add item.");
+        return; 
+      }
     }
 
     try {
@@ -72,7 +81,6 @@ export const CartProvider = ({ children }) => {
         throw new Error(errorData.message || 'Failed to add item to cart');
       }
       
-      // After successfully adding an item, re-fetch the entire cart to ensure state is synchronized
       await fetchCartItems(currentCartId);
       
     } catch (error) {
@@ -82,6 +90,11 @@ export const CartProvider = ({ children }) => {
 
   const updateQuantity = async (itemId, quantity) => {
     if (!cartId) return;
+    
+    if (quantity <= 0) {
+      removeFromCart(itemId);
+      return;
+    }
 
     try {
       const response = await fetch(`/api/cart/${cartId}/items/${itemId}`, {
@@ -122,12 +135,6 @@ export const CartProvider = ({ children }) => {
     } catch (error) {
       console.error('Error removing cart item:', error);
     }
-  };
-
-  const clearCart = () => {
-    localStorage.removeItem('cartId');
-    setCartId(null);
-    setCartItems([]);
   };
 
   const value = {

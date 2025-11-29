@@ -26,20 +26,20 @@ function ProductCatalog() {
   }, []);
 
   if (loading) {
-    return <div className="container mx-auto text-center py-20">Loading products...</div>;
+    return <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1rem', textAlign: 'center' }}>Loading products...</div>;
   }
 
   if (error) {
-    return <div className="container mx-auto text-center py-20">Error: {error.message}</div>;
+    return <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1rem', textAlign: 'center' }}>Error: {error.message}</div>;
   }
 
   return (
-    <div className="container mx-auto py-16">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold">Product Catalog</h1>
-        <p className="text-lg text-muted-foreground mt-2">Browse our hand-picked selection of premium cigars.</p>
+    <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1rem' }}>
+      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+        <h1 style={{ fontSize: '2.25rem', fontWeight: 'bold' }}>Product Catalog</h1>
+        <p style={{ fontSize: '1.125rem', color: 'hsl(var(--muted-foreground))', marginTop: '0.5rem' }}>Browse our hand-picked selection of premium cigars.</p>
       </div>
-      <div className="flex flex-wrap justify-center">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
         {products.map(product => (
           <ProductCard key={product.id} product={product} />
         ))}

@@ -8,14 +8,28 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 function CartPage() {
   const { cartItems, updateQuantity, removeFromCart } = useCart();
 
+  const buttonStyle = {
+    display: 'inline-block',
+    backgroundColor: 'hsl(var(--primary))',
+    color: 'hsl(var(--primary-foreground))',
+    padding: '0.75rem 1.5rem',
+    borderRadius: 'var(--radius)',
+    textDecoration: 'none',
+    fontWeight: '500',
+  };
+
+  const pageContainerStyle = {
+    maxWidth: '1280px', 
+    margin: '0 auto', 
+    padding: '2rem 1rem'
+  };
+
   if (!cartItems || cartItems.length === 0) {
     return (
-      <div className="container mx-auto text-center" style={{ maxWidth: '1000px', paddingTop: '20px' }}>
-        <h2 className="text-3xl font-bold mb-4">Shopping Cart</h2>
-        <p className="mb-6">Your cart is empty.</p>
-        <Button asChild>
-          <Link to="/products">Continue Shopping</Link>
-        </Button>
+      <div style={{...pageContainerStyle, textAlign: 'center' }}>
+        <h2 style={{ fontSize: '1.875rem', fontWeight: 'bold', marginBottom: '1rem' }}>Shopping Cart</h2>
+        <p style={{ marginBottom: '1.5rem' }}>Your cart is empty.</p>
+        <Link to="/products" style={buttonStyle}>Continue Shopping</Link>
       </div>
     );
   }
@@ -25,53 +39,51 @@ function CartPage() {
   };
 
   return (
-    <div className="container mx-auto" style={{ maxWidth: '1000px', paddingTop: '20px' }}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Shopping Cart</CardTitle>
-          <CardDescription>Review and manage the items in your cart.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Product</TableHead>
-                <TableHead>Price</TableHead>
-                <TableHead className="text-center">Quantity</TableHead>
-                <TableHead className="text-right">Total</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+    <div style={pageContainerStyle}>
+      <div style={{ border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)', overflow: 'hidden' }}>
+        <div style={{ padding: '1.5rem' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: '600' }}>Shopping Cart</h2>
+          <p style={{ color: 'hsl(var(--muted-foreground))' }}>Review and manage the items in your cart.</p>
+        </div>
+        <div style={{ padding: '1.5rem', paddingTop: 0 }}>
+          <table style={{ width: '100%' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid hsl(var(--border))' }}>
+                <th style={{ textAlign: 'left', padding: '0.75rem' }}>Product</th>
+                <th style={{ textAlign: 'left', padding: '0.75rem' }}>Price</th>
+                <th style={{ textAlign: 'center', padding: '0.75rem' }}>Quantity</th>
+                <th style={{ textAlign: 'right', padding: '0.75rem' }}>Total</th>
+                <th style={{ textAlign: 'right', padding: '0.75rem' }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
               {cartItems.map(item => (
-                <TableRow key={item.id}>
-                  <TableCell>{item.product.name}</TableCell>
-                  <TableCell>${item.product.price}</TableCell>
-                  <TableCell className="text-center">
-                    <div className="flex items-center justify-center gap-2">
-                      <Button variant="outline" size="sm" onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</Button>
+                <tr key={item.id} style={{ borderBottom: '1px solid hsl(var(--border))' }}>
+                  <td style={{ padding: '0.75rem' }}>{item.product.name}</td>
+                  <td style={{ padding: '0.75rem' }}>${item.product.price}</td>
+                  <td style={{ textAlign: 'center', padding: '0.75rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
+                      <button style={{ padding: '0.25rem 0.5rem' }} onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
                       <span>{item.quantity}</span>
-                      <Button variant="outline" size="sm" onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</Button>
+                      <button style={{ padding: '0.25rem 0.5rem' }} onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
                     </div>
-                  </TableCell>
-                  <TableCell className="text-right">${(item.product.price * item.quantity).toFixed(2)}</TableCell>
-                  <TableCell className="text-right">
-                    <Button variant="destructive" size="sm" onClick={() => removeFromCart(item.id)}>Remove</Button>
-                  </TableCell>
-                </TableRow>
+                  </td>
+                  <td style={{ textAlign: 'right', padding: '0.75rem' }}>${(item.product.price * item.quantity).toFixed(2)}</td>
+                  <td style={{ textAlign: 'right', padding: '0.75rem' }}>
+                    <button style={{ padding: '0.25rem 0.5rem', color: 'hsl(var(--destructive))' }} onClick={() => removeFromCart(item.id)}>Remove</button>
+                  </td>
+                </tr>
               ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-        <CardFooter className="flex justify-between items-center">
-          <div className="text-2xl font-bold">
+            </tbody>
+          </table>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem', backgroundColor: 'hsl(var(--muted))' }}>
+          <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
             Total: ${calculateTotal()}
           </div>
-          <Button asChild size="lg">
-            <Link to="/checkout">Proceed to Checkout</Link>
-          </Button>
-        </CardFooter>
-      </Card>
+          <Link to="/checkout" style={{...buttonStyle, fontSize: '1.125rem' }}>Proceed to Checkout</Link>
+        </div>
+      </div>
     </div>
   );
 }

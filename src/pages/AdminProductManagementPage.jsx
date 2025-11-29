@@ -6,7 +6,7 @@ function AdminProductManagementPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showArchived, setShowArchived] = useState(true); // Default to showing archived
+  const [showArchived, setShowArchived] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [formLoading, setFormLoading] = useState(false);
@@ -16,14 +16,9 @@ function AdminProductManagementPage() {
     setLoading(true);
     try {
       const token = session?.access_token;
-      if (!token) {
-        throw new Error('No authentication token found');
-      }
-
+      if (!token) throw new Error('No authentication token found');
       const response = await fetch(`/api/admin/products?includeArchived=${showArchived}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+        headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!response.ok) {
         const errorData = await response.json();
@@ -35,7 +30,7 @@ function AdminProductManagementPage() {
       console.error('Failed to fetch products:', error);
       setError(error);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -51,17 +46,13 @@ function AdminProductManagementPage() {
         const token = session?.access_token;
         const response = await fetch(`/api/products/${productId}`, {
           method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+          headers: { 'Authorization': `Bearer ${token}` }
         });
-
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Failed to delete product');
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to delete product');
         }
-        
-        fetchProducts(); // Re-fetch products to update the list
+        fetchProducts();
       } catch (error) {
         console.error('Error deleting product:', error);
         setError(error);
@@ -76,15 +67,11 @@ function AdminProductManagementPage() {
         const token = session?.access_token;
         const response = await fetch(`/api/products/${productId}`, {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify({ is_archived: !currentIsArchived })
         });
-
         if (!response.ok) throw new Error('Network response was not ok');
-        fetchProducts(); // Re-fetch products to update the list
+        fetchProducts();
       } catch (error) {
         console.error('Error toggling archive status:', error);
         setError(error);
@@ -112,36 +99,40 @@ function AdminProductManagementPage() {
     const isEditing = !!editingProduct;
     const url = isEditing ? `/api/products/${editingProduct.id}` : '/api/products';
     const method = isEditing ? 'PUT' : 'POST';
-
     const payload = { ...productData };
     if (isEditing) {
       payload.is_archived = editingProduct.is_archived;
     }
-
     try {
-        const token = session?.access_token;
-        const response = await fetch(url, {
-            method: method,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || `Failed to ${isEditing ? 'update' : 'create'} product`);
-        }
-
-        handleDialogClose();
-        fetchProducts();
+      const token = session?.access_token;
+      const response = await fetch(url, {
+        method: method,
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `Failed to ${isEditing ? 'update' : 'create'} product`);
+      }
+      handleDialogClose();
+      fetchProducts();
     } catch (err) {
-        console.error(`Failed to ${isEditing ? 'update' : 'create'} product:`, err);
-        setError(err);
+      console.error(`Failed to ${isEditing ? 'update' : 'create'} product:`, err);
+      setError(err);
     } finally {
-        setFormLoading(false);
+      setFormLoading(false);
     }
+  };
+
+  const actionButtonStyle = {
+    minWidth: '80px',
+    textAlign: 'center',
+    padding: '0.5rem 1rem',
+    borderRadius: 'var(--radius)',
+    border: '1px solid hsl(var(--border))',
+    cursor: 'pointer',
+    backgroundColor: 'hsl(var(--background))',
+    color: 'hsl(var(--foreground))'
   };
 
   if (loading) {
@@ -154,11 +145,13 @@ function AdminProductManagementPage() {
 
   return (
     <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1rem' }}>
-      <h2>Product Management</h2>
+      <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>Product Management</h2>
       
       {isDialogOpen && (
-        <div className="mb-8 p-4 border rounded-lg">
-          <h3 className="text-lg font-semibold mb-4">{editingProduct ? 'Edit Product' : 'Add New Product'}</h3>
+        <div style={{ marginBottom: '2rem', padding: '1.5rem', border: '1px solid hsl(var(--border))', borderRadius: 'var(--radius)' }}>
+          <h3 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem' }}>
+            {editingProduct ? 'Edit Product' : 'Add New Product'}
+          </h3>
           <ProductForm 
             product={editingProduct} 
             onSubmit={handleFormSubmit} 
@@ -168,49 +161,62 @@ function AdminProductManagementPage() {
         </div>
       )}
 
-      <div>
+      <div style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <label>
           <input
             type="checkbox"
             checked={showArchived}
             onChange={() => setShowArchived(!showArchived)}
+            style={{ marginRight: '0.5rem' }}
           />
           Show Archived Products
         </label>
         {!isDialogOpen && (
-          <button onClick={handleAddClick} style={{ float: 'right' }}>Add New Product</button>
+          <button onClick={handleAddClick}>Add New Product</button>
         )}
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Stock</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(product => (
-            <tr key={product.id}>
-              <td>{product.name}</td>
-              <td>{product.description}</td>
-              <td>{product.price}</td>
-              <td>{product.stock_quantity}</td>
-              <td>{product.is_archived ? 'Archived' : 'Active'}</td>
-              <td>
-                <button onClick={() => handleEditClick(product)}>Edit</button>
-                <button onClick={() => handleDelete(product.id)}>Delete</button>
-                <button onClick={() => handleArchiveToggle(product.id, product.is_archived)}>
+      
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '2rem' }}>
+        {products.map(product => {
+          const cardStyle = {
+            border: '1px solid hsl(var(--border))',
+            borderRadius: 'var(--radius)',
+            padding: '1rem',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: '1rem'
+          };
+
+          if (product.is_archived) {
+            cardStyle.backgroundColor = 'hsl(var(--muted))';
+            cardStyle.color = 'hsl(var(--muted-foreground))';
+          }
+
+          return (
+            <div key={product.id} style={cardStyle}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <h3 style={{ fontSize: '1.125rem', fontWeight: '600' }}>{product.name}</h3>
+                <p style={{ fontSize: '0.875rem', color: 'hsl(var(--muted-foreground))', marginTop: '0.25rem' }}>
+                  {product.description}
+                </p>
+                <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.5rem', fontSize: '0.875rem' }}>
+                  <span><strong>Price:</strong> ${product.price}</span>
+                  <span><strong>Stock:</strong> {product.stock_quantity}</span>
+                  <span><strong>Status:</strong> {product.is_archived ? 'Archived' : 'Active'}</span>
+                </div>
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <button onClick={() => handleEditClick(product)} style={actionButtonStyle}>Edit</button>
+                <button onClick={() => handleDelete(product.id)} style={{...actionButtonStyle, color: 'hsl(var(--destructive))' }}>Delete</button>
+                <button onClick={() => handleArchiveToggle(product.id, product.is_archived)} style={actionButtonStyle}>
                   {product.is_archived ? 'Unarchive' : 'Archive'}
                 </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

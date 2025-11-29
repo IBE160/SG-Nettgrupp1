@@ -1,7 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 
 export default function ProductForm({ product, onSubmit, onCancel, loading }) {
   const [name, setName] = useState('');
@@ -40,22 +37,56 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
       land_of_origin: landOfOrigin,
       vitola: vitola,
     };
-    // If it's an edit, we pass the id
     if (product) {
         productData.id = product.id;
     }
     onSubmit(productData);
   };
 
+  const labelStyle = {
+    display: 'block',
+    marginBottom: '0.5rem',
+    fontWeight: '500',
+  };
+
+  const inputStyle = {
+    width: '100%',
+    padding: '0.5rem 0.75rem',
+    border: '1px solid hsl(var(--border))',
+    borderRadius: 'var(--radius)',
+    backgroundColor: 'hsl(var(--background))',
+    color: 'hsl(var(--foreground))',
+    boxSizing: 'border-box',
+    fontFamily: 'inherit', // Ensure textarea uses the same font as other inputs
+    fontSize: 'inherit',
+  };
+
+  const buttonStyle = {
+    backgroundColor: 'hsl(var(--primary))',
+    color: 'hsl(var(--primary-foreground))',
+    padding: '0.5rem 1rem',
+    borderRadius: 'var(--radius)',
+    border: 'none',
+    cursor: 'pointer',
+  };
+
+  const outlineButtonStyle = {
+    ...buttonStyle,
+    backgroundColor: 'transparent',
+    color: 'hsl(var(--primary))',
+    border: '1px solid hsl(var(--primary))',
+  };
+
   return (
     <form onSubmit={handleSubmit} style={{ maxWidth: '448px', margin: '0 auto' }}>
-      <div className="py-4">
+      <div style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
         <div style={{ marginBottom: '1rem' }}>
-          <Label htmlFor="name">
+          <label htmlFor="name" style={labelStyle}>
             Name
-          </Label>
-          <Input 
+          </label>
+          <input 
             id="name" 
+            style={inputStyle}
             value={name} 
             onChange={(e) => setName(e.target.value)} 
             required 
@@ -63,24 +94,27 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
         </div>
         
         <div style={{ marginBottom: '1rem' }}>
-          <Label htmlFor="description">
+          <label htmlFor="description" style={labelStyle}>
             Description
-          </Label>
-          <Input 
+          </label>
+          <textarea 
             id="description" 
+            style={inputStyle}
+            rows="4"
             value={description} 
             onChange={(e) => setDescription(e.target.value)} 
           />
         </div>
         
         <div style={{ marginBottom: '1rem' }}>
-          <Label htmlFor="price">
+          <label htmlFor="price" style={labelStyle}>
             Price
-          </Label>
-          <Input
+          </label>
+          <input
             id="price"
             type="number"
             step="0.01"
+            style={inputStyle}
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
@@ -88,12 +122,13 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
         </div>
         
         <div style={{ marginBottom: '1rem' }}>
-          <Label htmlFor="stock">
+          <label htmlFor="stock" style={labelStyle}>
             Stock
-          </Label>
-          <Input
+          </label>
+          <input
             id="stock"
             type="number"
+            style={inputStyle}
             value={stockQuantity}
             onChange={(e) => setStockQuantity(e.target.value)}
             required
@@ -101,32 +136,34 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
         </div>
         
         <div style={{ marginBottom: '1rem' }}>
-          <Label htmlFor="land_of_origin">
+          <label htmlFor="land_of_origin" style={labelStyle}>
             Origin
-          </Label>
-          <Input
+          </label>
+          <input
             id="land_of_origin"
+            style={inputStyle}
             value={landOfOrigin}
             onChange={(e) => setLandOfOrigin(e.target.value)}
           />
         </div>
         
         <div style={{ marginBottom: '1rem' }}>
-          <Label htmlFor="vitola">
+          <label htmlFor="vitola" style={labelStyle}>
             Vitola
-          </Label>
-          <Input
+          </label>
+          <input
             id="vitola"
+            style={inputStyle}
             value={vitola}
             onChange={(e) => setVitola(e.target.value)}
           />
         </div>
       </div>
-      <div className="flex justify-end space-x-2">
-        <Button type="button" variant="outline" onClick={onCancel}>Cancel</Button>
-        <Button type="submit" disabled={loading}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+        <button type="button" style={outlineButtonStyle} onClick={onCancel}>Cancel</button>
+        <button type="submit" style={{...buttonStyle, opacity: loading ? 0.7 : 1}} disabled={loading}>
           {loading ? 'Saving...' : 'Save'}
-        </Button>
+        </button>
       </div>
     </form>
   );

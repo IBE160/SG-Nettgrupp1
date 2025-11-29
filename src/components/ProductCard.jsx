@@ -14,41 +14,61 @@ export default function ProductCard({ product }) {
     addToCart(product.id, quantity);
   };
 
+  const cardStyle = {
+    border: '1px solid hsl(var(--border))',
+    borderRadius: 'var(--radius)',
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
+  };
+
+  const imagePlaceholderStyle = {
+    backgroundColor: 'hsl(var(--muted))',
+    height: '16rem',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'hsl(var(--muted-foreground))',
+    fontStyle: 'italic',
+  };
+
+  const imageStyle = {
+    height: '100%',
+    width: '100%',
+    objectFit: 'cover',
+  };
+
   return (
-    <Card 
-      className="relative flex flex-col overflow-hidden rounded-lg shadow-lg transition-shadow duration-300 hover:shadow-xl"
-      style={{ flex: '0 1 400px', margin: '20px', textAlign: 'center' }}
-    >
-      <Link to={`/products/${product.id}`} className="flex-grow flex flex-col">
-        <div className="relative">
-          {/* Image Placeholder */}
-          <div className="bg-muted h-64 w-full flex items-center justify-center">
-            <span className="text-muted-foreground italic">
+    <div style={cardStyle}>
+      <Link to={`/products/${product.id}`} style={{ display: 'flex', flexDirection: 'column', flexGrow: 1, textDecoration: 'none', color: 'inherit' }}>
+        <div style={{ position: 'relative' }}>
+          <div style={imagePlaceholderStyle}>
+            <span>
               {product.image_url ? 
-                <img src={product.image_url} alt={product.name} className="h-full w-full object-cover" /> : 
+                <img src={product.image_url} alt={product.name} style={imageStyle} /> : 
                 'Product Image'
               }
             </span>
           </div>
         </div>
-        <CardContent className="p-4 flex-grow">
-          <CardTitle className="text-lg font-semibold">{product.name}</CardTitle>
-          <p className="mt-2 font-bold text-primary text-xl">${product.price}</p>
-        </CardContent>
+        <div style={{ padding: '1rem', flexGrow: 1 }}>
+          <h3 style={{ fontSize: '1.125rem', fontWeight: '600' }}>{product.name}</h3>
+          <p style={{ marginTop: '0.5rem', fontWeight: 'bold', color: 'hsl(var(--primary))', fontSize: '1.25rem' }}>${product.price}</p>
+        </div>
       </Link>
-      <CardFooter className="p-4 pt-0 flex flex-col items-center gap-4">
-          <p className="text-sm text-muted-foreground">
+      <div style={{ padding: '1rem', paddingTop: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+          <p style={{ fontSize: '0.875rem', color: 'hsl(var(--muted-foreground))' }}>
             {product.stock_quantity > 0 ? `${product.stock_quantity} in stock` : 'Out of Stock'}
           </p>
-          <Button 
+          <button 
             onClick={handleAddToCart} 
             disabled={product.stock_quantity === 0}
-            style={{ width: '50%' }}
+            style={{ width: '80%', padding: '0.5rem 1rem', borderRadius: 'var(--radius)', opacity: product.stock_quantity === 0 ? 0.5 : 1 }}
           >
-            <ShoppingCart className="mr-2 h-4 w-4" />
             Add to Cart
-          </Button>
-      </CardFooter>
-    </Card>
+          </button>
+      </div>
+    </div>
   );
 }

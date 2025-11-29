@@ -8,6 +8,18 @@ export default function LandingPage() {
   const mapQuery = "Alta Sigar & Grill,Svaneveien 32,9512 Alta";
   const mapSrc = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${encodeURIComponent(mapQuery)}`;
 
+  const buttonStyle = {
+    display: 'inline-block',
+    backgroundColor: 'hsl(var(--primary))',
+    color: 'hsl(var(--primary-foreground))',
+    padding: '1rem 2rem',
+    borderRadius: 'var(--radius)',
+    textDecoration: 'none',
+    fontSize: '1.125rem',
+    fontWeight: 'bold',
+    marginTop: '2rem'
+  };
+
   return (
     <div className="bg-background text-foreground">
       {/* Hero Section */}
@@ -17,9 +29,7 @@ export default function LandingPage() {
           <p className="text-lg md:text-xl text-muted-foreground mt-4 max-w-3xl mx-auto">
             Experience the art of fine cigars. Explore our curated collection and discover your next favorite.
           </p>
-          <Button asChild size="lg" className="mt-8">
-            <Link to="/products">Products</Link>
-          </Button>
+          <Link to="/products" style={buttonStyle}>Explore Products</Link>
         </div>
       </section>
 

@@ -92,7 +92,7 @@ export const getAllOrders = async (req, res) => {
 export const getOrderById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { data, error } = await supabase // USE GLOBAL SUPABASE CLIENT
+    const { data, error } = await req.supabase // USE REQ.SUPABASE
       .from('orders')
       .select(`
         *,
