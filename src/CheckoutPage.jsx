@@ -58,13 +58,13 @@ function CheckoutPage() {
   };
 
   return (
-    <div className="container mx-auto py-10 flex justify-center">
-      <Card className="w-full max-w-lg">
+    <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1rem', display: 'flex', justifyContent: 'center' }}>
+      <Card style={{ width: '100%', maxWidth: '448px' }}>
         <CardHeader>
           <CardTitle>Checkout</CardTitle>
           <CardDescription>Enter your details to place your click-and-collect order.</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent style={{ padding: '2rem' }}>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email">Email <span className="text-red-500">*</span></Label>

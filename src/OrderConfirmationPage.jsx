@@ -7,13 +7,13 @@ function OrderConfirmationPage() {
   const { orderRef } = useParams();
 
   return (
-    <div className="container mx-auto py-10 flex justify-center">
-      <Card className="w-full max-w-lg text-center">
+    <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1rem', display: 'flex', justifyContent: 'center' }}>
+      <Card style={{ width: '100%', maxWidth: '448px', textAlign: 'center' }}>
         <CardHeader>
           <CardTitle className="text-3xl">Thank You For Your Order!</CardTitle>
           <CardDescription>Your order has been placed successfully.</CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent style={{ padding: '2rem' }} className="space-y-4">
           <p>Your order reference number is:</p>
           <p className="text-2xl font-bold bg-secondary text-secondary-foreground rounded-md p-4">{orderRef}</p>
           <p className="text-muted-foreground">You will receive an email confirmation shortly (this feature is pending). Please keep this reference number for your records.</p>

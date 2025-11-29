@@ -70,7 +70,7 @@ function AdminOrderManagementPage() {
   }
 
   return (
-    <div className="container mx-auto py-10">
+    <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1rem' }}>
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-3xl font-bold">Order Management</h2>
         <Button onClick={() => setShowArchived(!showArchived)} variant="outline">

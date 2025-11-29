@@ -68,7 +68,7 @@ export default function AdminOrderDetailPage() {
   if (!order) return <p>Order not found.</p>;
 
   return (
-    <div className="container mx-auto py-10">
+    <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '2rem 1rem' }}>
       <h1 className="text-3xl font-bold mb-6">Order Details</h1>
       <div className="space-y-4">
         <p><strong>Order ID:</strong> {order.id}</p>
