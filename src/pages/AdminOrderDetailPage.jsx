@@ -12,6 +12,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+const statusTranslations = {
+  pending: "Mottatt",
+  Pending: "Mottatt",
+  Prepared: "Klargjort",
+  Completed: "Fullført",
+  Cancelled: "Kansellert",
+};
+
 const getAuthHeader = (session) => ({
   'Content-Type': 'application/json',
   'Authorization': `Bearer ${session.access_token}`,
@@ -21,7 +29,7 @@ const fetchOrder = async (orderId, session) => {
   const response = await fetch(`/api/orders/${orderId}`, {
     headers: getAuthHeader(session),
   });
-  if (!response.ok) throw new Error('Failed to fetch order');
+  if (!response.ok) throw new Error('Klarte ikke å hente bestilling');
   return await response.json();
 };
 
@@ -38,13 +46,13 @@ const updateOrderStatus = async (orderId, status, session) => {
   try {
     data = await response.json();
   } catch (e) {
-    console.error('Failed to parse JSON response');
-    throw new Error(`Server Error: ${response.status} ${response.statusText}`);
+    console.error('Klarte ikke å tolke JSON-respons');
+    throw new Error(`Serverfeil: ${response.status} ${response.statusText}`);
   }
 
   if (!response.ok) {
-    console.error('Update failed data:', data);
-    throw new Error(data.message || `Failed to update order status (${response.status})`);
+    console.error('Oppdatering mislyktes data:', data);
+    throw new Error(data.message || `Klarte ikke å oppdatere bestillingsstatus (${response.status})`);
   }
   return data;
 };
@@ -82,48 +90,48 @@ export default function AdminOrderDetailPage() {
       await updateOrderStatus(orderId, status, session);
       navigate('/admin/orders');
     } catch (err) {
-      console.error('Update failed:', err);
+      console.error('Oppdatering mislyktes:', err);
       setError(err.message);
     }
   };
 
-  if (loading) return <div className="container mx-auto py-10 text-center">Loading order details...</div>;
-  if (error) return <div className="container mx-auto py-10 text-center text-destructive">Error: {error}</div>;
-  if (!order) return <div className="container mx-auto py-10 text-center">Order not found.</div>;
+  if (loading) return <div className="container mx-auto py-10 text-center">Laster bestillingsdetaljer...</div>;
+  if (error) return <div className="container mx-auto py-10 text-center text-destructive">Feil: {error}</div>;
+  if (!order) return <div className="container mx-auto py-10 text-center">Bestilling ikke funnet.</div>;
 
   return (
     <div className="container mx-auto py-10 max-w-5xl">
-      <h1 className="text-3xl font-bold tracking-tight mb-6">Order Details</h1>
+      <h1 className="text-3xl font-bold tracking-tight mb-6">Bestillingsdetaljer</h1>
       
       <Card className="mb-8">
         <CardHeader>
-            <CardTitle>Order Information</CardTitle>
+            <CardTitle>Bestillingsinformasjon</CardTitle>
         </CardHeader>
         <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <p className="text-sm font-medium text-muted-foreground">Order ID</p>
+                    <p className="text-sm font-medium text-muted-foreground">Bestillings-ID</p>
                     <p>{order.id}</p>
                 </div>
                 <div>
-                    <p className="text-sm font-medium text-muted-foreground">Reference Number</p>
+                    <p className="text-sm font-medium text-muted-foreground">Referansenummer</p>
                     <p>{order.reference_number}</p>
                 </div>
                 <div>
-                    <p className="text-sm font-medium text-muted-foreground">Customer Email</p>
+                    <p className="text-sm font-medium text-muted-foreground">Kundens e-post</p>
                     <p>{order.customer_email}</p>
                 </div>
                 <div>
-                    <p className="text-sm font-medium text-muted-foreground">Customer Phone</p>
+                    <p className="text-sm font-medium text-muted-foreground">Kundens telefon</p>
                     <p>{order.customer_phone || 'N/A'}</p>
                 </div>
                 <div>
-                    <p className="text-sm font-medium text-muted-foreground">Total Price</p>
+                    <p className="text-sm font-medium text-muted-foreground">Totalpris</p>
                     <p>{Math.round(order.total_price)} kr</p>
                 </div>
                 <div>
                     <p className="text-sm font-medium text-muted-foreground">Status</p>
-                    <p className={`font-semibold ${order.status === 'Cancelled' ? 'text-destructive' : 'text-primary'}`}>{order.status}</p>
+                    <p className={`font-semibold ${order.status === 'Cancelled' ? 'text-destructive' : 'text-primary'}`}>{statusTranslations[order.status] || order.status}</p>
                 </div>
             </div>
         </CardContent>
@@ -131,16 +139,16 @@ export default function AdminOrderDetailPage() {
 
       <Card>
         <CardHeader>
-            <CardTitle>Order Items</CardTitle>
+            <CardTitle>Bestillingsvarer</CardTitle>
         </CardHeader>
         <CardContent>
             <div className="hidden md:block">
                 <Table>
                 <TableHeader>
                     <TableRow>
-                    <TableHead>Product</TableHead>
-                    <TableHead>Quantity</TableHead>
-                    <TableHead>Unit Price</TableHead>
+                    <TableHead>Produkt</TableHead>
+                    <TableHead>Antall</TableHead>
+                    <TableHead>Enhetspris</TableHead>
                     <TableHead>Subtotal</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -165,8 +173,8 @@ export default function AdminOrderDetailPage() {
                             <span className="font-semibold">{(item.quantity * item.products.price).toFixed(0)} kr</span>
                         </div>
                         <div className="flex justify-between text-sm text-muted-foreground">
-                            <span>Qty: {item.quantity}</span>
-                            <span>{Math.round(item.products.price)} kr / unit</span>
+                            <span>Antall: {item.quantity}</span>
+                            <span>{Math.round(item.products.price)} kr / enhet</span>
                         </div>
                     </div>
                 ))}
@@ -178,20 +186,20 @@ export default function AdminOrderDetailPage() {
         {order.status === 'pending' && (
           <>
             <Button onClick={() => handleUpdateStatus('Prepared')}>
-              Mark as Prepared
+              Merk som klargjort
             </Button>
             <Button variant="destructive" onClick={() => handleUpdateStatus('Cancelled')}>
-              Cancel Order
+              Kanseller bestilling
             </Button>
           </>
         )}
         {order.status === 'Prepared' && (
             <>
                 <Button onClick={() => handleUpdateStatus('Completed')}>
-                    Mark as Completed
+                    Merk som fullført
                 </Button>
                 <Button variant="destructive" onClick={() => handleUpdateStatus('Cancelled')}>
-                    Cancel Order
+                    Kanseller bestilling
                 </Button>
             </>
         )}

@@ -24,7 +24,7 @@ export default function ProductCard({ product }) {
                 className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" 
               />
             ) : (
-              <span className="text-muted-foreground italic">Product Image</span>
+              <span className="text-muted-foreground italic">Produktbilde</span>
             )}
         </div>
         <CardContent className="p-4 flex-grow flex flex-col">
@@ -34,14 +34,14 @@ export default function ProductCard({ product }) {
       </Link>
       <CardFooter className="p-4 pt-0 flex flex-col gap-3">
           <p className={`text-sm ${product.stock_quantity > 0 ? 'text-muted-foreground' : 'text-destructive font-medium'}`}>
-            {product.stock_quantity > 0 ? `${product.stock_quantity} in stock` : 'Out of Stock'}
+            {product.stock_quantity > 0 ? `${product.stock_quantity} på lager` : 'Utsolgt'}
           </p>
           <Button 
             onClick={handleAddToCart} 
             disabled={product.stock_quantity === 0}
             className="w-full"
           >
-            Add to Cart
+            Legg i handlekurv
           </Button>
       </CardFooter>
     </Card>

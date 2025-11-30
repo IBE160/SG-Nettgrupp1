@@ -31,7 +31,7 @@ const LoginPage = () => {
 			}
 			// Navigation is now handled by the useEffect hook
 		} catch (err) {
-			setError(err.message || "Login failed");
+			setError(err.message || "Innlogging mislyktes");
 		}
 	};
 
@@ -39,26 +39,26 @@ const LoginPage = () => {
 		<div className="flex justify-center items-start min-h-[80vh] pt-12 pb-20">
 			<Card className="w-full max-w-md">
 				<CardHeader className="text-center">
-					<CardTitle className="text-2xl">Admin Login</CardTitle>
-					<CardDescription>Enter your credentials to access the dashboard.</CardDescription>
+					<CardTitle className="text-2xl">Admin-innlogging</CardTitle>
+					<CardDescription>Skriv inn dine detaljer for å få tilgang til dashbordet.</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={handleSubmit} className="flex flex-col gap-4">
 						<div className="grid w-full items-center gap-4">
 							<div className="flex flex-col space-y-1.5">
-								<Label htmlFor="email">Email</Label>
+								<Label htmlFor="email">E-post</Label>
 								<Input
 									type="email"
 									id="email"
 									data-testid="email-input"
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
-									placeholder="your@email.com"
+									placeholder="din@epost.com"
 									className="bg-white text-black"
 								/>
 							</div>
 							<div className="flex flex-col space-y-1.5">
-								<Label htmlFor="password">Password</Label>
+								<Label htmlFor="password">Passord</Label>
 								<Input
 									type="password"
 									id="password"
@@ -71,7 +71,7 @@ const LoginPage = () => {
 							{error && <p className="text-sm text-destructive">{error}</p>}
 						</div>
 						<Button type="submit" className="w-full" data-testid="login-button">
-							Login
+							Logg inn
 						</Button>
 					</form>
 				</CardContent>

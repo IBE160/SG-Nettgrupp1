@@ -82,7 +82,7 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
       <div style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
         <div style={{ marginBottom: '1rem' }}>
           <label htmlFor="name" style={labelStyle}>
-            Name
+            Navn
           </label>
           <input 
             id="name" 
@@ -95,7 +95,7 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
         
         <div style={{ marginBottom: '1rem' }}>
           <label htmlFor="description" style={labelStyle}>
-            Description
+            Beskrivelse
           </label>
           <textarea 
             id="description" 
@@ -108,7 +108,7 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
         
         <div style={{ marginBottom: '1rem' }}>
           <label htmlFor="price" style={labelStyle}>
-            Price
+            Pris
           </label>
           <input
             id="price"
@@ -123,7 +123,7 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
         
         <div style={{ marginBottom: '1rem' }}>
           <label htmlFor="stock" style={labelStyle}>
-            Stock
+            Antall på lager
           </label>
           <input
             id="stock"
@@ -137,7 +137,7 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
         
         <div style={{ marginBottom: '1rem' }}>
           <label htmlFor="land_of_origin" style={labelStyle}>
-            Origin
+            Opprinnelse
           </label>
           <input
             id="land_of_origin"
@@ -160,9 +160,9 @@ export default function ProductForm({ product, onSubmit, onCancel, loading }) {
         </div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-        <button type="button" style={outlineButtonStyle} onClick={onCancel}>Cancel</button>
+        <button type="button" style={outlineButtonStyle} onClick={onCancel}>Avbryt</button>
         <button type="submit" style={{...buttonStyle, opacity: loading ? 0.7 : 1}} disabled={loading}>
-          {loading ? 'Saving...' : 'Save'}
+          {loading ? 'Lagrer...' : 'Lagre'}
         </button>
       </div>
     </form>

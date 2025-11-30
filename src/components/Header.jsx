@@ -28,24 +28,24 @@ export default function Header() {
         </div>
         <div className="flex items-center text-lg font-medium mt-4">
           <Link to="/" style={linkStyle} className="hover:text-primary transition-colors">
-            Home
+            Hjem
           </Link>
           <Link to="/products" style={linkStyle} className="hover:text-primary transition-colors">
-            Products
+            Produkter
           </Link>
           <Link to="/cart" style={linkStyle} className="hover:text-primary transition-colors">
-            Cart {totalItems > 0 && <span>({totalItems})</span>}
+            Handlekurv {totalItems > 0 && <span>({totalItems})</span>}
           </Link>
           {session ? (
             <>
               <Link to="/admin/products" style={linkStyle} className="hover:text-primary transition-colors">
-                Admin: Products
+                Admin: Produkter
               </Link>
               <Link to="/admin/orders" style={linkStyle} className="hover:text-primary transition-colors">
-                Admin: Orders
+                Admin: Ordrer
               </Link>
               <button onClick={handleSignOut} style={linkStyle} className="hover:text-primary transition-colors">
-                Logout
+                Logg ut
               </button>
             </>
           ) : (

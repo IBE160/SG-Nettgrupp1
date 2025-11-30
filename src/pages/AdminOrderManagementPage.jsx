@@ -5,6 +5,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ChevronRight } from 'lucide-react';
 
+const statusTranslations = {
+  pending: "Mottatt",
+  Pending: "Mottatt",
+  Prepared: "Klargjort",
+  Completed: "Fullført",
+  Cancelled: "Kansellert",
+};
+
 function AdminOrderManagementPage() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,7 +30,7 @@ function AdminOrderManagementPage() {
       try {
         const token = session.access_token;
         if (!token) {
-          throw new Error('No authentication token found');
+          throw new Error('Ingen autentiseringstoken funnet');
         }
 
         const response = await fetch('/api/orders', {
@@ -33,12 +41,12 @@ function AdminOrderManagementPage() {
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.message || 'Network response was not ok');
+          throw new Error(errorData.message || 'Nettverksrespons var ikke ok');
         }
         const data = await response.json();
         setOrders(data);
       } catch (error) {
-        console.error('Failed to fetch orders:', error);
+        console.error('Klarte ikke å hente bestillinger:', error);
         setError(error);
       } finally {
         setLoading(false);
@@ -56,22 +64,22 @@ function AdminOrderManagementPage() {
   }, [orders, showArchived]);
 
   if (loading) {
-    return <div className="container mx-auto py-10 text-center">Loading orders...</div>;
+    return <div className="container mx-auto py-10 text-center">Laster bestillinger...</div>;
   }
 
   if (error) {
-    return <div className="container mx-auto py-10 text-center text-destructive">Error: {error.message}</div>;
+    return <div className="container mx-auto py-10 text-center text-destructive">Feil: {error.message}</div>;
   }
 
   return (
     <div className="container mx-auto py-10 max-w-5xl">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl font-bold tracking-tight">Order Management</h2>
+        <h2 className="text-3xl font-bold tracking-tight">Ordreadministrasjon</h2>
         <Button 
           className="bg-yellow-400 text-black hover:bg-yellow-500 border-none"
           onClick={() => setShowArchived(!showArchived)}
         >
-          {showArchived ? 'Hide Inactive Orders' : 'Show Inactive Orders'}
+          {showArchived ? 'Skjul inaktive bestillinger' : 'Vis inaktive bestillinger'}
         </Button>
       </div>
       <div className="flex flex-col gap-4">
@@ -95,7 +103,7 @@ function AdminOrderManagementPage() {
                     </p>
                     <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
                         <span>{new Date(order.created_at).toLocaleString()}</span>
-                        <span><strong>Status:</strong> {order.status}</span>
+                        <span><strong>Status:</strong> {statusTranslations[order.status] || order.status}</span>
                     </div>
                     </div>
                     <ChevronRight className="h-6 w-6 shrink-0" />
@@ -105,7 +113,7 @@ function AdminOrderManagementPage() {
           })
         ) : (
           <Card className="p-8 text-center text-muted-foreground border-dashed">
-            <p>{showArchived ? 'No orders found.' : 'No active orders found.'}</p>
+            <p>{showArchived ? 'Ingen bestillinger funnet.' : 'Ingen aktive bestillinger funnet.'}</p>
           </Card>
         )}
       </div>
