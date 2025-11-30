@@ -19,10 +19,10 @@ function OrderConfirmationPage() {
             {orderRef}
           </div>
           <p className="text-muted-foreground mt-4">
-            Du vil snart motta en bekreftelse på e-post (denne funksjonen er under utvikling). Ta vare på dette referansenummeret.
+            Ta vare på dette referansenummeret.
           </p>
           <p className="text-muted-foreground mt-4 mb-6">
-            Vi gir deg beskjed når bestillingen er klar for henting.
+            Du vil motta en bekreftelse på e-post når din bestillingen er klar for henting.
           </p>
           <Button asChild className="w-full">
             <Link to="/products">

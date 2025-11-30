@@ -34,20 +34,22 @@ export const createOrder = async (req, res) => {
 
         // 2. Send email notification to store owner
         try {
+            const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
             await resend.emails.send({
-                from: 'onboarding@resend.dev', // Must be a verified domain in Resend
+                from: fromEmail,
                 to: process.env.STORE_OWNER_EMAIL,
-                subject: `New Order Received: ${order_ref}`,
-                text: `A new order has been placed.\n\nOrder Reference: ${order_ref}\nCustomer Email: ${email}\n\nPlease check the admin dashboard for details.`,
+                subject: `Ny Ordre Mottatt: ${order_ref}`,
+                text: `En ny ordre er mottatt.\n\nOrder Reference: ${order_ref}\nKundens E-post: ${email}\n\nVennligst sjekk Admin dashboard for detaljer.`,
             });
         } catch (emailError) {
-            // If email fails, just log it but don't fail the entire transaction
-            console.error('Failed to send new order notification email:', emailError);
+            // If email fails, log the detailed error but don't fail the entire transaction
+            console.error('Failed to send new order notification email. Full error:', JSON.stringify(emailError, null, 2));
         }
 
         // 3. Return the order reference to the client
         res.status(201).json({ orderReference: order_ref, orderId: order_id });
-
+        
+        console.log(`New order notification sent to storeowner.`);
     } catch (error) {
         console.error('Supabase Error in createOrder:', error);
         res.status(500).json({ message: 'Failed to create order.' });
@@ -167,14 +169,14 @@ export const updateOrder = async (req, res) => {
       return res.status(404).json({ message: `Order with ID ${id} not found.` });
     }
     
-    // Send email notification if status is 'Prepared'
+    // Send email notification to customer if status is 'Prepared'
     if (status === 'Prepared' && data.customer_email) {
       try {
         await resend.emails.send({
           from: 'onboarding@resend.dev',
           to: data.customer_email,
-          subject: `Your order is ready for pickup`,
-          text: `Your order with reference number ${data.reference_number} is now ready for pickup.`,
+          subject: `Din ordre er klar til henting`,
+          text: `Din ordre med referansenummer ${data.reference_number} er nå klar til henting i butikken.`,
         });
         console.log(`Pickup notification sent to ${data.customer_email}`);
       } catch (emailError) {
