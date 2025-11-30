@@ -20,7 +20,7 @@ function ProductDetailPage() {
       try {
         const response = await fetch(`/api/products/${id}`);
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error('Nettverksrespons var ikke ok');
         }
         const data = await response.json();
         setProduct(data);
@@ -41,15 +41,15 @@ function ProductDetailPage() {
   };
 
   if (loading) {
-    return <div className="container mx-auto text-center py-20">Loading product details...</div>;
+    return <div className="container mx-auto text-center py-20">Laster produktdetaljer...</div>;
   }
 
   if (error) {
-    return <div className="container mx-auto text-center py-20">Error: {error.message}</div>;
+    return <div className="container mx-auto text-center py-20">Feil: {error.message}</div>;
   }
 
   if (!product) {
-    return <div className="container mx-auto text-center py-20">Product not found.</div>;
+    return <div className="container mx-auto text-center py-20">Produkt ikke funnet.</div>;
   }
 
   return (
@@ -62,7 +62,7 @@ function ProductDetailPage() {
               <img src={product.image_url} alt={product.name} className="w-full h-auto object-cover rounded-lg" />
             ) : (
               <div className="w-full h-[400px] bg-muted flex items-center justify-center rounded-lg">
-                <span className="text-muted-foreground">No Image Available</span>
+                <span className="text-muted-foreground">Ingen bilde tilgjengelig</span>
               </div>
             )}
           </Card>
@@ -81,7 +81,7 @@ function ProductDetailPage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-sm font-medium">Origin</p>
+              <p className="text-sm font-medium">Opprinnelse</p>
               <p className="text-lg">{product.land_of_origin}</p>
             </div>
             <div>
@@ -96,14 +96,14 @@ function ProductDetailPage() {
             <CardContent className="pt-6">
               <div className="flex flex-col gap-4">
                 <p className="text-sm">
-                  <span className="font-medium">Availability:</span> 
+                  <span className="font-medium">Tilgjengelighet:</span> 
                   <span className={product.stock_quantity > 10 ? 'text-green-600' : (product.stock_quantity > 0 ? 'text-orange-500' : 'text-destructive')}>
-                    {product.stock_quantity > 0 ? ` ${product.stock_quantity} in Stock` : ' Out of Stock'}
-                    {product.stock_quantity > 0 && product.stock_quantity <= 10 && ' (Low Stock)'}
+                    {product.stock_quantity > 0 ? ` ${product.stock_quantity} på lager` : ' Utsolgt'}
+                    {product.stock_quantity > 0 && product.stock_quantity <= 10 && ' (Lite på lager)'}
                   </span>
                 </p>
                 <div className="flex items-center gap-4">
-                  <Label htmlFor="quantity" className="text-sm font-medium">Quantity</Label>
+                  <Label htmlFor="quantity" className="text-sm font-medium">Antall</Label>
                   <Input
                     type="number"
                     id="quantity"
@@ -121,7 +121,7 @@ function ProductDetailPage() {
                     disabled={product.stock_quantity === 0 || quantity > product.stock_quantity || quantity < 1}
                     size="lg"
                 >
-                  Add to Cart
+                  Legg i handlekurv
                 </Button>
               </div>
             </CardContent>

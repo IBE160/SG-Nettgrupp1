@@ -14,12 +14,12 @@ function CartPage() {
       <div className="container mx-auto py-20 text-center max-w-md">
         <Card>
             <CardHeader>
-                <CardTitle className="text-2xl">Shopping Cart</CardTitle>
-                <CardDescription>Your cart is empty.</CardDescription>
+                <CardTitle className="text-2xl">Handlekurv</CardTitle>
+                <CardDescription>Handlekurven din er tom.</CardDescription>
             </CardHeader>
             <CardFooter className="justify-center pb-8">
                 <Button asChild>
-                    <Link to="/products">Continue Shopping</Link>
+                    <Link to="/products">Fortsett å handle</Link>
                 </Button>
             </CardFooter>
         </Card>
@@ -35,8 +35,8 @@ function CartPage() {
     <div className="container mx-auto py-10 max-w-5xl">
       <Card>
         <CardHeader>
-            <CardTitle className="text-2xl">Shopping Cart</CardTitle>
-            <CardDescription>Review and manage the items in your cart.</CardDescription>
+            <CardTitle className="text-2xl">Handlekurv</CardTitle>
+            <CardDescription>Se og administrer varene i handlekurven.</CardDescription>
         </CardHeader>
         <CardContent>
             {/* Desktop View */}
@@ -44,11 +44,11 @@ function CartPage() {
                 <Table>
                 <TableHeader>
                     <TableRow>
-                    <TableHead className="w-[40%]">Product</TableHead>
-                    <TableHead>Price</TableHead>
-                    <TableHead className="text-center">Quantity</TableHead>
-                    <TableHead className="text-right">Total</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    <TableHead className="w-[40%]">Produkt</TableHead>
+                    <TableHead>Pris</TableHead>
+                    <TableHead className="text-center">Antall</TableHead>
+                    <TableHead className="text-right">Sum</TableHead>
+                    <TableHead className="text-right">Handlinger</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -86,7 +86,7 @@ function CartPage() {
                                 size="sm" 
                                 onClick={() => removeFromCart(item.id)}
                             >
-                                <Trash2 className="h-4 w-4 mr-2" /> Remove
+                                <Trash2 className="h-4 w-4 mr-2" /> Fjern
                             </Button>
                         </TableCell>
                     </TableRow>
@@ -106,7 +106,7 @@ function CartPage() {
                         
                         <div className="flex justify-between items-center mt-2">
                             <div className="flex items-center gap-3">
-                                <span className="text-sm text-muted-foreground">Qty:</span>
+                                <span className="text-sm text-muted-foreground">Antall:</span>
                                 <Button 
                                     variant="outline" 
                                     size="icon" 
@@ -130,13 +130,13 @@ function CartPage() {
                         </div>
 
                         <div className="flex justify-between items-center mt-2 pt-2 border-t">
-                            <span className="font-bold">Total: {(item.product.price * item.quantity).toFixed(0)} kr</span>
+                            <span className="font-bold">Sum: {(item.product.price * item.quantity).toFixed(0)} kr</span>
                             <Button 
                                 variant="destructive" 
                                 size="sm" 
                                 onClick={() => removeFromCart(item.id)}
                             >
-                                <Trash2 className="h-4 w-4 mr-2" /> Remove
+                                <Trash2 className="h-4 w-4 mr-2" /> Fjern
                             </Button>
                         </div>
                     </div>
@@ -148,7 +148,7 @@ function CartPage() {
                 Total: {calculateTotal()} kr
             </div>
             <Button size="lg" asChild>
-                <Link to="/checkout">Proceed to Checkout</Link>
+                <Link to="/checkout">Sjekk ut</Link>
             </Button>
         </CardFooter>
       </Card>

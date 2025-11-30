@@ -22,11 +22,11 @@ function CheckoutPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateEmail(email)) {
-      setError('Please enter a valid email address.');
+      setError('Vennligst skriv inn en gyldig e-postadresse.');
       return;
     }
     if (!cartId) {
-        setError('Your cart is empty or could not be found. Please try again.');
+        setError('Handlekurven din er tom eller ble ikke funnet. Vennligst prøv igjen.');
         return;
     }
     
@@ -43,7 +43,7 @@ function CheckoutPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to place order.');
+        throw new Error(data.message || 'Klarte ikke å legge inn bestilling.');
       }
 
       clearCart();
@@ -60,19 +60,19 @@ function CheckoutPage() {
     <div className="max-w-7xl mx-auto px-4 py-8 flex justify-center">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-semibold">Checkout</CardTitle>
-          <CardDescription>Enter your details to place your click-and-collect order.</CardDescription>
+          <CardTitle className="text-2xl font-semibold">Sende bestilling</CardTitle>
+          <CardDescription>Skriv inn dine detaljer for å legge inn din klikk-og-hent-bestilling.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email">
-                Email <span className="text-destructive">*</span>
+                E-post <span className="text-destructive">*</span>
               </Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="your.email@example.com"
+                placeholder="din.epost@eksempel.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -81,11 +81,11 @@ function CheckoutPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone Number (Optional)</Label>
+              <Label htmlFor="phone">Telefonnummer (valgfritt)</Label>
               <Input
                 id="phone"
                 type="tel"
-                placeholder="+1 (555) 555-5555"
+                placeholder="+47 123 45 678"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 disabled={isSubmitting}
@@ -96,12 +96,12 @@ function CheckoutPage() {
             {error && <p className="text-sm text-destructive">{error}</p>}
             
             <div className="text-sm text-muted-foreground space-y-2">
-                <p><strong>Please Note:</strong> Payment will be handled in-store upon pickup.</p>
-                <p>You must be <strong className="font-bold">18 or older</strong> to purchase and pick up tobacco products.</p>
+                <p><strong>Vennligst merk:</strong> Betaling skjer i butikken ved henting.</p>
+                <p>Du må være <strong className="font-bold">18 år eller eldre</strong> for å kjøpe og hente tobakksprodukter.</p>
             </div>
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? 'Placing Order...' : 'Place Click-and-Collect Order'}
+              {isSubmitting ? 'Sender bestilling...' : 'Send bestilling'}
             </Button>
           </form>
         </CardContent>
@@ -111,3 +111,4 @@ function CheckoutPage() {
 }
 
 export default CheckoutPage;
+

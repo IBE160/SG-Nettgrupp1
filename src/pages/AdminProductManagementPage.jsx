@@ -20,18 +20,18 @@ function AdminProductManagementPage() {
     setLoading(true);
     try {
       const token = session?.access_token;
-      if (!token) throw new Error('No authentication token found');
+      if (!token) throw new Error('Ingen autentiseringstoken funnet');
       const response = await fetch(`/api/admin/products?includeArchived=${showArchived}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Network response was not ok');
+        throw new Error(errorData.message || 'Nettverksrespons var ikke ok');
       }
       const { data } = await response.json();
       setProducts(data);
     } catch (error) {
-      console.error('Failed to fetch products:', error);
+      console.error('Klarte ikke å hente produkter:', error);
       setError(error);
     } finally {
       setLoading(false);
@@ -45,7 +45,7 @@ function AdminProductManagementPage() {
   }, [session, showArchived]);
 
   const handleDelete = async (productId) => {
-    if (window.confirm('Are you sure you want to permanently delete this product?')) {
+    if (window.confirm('Er du sikker på at du vil slette dette produktet permanent?')) {
       try {
         const token = session?.access_token;
         const response = await fetch(`/api/products/${productId}`, {
@@ -54,19 +54,19 @@ function AdminProductManagementPage() {
         });
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.message || 'Failed to delete product');
+          throw new Error(errorData.message || 'Klarte ikke å slette produkt');
         }
         fetchProducts();
       } catch (error) {
-        console.error('Error deleting product:', error);
+        console.error('Feil ved sletting av produkt:', error);
         setError(error);
       }
     }
   };
 
   const handleArchiveToggle = async (productId, currentIsArchived) => {
-    const action = currentIsArchived ? 'Unarchive' : 'Archive';
-    if (window.confirm(`Are you sure you want to ${action} this product?`)) {
+    const action = currentIsArchived ? 'gjenopprette' : 'arkivére';
+    if (window.confirm(`Er du sikker på at du vil ${action} dette produktet?`)) {
       try {
         const token = session?.access_token;
         const response = await fetch(`/api/products/${productId}`, {
@@ -74,10 +74,10 @@ function AdminProductManagementPage() {
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           body: JSON.stringify({ is_archived: !currentIsArchived })
         });
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) throw new Error('Nettverksrespons var ikke ok');
         fetchProducts();
       } catch (error) {
-        console.error('Error toggling archive status:', error);
+        console.error('Feil ved endring av arkivstatus:', error);
         setError(error);
       }
     }
@@ -116,12 +116,12 @@ function AdminProductManagementPage() {
       });
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || `Failed to ${isEditing ? 'update' : 'create'} product`);
+        throw new Error(errorData.message || `Klarte ikke å ${isEditing ? 'oppdatere' : 'opprette'} produkt`);
       }
       handleDialogClose();
       fetchProducts();
     } catch (err) {
-      console.error(`Failed to ${isEditing ? 'update' : 'create'} product:`, err);
+      console.error(`Klarte ikke å ${isEditing ? 'oppdatere' : 'opprette'} produkt:`, err);
       setError(err);
     } finally {
       setFormLoading(false);
@@ -129,21 +129,21 @@ function AdminProductManagementPage() {
   };
 
   if (loading) {
-    return <div className="container mx-auto py-10 text-center">Loading products...</div>;
+    return <div className="container mx-auto py-10 text-center">Laster produkter...</div>;
   }
 
   if (error) {
-    return <div className="container mx-auto py-10 text-center text-destructive">Error: {error.message}</div>;
+    return <div className="container mx-auto py-10 text-center text-destructive">Feil: {error.message}</div>;
   }
 
   return (
     <div className="container mx-auto py-10 max-w-5xl">
-      <h2 className="text-3xl font-bold tracking-tight mb-8">Product Management</h2>
+      <h2 className="text-3xl font-bold tracking-tight mb-8">Produktadministrasjon</h2>
       
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>{editingProduct ? 'Edit Product' : 'Add New Product'}</DialogTitle>
+            <DialogTitle>{editingProduct ? 'Rediger produkt' : 'Legg til nytt produkt'}</DialogTitle>
           </DialogHeader>
           <ProductForm 
             product={editingProduct} 
@@ -165,10 +165,10 @@ function AdminProductManagementPage() {
             htmlFor="showArchived"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
-            Show Archived Products
+            Vis arkiverte produkter
           </label>
         </div>
-        <Button onClick={handleAddClick}>Add New Product</Button>
+        <Button onClick={handleAddClick}>Legg til nytt produkt</Button>
       </div>
       
       <div className="grid gap-4">
@@ -183,7 +183,7 @@ function AdminProductManagementPage() {
                         <h3 className="text-lg font-semibold truncate">{product.name}</h3>
                         {product.is_archived && (
                             <span className="inline-flex items-center rounded-full border border-slate-600 px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-slate-200">
-                                Archived
+                                Arkivert
                             </span>
                         )}
                     </div>
@@ -191,25 +191,25 @@ function AdminProductManagementPage() {
                     {product.description}
                   </p>
                   <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-                    <span><span className="font-semibold">Price:</span> {product.price} kr</span>
-                    <span><span className="font-semibold">Stock:</span> {product.stock_quantity}</span>
+                    <span><span className="font-semibold">Pris:</span> {product.price} kr</span>
+                    <span><span className="font-semibold">Antall på lager:</span> {product.stock_quantity}</span>
                     <span>
                         <span className="font-semibold">Status:</span> 
                         <span className={product.is_archived ? 'text-slate-400 ml-1' : 'text-green-600 ml-1'}>
-                            {product.is_archived ? 'Archived' : 'Active'}
+                            {product.is_archived ? 'Arkivert' : 'Aktiv'}
                         </span>
                     </span>
                   </div>
                 </div>
                 <div className="flex flex-row sm:flex-col gap-2 w-full sm:w-auto">
-                  <Button size="sm" onClick={() => handleEditClick(product)} className="bg-black text-white hover:bg-gray-800">Edit</Button>
-                  <Button variant="destructive" size="sm" onClick={() => handleDelete(product.id)}>Delete</Button>
+                  <Button size="sm" onClick={() => handleEditClick(product)} className="bg-black text-white hover:bg-gray-800">Rediger</Button>
+                  <Button variant="destructive" size="sm" onClick={() => handleDelete(product.id)}>Slett</Button>
                   <Button 
                     size="sm" 
                     onClick={() => handleArchiveToggle(product.id, product.is_archived)}
                     className="bg-black text-white hover:bg-gray-800"
                   >
-                    {product.is_archived ? 'Unarchive' : 'Archive'}
+                    {product.is_archived ? 'Gjenopprett' : 'Arkivér'}
                   </Button>
                 </div>
               </CardContent>

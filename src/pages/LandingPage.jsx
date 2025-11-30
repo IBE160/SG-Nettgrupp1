@@ -17,7 +17,7 @@ export default function LandingPage() {
         <div className="absolute inset-0 z-0">
             <img 
               src={peopleImage} 
-              alt="Premium Tobacco Leaves" 
+              alt="Førsteklasses tobakksblader" 
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black/50" /> {/* Dark overlay for text readability */}
@@ -34,7 +34,7 @@ export default function LandingPage() {
             to="/products" 
             className="inline-block bg-primary text-primary-foreground px-8 py-4 rounded-md text-lg font-bold mt-8 hover:bg-primary/90 transition-colors shadow-lg"
           >
-            Explore Products
+            Se våre produkter
           </Link>
         </div>
       </section>
@@ -42,7 +42,7 @@ export default function LandingPage() {
       {/* Location Section */}
       <section className="bg-secondary text-secondary-foreground py-20 md:py-24">
         <div className="container mx-auto text-center px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12">Visit Our Humidor:</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-12">Besøk vår humidor:</h2>
            <div className="w-full h-96 rounded-lg overflow-hidden shadow-lg border border-border" style={{ maxWidth: '1000px', margin: '0 auto' }}>
             {apiKey ? (
               <iframe
@@ -56,7 +56,7 @@ export default function LandingPage() {
               </iframe>
             ) : (
               <div className="flex items-center justify-center h-full bg-muted text-muted-foreground">
-                <p>Google Maps API Key is missing. The map cannot be displayed.</p>
+                <p>Mangler Google Maps API-nøkkel. Kart kan ikke vises.</p>
               </div>
             )}
           </div>
@@ -66,7 +66,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="bg-secondary-foreground text-background text-center py-6">
         <div className="container mx-auto">
-            <p>&copy; 2025 Alta Sigar & Grill. All rights reserved.</p>
+            <p>&copy; 2025 Alta Sigar & Grill. Alle rettigheter forbeholdt.</p>
         </div>
       </footer>
     </div>
