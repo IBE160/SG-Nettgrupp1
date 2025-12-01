@@ -55,7 +55,7 @@ development_status:
   2-7-admin-cancel-order: done
   epic-2-retrospective: optional
   epic-3: contexted
-  3-1-admin-edit-full-product-details: ready-for-dev
+  3-1-admin-edit-full-product-details: blocked
   3-2-admin-archive-product: done
   3-3-admin-update-product-stock-levels: done
   3-4-admin-delete-order: done
