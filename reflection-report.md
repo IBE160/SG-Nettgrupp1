@@ -18,41 +18,71 @@ Nettgrupp1-Dagtid, men fleksibel.
 ## 2. Utviklingsprosessen
 
 ### 2.1 Oversikt over prosjektet
-[Kort beskrivelse av hva dere har utviklet. Hva var hovedmålet med applikasjonen?]
-Vi har utviklet et nettsted for bedriften Alta Sigar & Grill.
-Hovedmålet med dette prosjektet er å produsere et fungerende nettstedet der bedriften kan vise frem sine produkter for potensielle kunder. Videre skal kunder kunne sende en bestillling fra nettsiden direkte til bedriften som i neste ledd skal kunne behandle denne ordren. Backend-funksjonalitet skal muliggjøre lagerhåndtering. En kartfunksjon på nettstedet skal kunne vise kunder butikkens beliggenhet.
+- Prosjektet vårt bestod i å utvikle et fungerende nettsted for Alta Sigar & Grill.
+
+- Målet var å skape en løsning som lar bedriften presentere sine produkter på en oversiktlig måte, samtidig som den skulle gi kundene mulighet til å sende inn en click-and-collect-bestilling som bedriften kunne behandle fortløpende. Løsningen skulle også vise tilgjengelig lagerbeholdning, støtte et enkelt admin-grensesnitt og vise butikkens plassering via Google Maps.
+
+- I tillegg skulle siden være responsiv og fungere godt på både mobil, nettbrett og PC. Prosjektet representerte derfor en helhetlig webapplikasjon, der både brukeropplevelse, teknisk oppsett, backend-funksjonalitet og KI-drevet utvikling inngikk som sentrale komponenter. 
 
 ### 2.2 Arbeidsmetodikk
-[Beskriv hvordan dere organiserte arbeidet]
-- Hvordan fordelte dere oppgaver? Vi bestemte oss tidlig for å satse på at flest mulig skulle kunne delta i de forskjellige prosessene, og dermed har vi hatt jevnlige workshops der vi har samlet oss på Teams og samarbeidet. Ikke alle har vært med på samtlige workshops, men alle har vært med på deler av arbeidet. Vi har også jobbet vekselvis på hver sin PC mens vedkommende deler skjerm på Teams, slik at alle skulle få erfaring med å bruke verktøyene på sin egen PC, inkludert opplasting til Github. I forkant av arbeidet med selve prosjektoppgaven hadde vi flere workshops for å sørge for at alle i gruppen hadde fått satt opp sin PC/MAC i henhold til forutsetningene gitt av faglærer. 
-- Hvilke verktøy brukte dere for samarbeid og hvordan det fungerte? Vi opprettet en egen chat på Teams som vi har brukt innad i gruppen, her har all skriftlig kommunikasjon innad i arbeidsgruppen foregått. I tillegg har vi brukt den felles Teams-kanalen for gruppen vår for å dele dokumenter underveis. Ferdig arbeid har blitt lastet opp til Github og vi har testet ut bruken av pull-request fra Github.
-- Hvordan brukte dere KI-verktøy i prosessen? Foruten utstrakt bruk av KI gjennom agentene som utgjør en del av BMAD-rammeverket har vi brukt KI til feilsøking og problemløsing når noe ikke virket slik det var forutsatt. Spesielt nyttig har KI vært i forbindelse med oppsett og installasjon av støtteverktøy på den enkelte sin PC/MAC.
+- Arbeidet vårt var i stor grad basert på samarbeid via Teams, der vi gjennomførte workshops og delte skjerm mens vi utførte oppgaver i VS Code. Denne måten å arbeide på gjorde at alle fikk praktisk erfaring med rammeverket på sine egne maskiner, samtidig som vi lærte av hverandres utfordringer. Før prosjektet startet hadde vi flere økter der vi hjalp hverandre med installasjon av Gemini, BMAD-verktøyene og grunnoppsettet i terminal, ettersom det var merkbare forskjeller mellom Windows og macOS. 
+
+- Vi brukte Teams-chat aktivt for å planlegge arbeidsøkter, dele erfaringer og stille spørsmål til gruppen. GitHub ble brukt til å dele kode og sikre at alle kunne hente siste versjon av arbeidet. I praksis brukte vi Git mest til å synkronisere endringer og til å holde prosjektet samlet; store deler av den tekniske forståelsen av Git fikk vi etter hvert gjennom KI-forklaringer. 
+
+- Når det gjelder KI-bruken, var den integrert i hele arbeidsflyten. Gemini-agentene i BMAD var sentrale i både planlegging, dokumentasjon og utvikling. Disse agentene fungerte som rollespesialister som guidet oss gjennom oppgaver vi ellers ikke ville hatt kompetanse til å utføre, som å skrive PRD, utforme epics, analysere brukerreiser eller bygge tekniske workflows. 
 
 ### 2.3 Teknologi og verktøy
-[Liste over de viktigste teknologiene og verktøyene dere brukte]
-- Frontend: [f.eks. NextJS, HTML/CSS]
-- Backend: [f.eks. Python/FastAPI]
-- Database: [f.eks. Supabase, MongoDB, PostgreSQL]
-- KI-verktøy: [f.eks. Claude Code, Gemini CLI, GPT-5 Codex]
-- Andre verktøy: [f.eks. VS Code, BMAD etc]
+- Frontend
+   * React: The core library for building the user interface.
+   * Vite: The build tool and development server for the frontend application.
+   * Tailwind CSS: A utility-first CSS framework for styling.
+   * Radix UI: A library of unstyled, accessible UI components.
+   * React Router: For handling navigation and routing within the application.
+
+- Backend
+   * Node.js: The JavaScript runtime environment for the custom server.
+   * Express.js: A web application framework for Node.js, used to create the backend API.   
+   * Supabase: A Backend-as-a-Service (BaaS) platform that provides database,
+     authentication, and storage services.
+
+- Database
+   * PostgreSQL: The relational database used for data storage, provided and managed through Supabase.
+
+- KI-verktøy
+   * Gemini CLI (3.0 Pro, 2.5 Pro, 2.5 Flash), Claude Code, Chat-GPT
+
+- Andre verktøy
+   * Playwright: For end-to-end (E2E) testing.
+   * Biome: For code formatting and linting to ensure code quality.
+   * npm: The package manager for handling project dependencies.
+   * Supabase CLI: The command-line interface for managing the local Supabase development environment.
 
 ### 2.4 Utviklingsfaser
-[Beskriv de ulike fasene i utviklingen]
+
+- De forskjellige fasene i utviklingen som er beskrevet i Project plan stemmer ikke overens med BMAD Metod Worflow - Standard Greenfield som er vist i /docs/images/bmad-worflow.svg
+- Dette gjør det litt vanskeligere å strukturere denne rapporten. 
 
 **Fase 0: Forarbeid**
-- [Hva gjorde dere i denne fasen?]
-- I denne fasen startet vi med å skrive vår Proposal. Vi startet med å spørre ChatGPT om hva en slik proposal skal se ut, men etter hvert fikk vi en mal fra faglærer som beskrev hvordan en slik proposal skal utformes. Denne malen ble underveis i prosessen endret av faglærer, slik at vi ble nødt til å gå gjennom denne prosessen flere ganger. Etter at vår Proposal (proposal.md) var ferdig ble denne lagt til i vårt repository og vi kunne starte med å bruke agentene i BMAD rammeverket til å lose oss gjennom de neste stegene som bestod i en brainstorming session samt en research session. Dette resulterte i to dokumenter utarbeidet av KI (brainstorming-session-results.2025-10-24.md og research-user-2025-10-29.md). Neste steg var å be Business Analyst å produsere Product Brief (product-brief-ibe160-2025-11-03.md). Denne var basert på de tre foregående dokumentene.
-- [Hvordan brukte dere KI her? Husk å lagre promptene deres! Inkluder ALLE stegene dere gjorde.]
+- I denne fasen startet vi med å skrive vår Proposal. Vi startet med å spørre ChatGPT om hvordan en slik proposal skal se ut, men etter hvert fikk vi en mal fra faglærer som beskrev hvordan proposal skal utformes. Denne malen ble underveis i prosessen endret av faglærer, slik at vi ble nødt til å gå gjennom denne prosessen flere ganger.
+- Etter at vår Proposal var ferdig ble denne lagt til i vårt repository som var blitt opprettet på Github.
 
-**Fase 1: Planlegging**
-- [Hva gjorde dere i denne fasen?]
-- //lage PRD //Validere PRD //lage UX-design spec //validere UX-design spec
-- [Hvordan brukte dere KI her? Husk å lagre promptene deres! Inkluder ALLE stegene dere gjorde.]
+**Fase 1: Discovery**
+- Nå kunne vi starte med å bruke agentene i BMAD rammeverket til å lose oss gjennom de neste stegene som bestod i en brainstorming session samt en research session. Dette resulterte i to dokumenter utarbeidet av KI "brainstorming session results" og "research user".
+- Neste steg var å be Business Analyst å produsere Product Brief. Denne var basert på de tre foregående dokumentene. ***NB sett inn eksempler fra loggfilene***
 
-**Fase 2: Utvikling**
-- [Hva gjorde dere i denne fasen?]
-- [Hvordan brukte dere KI her? Husk å lagre promptene deres! Inkluder ALLE stegene dere gjorde.]
+**Fase 2: Planning**
+- I planleggingsfasen ble prosjektet betydelig mer strukturert. Vi benyttet oss av Product Manager i BMAD til å generere Product Requirement Document (PRD). Denne inneholder en beskrivelse av Functional Requirements (FR), User Journeys, UX- og UI-principles og Epics. ***NB sett inn eksempler fra loggfilene***
 
+**Fase 3: Solutioning**
+- [Hva gjorde dere i denne fasen?]
+Vi startet med å engasjere agenten Architect, som loset oss gjennom prosessen med å lage Architecture Document. Deretter var det Project Manager (PM) som tok over og laget detaljerte stories ut av våre allerede definerte epics.
+- Neste steg var Test Engineer Agent som laget test-design. Dette steget viste seg i ettertid å være overføldig, men da var jobben allerede gjort.
+***NB sett inn eksempler fra loggfilene***
+
+**Fase 4: Implementation**
+- [Hva gjorde dere i denne fasen?]
+Implementeringsfasen handlet om å implementere stories som ble generert i fase 3. Den første store storyen etablerte prosjektets tekniske grunnmur: Git-repoet, .gitignore-filen, npm-avhengighetssjekk, GitHub Actions workflow, Playwright-tester og deploy til Vercel. Etter dette fortsatte vi å jobbe med stories som la grunnlag for katalogvisning, ordrebehandling og kartfunksjonalitet. KI styrte hele denne prosessen, men vi måtte selv godkjenne endringer, undersøke filene og løse feil som oppstod underveis. 
+- [Hvordan brukte dere KI her? Husk å lagre promptene deres! Inkluder ALLE stegene dere gjorde.]
 ---
 
 ## 3. Utfordringer og løsninger
