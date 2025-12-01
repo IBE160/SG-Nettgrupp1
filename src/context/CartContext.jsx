@@ -78,6 +78,37 @@ export const CartProvider = ({ children }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
+        
+        // Check for invalid cart ID error (Foreign Key Constraint)
+        if (response.status === 400 && errorData.message && errorData.message.includes('foreign key constraint')) {
+          console.warn('Cart ID invalid (not found on server), creating new cart and retrying...');
+          
+          // Clear old cart data
+          localStorage.removeItem('cartId');
+          setCartId(null);
+          
+          // Create new cart
+          const newCartId = await createCart();
+          if (newCartId) {
+            // Retry with new ID directly
+            const retryResponse = await fetch(`/api/cart/${newCartId}/items`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ productId, quantity }),
+            });
+            
+            if (!retryResponse.ok) {
+              const retryError = await retryResponse.json();
+              throw new Error(retryError.message || 'Failed to add item to new cart');
+            }
+            
+            await fetchCartItems(newCartId);
+            return; // Success
+          }
+        }
+
         throw new Error(errorData.message || 'Failed to add item to cart');
       }
       
