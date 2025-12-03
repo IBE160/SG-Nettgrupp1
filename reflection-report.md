@@ -296,18 +296,19 @@ Ferdigheter som feilsøking, debugging og å bygge logikk fra bunnen av er særl
     * https://github.com/IBE160/SG-Nettgrupp1
 
 - Skjermbilder av applikasjonen
-    1. \screenshots\home.JPG
-    2. \screenshots\products.JPG
-    3. \screenshots\products_details.JPG
-    4. \screenshots\shopping_cart.JPG
-    5. \screenshots\checkout.JPG
-    6. \screenshots\order_confirmation.JPG
-    7. \screenshots\admin_login.JPG
-    8. \screenshots\admin_products.JPG
-    9. \screenshots\admin_products_edit.JPG
-    10. \screenshots\admin_orders.JPG
-    11. \screenshots\admin_order_details.JPG
-    12. \screenshots\cmd_logging.JPG
+    1. \screenshots\home_top.JPG
+    2. \screenshots\home_bottom.JPG
+    3. \screenshots\products.JPG
+    4. \screenshots\products_details.JPG
+    5. \screenshots\shopping_cart.JPG
+    6. \screenshots\checkout.JPG
+    7. \screenshots\order_confirmation.JPG
+    8. \screenshots\admin_login.JPG
+    9. \screenshots\admin_products.JPG
+    10. \screenshots\admin_products_edit.JPG
+    11. \screenshots\admin_orders.JPG
+    12. \screenshots\admin_order_details.JPG
+    13. \screenshots\cmd_logging.JPG
 
 -Skjermbilde av epostbekreftelser
     * \screenshots\epost_resend.jpg
