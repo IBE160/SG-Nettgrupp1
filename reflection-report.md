@@ -58,16 +58,17 @@ Nettgrupp1-Dagtid, men fleksibel.
 
 ### 2.4 Utviklingsfaser
 
-- De forskjellige fasene i utviklingen som er beskrevet i Project plan stemmer ikke overens med BMAD Metod Worflow - Standard Greenfield som er vist i /docs/images/bmad-worflow.svg
-- Dette gjør det litt vanskeligere å strukturere denne rapporten. 
+- De forskjellige fasene i utviklingen som er beskrevet i Project plan stemmer ikke overens med BMAD Metod Worflow - Standard Greenfield som er vist i /docs/images/bmad-worflow.svg.
 
 **Fase 0: Forarbeid**
-- I denne fasen startet vi med å skrive vår Proposal. Vi startet med å spørre ChatGPT om hvordan en slik proposal skal se ut, men etter hvert fikk vi en mal fra faglærer som beskrev hvordan proposal skal utformes. Denne malen ble underveis i prosessen endret av faglærer, slik at vi ble nødt til å gå gjennom denne prosessen flere ganger.
-- Etter at vår Proposal var ferdig ble denne lagt til i vårt repository som var blitt opprettet på Github.
+- I denne fasen startet vi med å skrive vår Proposal. Vi startet med å spørre ChatGPT om hvordan en slik proposal skal se ut, og gikk i gang med å beskrive hvordan prosjektet vårt. Etter hvert fikk vi en mal fra faglærer som beskrev hvordan proposal skal utformes. Denne malen ble underveis endret av faglærer, slik at vi ble nødt til å gå gjennom denne prosessen flere ganger.
+- Etter at vår Proposal var ferdig levert fikk vi tilbakemelding fra faglærer på omfanget av prosjektet vårt. Vi forstod at det var et ambisiøst prosjekt, og ble oppfordret til å redusere omfanget av prosjektet noe. 
+- Det ble opprettet et GIT-repository for prosjektet og proposal ble lagt til her.
+- En del av forarbeidet bestod i å installere all nødvendig programvare og sørge for at våre PC/Mac var klare til å gå i gang med prosjektet. 
 
 **Fase 1: Discovery**
-- Nå kunne vi starte med å bruke agentene i BMAD rammeverket til å lose oss gjennom de neste stegene som bestod i en brainstorming session samt en research session. Dette resulterte i to dokumenter utarbeidet av KI "brainstorming session results" og "research user".
-- Neste steg var å be Business Analyst å produsere Product Brief. Denne var basert på de tre foregående dokumentene.
+- Nå kunne vi starte med å bruke agentene i BMAD rammeverket til å lose oss gjennom de neste stegene som bestod i en brainstorming session samt en research session. Begge disse session har som formål å detaljere og gi mer innhold til vår proposal gjennom å veilede oss i å tenke gjennom ulike scenarioer. Dette resulterte i to dokumenter utarbeidet av KI "brainstorming session results" og "research user".
+- Neste steg var bruke Business Analyst-agenten til å produsere en Product Brief. Denne var basert på de tre foregående dokumentene, og har til hensikt å gi en klar og tydelig beskrivelse av prosjektet og målsettingene i prosjektet slik at de andre agentene i BMAD har et utgangspunkt å jobbe ut ifra. Prosessen med å lage Prouct Brief består av en interaktiv sesjon der Business Analyst stiller oss mange spørsmål som vi må svare på, se eksempelet nedenfor.
 
 Eksempel fra workflow *document-project:
 
@@ -84,8 +85,11 @@ Eksempel fra workflow *document-project:
 > he would use about 1-2 hors a week for this. yes, some customers have requested an updated online inventory. I would expect that some sales has been lost due to this, but this can not be documentet.
 
 **Fase 2: Planning**
-- I planleggingsfasen ble prosjektet betydelig mer strukturert. Vi benyttet oss av Product Manager i BMAD til å generere Product Requirement Document (PRD). Denne inneholder en beskrivelse av Functional Requirements (FR), User Journeys, UX- og UI-principles og Epics. 
+- I planleggingsfasen ble prosjektet betydelig mer strukturert. Vi benyttet oss av Product Manager i BMAD til å generere Product Requirement Document (PRD). Denne inneholder en utfyllende beskrivelse av sluttproduktet og ramser opp spesificasjoner som er helt nødvendige for resten av utviklingen. Her finner vi bl.a. Functional Requirements (FR), User Journeys, UX- og UI-principles og Epics. Epics utgjør en del av prosjektet som er for stort til å kunne utvikles i en prosess, og gir grunnlag for en senere oppdeling i mindre Stories. På denne måten kan KI strukturere store oppgaver inn i mindre og mer håndterlige oppgaver.
 
+- Deretter gikk vi gjennom en workshop med en UX-designer med formålet om å lage et fundament for å beskrive ønskede brukeropplevelser. Dette dokumentet blir videre styrende for hvordan en bruker skal oppleve sluttproduktet. I denne fasen oppdaget vi for eksempel at KI hadde opprettet en egen brukergruppe "Necomers", og ønsket å tilrettelegge nettsiden spesielt for denne gruppen, noe vi ikke ønsket. Dermed kunne vi underveis i prosessen be KI fjerne denne spesifikke brukergruppen fra det videre utviklingsarbeidet, se eksempelet nedenfor.
+
+- Etter at UX-design var laget gikk vi gjennom validering for å bekrefte at dokumentet var i henhold til forventninger og spesifikasjoner. Tilsvarende ble også gjort for UI-design, der vi bl.a. detaljerte ønskede farger til bruk på nettsiden.
 
 Eksempel fra workflow *Create UX-design:
 
@@ -103,8 +107,13 @@ Eksempel fra workflow *Create UX-design:
 
 
 **Fase 3: Solutioning**
-- Vi startet med å engasjere agenten Architect, som loset oss gjennom prosessen med å lage Architecture Document. Deretter var det Project Manager (PM) som tok over og laget detaljerte stories ut av våre allerede definerte epics.
+- Vi startet med å engasjere agenten Architect, som loset oss gjennom prosessen med å lage Architecture Document. Dette dokumentet fungerer som en masterplan for den tekniske delen av prosjektet, med fokus på stabile løsninger som skal brukes av utviklerne senere i prosessen. I denne prosessen ble vi forevist de forskjellige alternativen løsningene som vi kunne velge å basere den videre utviklingen på. KI oppsummerete fordeler og ulemper med de forskjellige alternativene, og ga sin anbefaling. I de fleste tilfeller stemte KI sin anbefaling med de anbefalinger vi også hadde fått fra faglærer, men i noen tilfeller tok vi ta andre valg enn det foreslåtte, se eksempel nedenfor.
+
+- Deretter var det Project Manager (PM) som tok over og laget detaljerte stories ut av våre allerede definerte epics. Dette gjøres for å legge til rette for utvikleren som skal programmere de ulike delene av prosjektet.
+
 - Neste steg var Test Engineer Agent som laget test-design. Dette steget viste seg i ettertid å være overføldig, men da var jobben allerede gjort.
+
+- Til sist gjennomgikk vi validering av arkitekturen, og dermed var vi klare for neste fase, som innebærer selve utviklingen og implementering.
 
 Eksempel fra workflow *create architecture:
 
@@ -116,9 +125,15 @@ Eksempel fra workflow *create architecture:
 > vercel
 
 **Fase 4: Implementation**
-Implementeringsfasen handlet om å implementere stories som ble generert i fase 3. Den første store storyen etablerte prosjektets tekniske grunnmur.
-- Etter dette fortsatte vi å jobbe med stories som la grunnlag for katalogvisning, ordrebehandling og kartfunksjonalitet o.s.v.
-- KI styrte hele denne prosessen, men vi måtte selv godkjenne endringer, undersøke filene og løse feil som oppstod underveis. 
+- Implementeringsfasen startes med at Scrum Master oppretter en plan (sprint-status), som er en beskrivelse av de ulike oppgavene som skal gjennomføres i løpet av en sprint. 
+
+- Så følger prosessen med å lage de ulike stories basert på epics-dokumentet og PRD. Hver story utvides med en story-context, til bruk for utviklerne. Denne henter all nødvendig informasjon fra PRD, architecture, UX-design og strukturerer dette slik at utvikleren har all nødvendig info for å starte utvikling på en story. Når både story og context har blitt validert er denne stoy klar for utvikling (ready-for-dev). Se eksempel nedenfor.
+
+-Så startet selve prosesssen med utvikling. Den første storyen etablerte prosjektets tekniske grunnmur. Etter dette fortsatte vi å jobbe med stories som la grunnlag for katalogvisning, ordrebehandling og kartfunksjonalitet o.s.v.
+
+- KI styrte hele denne prosessen, men vi måtte selv godkjenne endringer, undersøke filene og løse feil som oppstod underveis. Etter at hver story ble fullført gjennomførte vi (KI) en code-review, som sjekker at utvikleren har gjort jobben sin i i henhold til spesifikasjonen. Dette utføres av Senior Developer og hver stroy oppdateres med et outcome "Approve".
+
+-Denne fasen kunne vi endelig jobbe hver for oss med de ulike stories, og de fleste av disse klarte vi å komme greit i havn med, selv om noen gav oss enkelte utfordringer. Til slutt stod vi igjen med en story som vi ikke helt klarte å løse. Dette var story 3.1, som på grunn av feil i testingen endte opp som "Blocked". Programvaren virker slik den skal, men problemet med testingen er at e2e-testene forutsetter at det er satt opp en lokal database (f.eks. gjennom Docker), mens vi kjørte hele tiden opp mot en remote database (i Supabase), og Murat som var Test Engineer nektet å gjennomføre testing mot en remote database, begrunnet med at testene han gjennomført var av destruktiv karakter, og at  han aldri ville gjennomføre slike tester mot en database som var "live". Derfor bestemte vi oss, etter å ha rådført med faglærer, for å droppe videre testing og akseptere at denne story står som Blocked. Vår egen testing opp mot remote database viser at alle funksjoner virker slik de skal.
 
 Eksempel fra workflow *sprint-planning:
 
@@ -316,6 +331,6 @@ Ferdigheter som feilsøking, debugging og å bygge logikk fra bunnen av er særl
 
 ---
 
-**Ordantall:** 3504
+**Ordantall:** 5655
 
 **Forventet lengde:** 3000-5000 ord (avhengig av gruppestørrelse og prosjektets kompleksitet)

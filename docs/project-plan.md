@@ -142,8 +142,8 @@
         - [x] File: docs\validation-report-story-context-3-4.md
       - [x] /run-agent-task sm *story-ready-for-dev {prompt / user-input-file}
       while code-review != approved:
-        - [ ] /run-agent-task dev *develop-story {prompt / user-input-file}
-        - [ ] /run-agent-task dev *code-review {prompt / user-input-file}
+        - [x] /run-agent-task dev *develop-story {prompt / user-input-file}
+        - [x] /run-agent-task dev *code-review {prompt / user-input-file}
     - [ ] /run-agent-task sm *test-review {prompt / user-input-file}
     - [ ] /run-agent-task sm *epic-retrospective {prompt / user-input-file}
 
