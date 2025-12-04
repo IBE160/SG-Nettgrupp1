@@ -58,16 +58,18 @@ Nettgrupp1-Dagtid, men fleksibel.
 
 ### 2.4 Utviklingsfaser
 
-- De forskjellige fasene i utviklingen som er beskrevet i Project plan stemmer ikke overens med BMAD Metod Worflow - Standard Greenfield som er vist i /docs/images/bmad-worflow.svg.
+- Merknad: Grunnet oppdateringer i BMAD rammeverket stemmer de forskjellige fasene i utviklingen som er beskrevet i Project plan ikke overens med BMAD Metod Worflow - Standard Greenfield som er vist i /docs/images/bmad-worflow.svg.
 
 **Fase 0: Forarbeid**
 - I denne fasen startet vi med å skrive vår Proposal. Vi startet med å spørre ChatGPT om hvordan en slik proposal skal se ut, og gikk i gang med å beskrive hvordan prosjektet vårt. Etter hvert fikk vi en mal fra faglærer som beskrev hvordan proposal skal utformes. Denne malen ble underveis endret av faglærer, slik at vi ble nødt til å gå gjennom denne prosessen flere ganger.
+
 - Etter at vår Proposal var ferdig levert fikk vi tilbakemelding fra faglærer på omfanget av prosjektet vårt. Vi forstod at det var et ambisiøst prosjekt, og ble oppfordret til å redusere omfanget av prosjektet noe. 
-- Det ble opprettet et GIT-repository for prosjektet og proposal ble lagt til her.
+
 - En del av forarbeidet bestod i å installere all nødvendig programvare og sørge for at våre PC/Mac var klare til å gå i gang med prosjektet. 
 
 **Fase 1: Discovery**
-- Nå kunne vi starte med å bruke agentene i BMAD rammeverket til å lose oss gjennom de neste stegene som bestod i en brainstorming session samt en research session. Begge disse session har som formål å detaljere og gi mer innhold til vår proposal gjennom å veilede oss i å tenke gjennom ulike scenarioer. Dette resulterte i to dokumenter utarbeidet av KI "brainstorming session results" og "research user".
+- Det ble opprettet et GIT-repository for prosjektet og proposal ble lagt til her. Nå kunne vi starte med å bruke agentene i BMAD rammeverket til å lose oss gjennom de neste stegene som bestod i en brainstorming session samt en research session. Begge disse session har som formål å detaljere og gi mer innhold til vår proposal gjennom å veilede oss i å tenke gjennom ulike scenarioer. Dette resulterte i to dokumenter utarbeidet av KI "brainstorming session results" og "research user".
+
 - Neste steg var bruke Business Analyst-agenten til å produsere en Product Brief. Denne var basert på de tre foregående dokumentene, og har til hensikt å gi en klar og tydelig beskrivelse av prosjektet og målsettingene i prosjektet slik at de andre agentene i BMAD har et utgangspunkt å jobbe ut ifra. Prosessen med å lage Prouct Brief består av en interaktiv sesjon der Business Analyst stiller oss mange spørsmål som vi må svare på, se eksempelet nedenfor.
 
 Eksempel fra workflow *document-project:
@@ -133,7 +135,7 @@ Eksempel fra workflow *create architecture:
 
 - KI styrte hele denne prosessen, men vi måtte selv godkjenne endringer, undersøke filene og løse feil som oppstod underveis. Etter at hver story ble fullført gjennomførte vi (KI) en code-review, som sjekker at utvikleren har gjort jobben sin i i henhold til spesifikasjonen. Dette utføres av Senior Developer og hver stroy oppdateres med et outcome "Approve".
 
--Denne fasen kunne vi endelig jobbe hver for oss med de ulike stories, og de fleste av disse klarte vi å komme greit i havn med, selv om noen gav oss enkelte utfordringer. Til slutt stod vi igjen med en story som vi ikke helt klarte å løse. Dette var story 3.1, som på grunn av feil i testingen endte opp som "Blocked". Programvaren virker slik den skal, men problemet med testingen er at e2e-testene forutsetter at det er satt opp en lokal database (f.eks. gjennom Docker), mens vi kjørte hele tiden opp mot en remote database (i Supabase), og Murat som var Test Engineer nektet å gjennomføre testing mot en remote database, begrunnet med at testene han gjennomført var av destruktiv karakter, og at  han aldri ville gjennomføre slike tester mot en database som var "live". Derfor bestemte vi oss, etter å ha rådført med faglærer, for å droppe videre testing og akseptere at denne story står som Blocked. Vår egen testing opp mot remote database viser at alle funksjoner virker slik de skal.
+-Denne fasen kunne vi endelig jobbe hver for oss med de ulike stories, og de fleste av disse klarte vi å komme greit i havn med, selv om noen gav oss enkelte utfordringer. Til slutt stod vi igjen med en story som vi ikke helt klarte å løse. Dette var story 3.1, som på grunn av feil i testingen endte opp som "Blocked". Programvaren virker slik den skal, men problemet med testingen er at e2e-testene forutsetter at det er satt opp en lokal database (f.eks. gjennom Docker), mens vi kjørte hele tiden opp mot en remote database (i Supabase), og Murat (som var Test Engineer) nektet å gjennomføre testing mot en remote database, begrunnet med at testene han gjennomført var av destruktiv karakter, og at  han aldri ville gjennomføre slike tester mot en database som var "live". Derfor bestemte vi oss, etter å ha rådført med faglærer, for å droppe videre testing og akseptere at denne story står som Blocked. Vår egen testing opp mot remote database viser at alle funksjoner virker slik de skal.
 
 Eksempel fra workflow *sprint-planning:
 
@@ -148,6 +150,7 @@ Eksempel fra workflow *sprint-planning:
 > Can you explain what you mean by "Epics should be 'contexted' before stories can be 'drafted'"?
 
     ✦ Of course. It's a key principle for ensuring our development process is smooth and efficient.
+    ...
 
 ---
 
@@ -331,6 +334,6 @@ Ferdigheter som feilsøking, debugging og å bygge logikk fra bunnen av er særl
 
 ---
 
-**Ordantall:** 5655
+**Ordantall:** 5668
 
-**Forventet lengde:** 3000-5000 ord (avhengig av gruppestørrelse og prosjektets kompleksitet)
+**Forventet lengde:** 3000-5000 ord (Vi har konferert med faglærer at 500 ord ikke er en absolutt grense)
