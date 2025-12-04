@@ -11,7 +11,7 @@ Nettgrupp1-Dagtid, men fleksibel.
 - Camilla Hagå-Huus - 241665/cahag4982@himolde.no
 - Eirik Lyder Bredland - 210667/eirik.l.bredland@himolde.no
 
-**Dato:** 15.12.2025
+**Dato:** 04.12.2025
 
 ---
 
