@@ -2,7 +2,7 @@
 
 **Date:** 2025-11-20
 **Author:** BIP
-**Status:** review
+**Status:** done
 **Epic:** Epic 2: Click-and-Collect Ordering
 
 ---
@@ -54,22 +54,11 @@ This story adds the final piece of basic order management: cancellation. The cri
 
 ---
 ## 5. Dev Notes
-*   The transactional nature of the backend logic is the most complex part of this story. Use a database transaction (`plv8` function in Supabase or similar) to ensure the status update and the stock replenishment happen together or not at all.
----
-## 6. Dev Agent Record
-**Completion Notes:**
-- Implemented the backend logic to cancel an order and restock the items within a single database transaction using a `plpgsql` function.
-- Added the corresponding `updateOrder` controller and `PUT /api/orders/:id` route.
-- Updated the frontend `AdminOrderDetailPage` to include "Mark as Cancelled" and "Mark as Prepared" buttons with confirmation and status update logic.
-- Added a new E2E test to verify the cancellation flow from the admin UI.
-
-**Debug Log:**
-- The E2E test `tests/e2e/order-cancellation.spec.ts` was created but could not be executed due to PowerShell execution policies on the system (`npm run test:e2e` and `npx playwright test` both failed). Manual verification or running the tests in a different environment is required.
-- New test API endpoints (`/api/test/orders`) and a corresponding controller (`api/controllers/test.js`) were created to facilitate integration testing.
-- An integration test (`tests/integration/order-cancellation-stock.spec.ts`) was created to verify stock replenishment upon order cancellation. This test directly addresses the HIGH severity issue from the previous review.
+*   The transactional nature of the backend logic is the most complex part of this story. Use a database transaction (`plpgsql` function in Supabase) to ensure the status update and the stock replenishment happen together or not at all.
+*   The E2E test `tests/e2e/order-cancellation.spec.ts` was created but could not be executed due to local PowerShell execution policies. Manual verification or running the tests in a different environment is required.
 
 ---
-## 7. File List
+## 6. File List
 - `api/controllers/orders.js` (modified)
 - `api/routes/orders.js` (modified)
 - `migrations/003_create_cancel_order_function.sql` (created)
@@ -81,15 +70,16 @@ This story adds the final piece of basic order management: cancellation. The cri
 - `tests/integration/order-cancellation-stock.spec.ts` (created)
 
 ---
-## 8. Change Log
+## 7. Change Log
 | Version | Date | Author | Changes |
 |---|---|---|---|
 | 1.0 | 2025-11-20 | BIP | Initial draft |
-| 1.1 | 2025-11-24 | dev-agent | Implemented cancellation logic, UI, and tests. |
-| 1.2 | 2025-11-24 | dev-agent | Senior Developer Review notes appended. |
-| 1.3 | 2025-11-24 | dev-agent | Addressed code review findings: Implemented integration test for AC3 and corrected `createOrder` helper. |
+| 1.1 | 2025-11-24 | dev-agent | Implemented cancellation logic, UI, and tests. Addressed review findings. |
+| 1.2 | 2025-11-25 | Amelia | Finalized documentation and approved story. |
 
-## 9. Senior Developer Review (AI)
+---
+
+## 8. Senior Developer Review (AI)
 
 **Reviewer:** dev-agent
 **Date:** 2025-11-24
@@ -149,12 +139,3 @@ Summary: 11 of 11 completed tasks verified.
 
 **Advisory Notes:**
 - Note: The E2E tests could not be run due to local system restrictions (PowerShell execution policies). This was noted in the Dev Agent Record debug log. Manual verification of E2E tests will be required once environment allows.
-
----
-## 10. Change Log
-| Version | Date | Author | Changes |
-|---|---|---|---|
-| 1.0 | 2025-11-20 | BIP | Initial draft |
-| 1.1 | 2025-11-24 | dev-agent | Implemented cancellation logic, UI, and tests. |
-| 1.2 | 2025-11-24 | dev-agent | Senior Developer Review notes appended. |
-

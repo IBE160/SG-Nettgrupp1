@@ -1,12 +1,36 @@
 import React from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 function OrderConfirmationPage() {
+  const { orderRef } = useParams();
+
   return (
-    <div>
-      <h2>Order Confirmation</h2>
-      <p>Thank you for your order! Your order has been placed successfully.</p>
-      <p>You will receive an email confirmation shortly with your order details.</p>
-      {/* Optionally display order details passed via state or query params */}
+    <div className="max-w-7xl mx-auto px-4 py-8 flex justify-center">
+      <Card className="w-full max-w-md text-center">
+        <CardHeader className="border-b pb-6">
+          <CardTitle className="text-3xl font-bold">Takk for din bestilling!</CardTitle>
+          <p className="text-muted-foreground mt-2">Bestillingen din er mottatt.</p>
+        </CardHeader>
+        <CardContent className="pt-6">
+          <p>Ditt ordrenummer er:</p>
+          <div className="text-2xl font-bold bg-secondary text-secondary-foreground rounded-md p-4 my-4">
+            {orderRef}
+          </div>
+          <p className="text-muted-foreground mt-4">
+            Ta vare på dette referansenummeret.
+          </p>
+          <p className="text-muted-foreground mt-4 mb-6">
+            Du vil motta en bekreftelse på e-post når din bestillingen er klar for henting.
+          </p>
+          <Button asChild className="w-full">
+            <Link to="/products">
+              Fortsett å handle
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 }

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSupabaseAuth } from '@/lib/supabase-auth-provider';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import {
   Table,
@@ -38,7 +38,10 @@ const addProduct = async (product, session) => {
         headers: getAuthHeader(session),
         body: JSON.stringify(product),
     });
-    if (!response.ok) throw new Error('Failed to add product');
+    if (!response.ok) {
+        const errorBody = await response.json();
+        throw new Error(`Failed to add product: ${errorBody.message}`);
+    }
     return await response.json();
 };
 
@@ -48,15 +51,30 @@ const editProduct = async (product, session) => {
         headers: getAuthHeader(session),
         body: JSON.stringify(product),
     });
-    if (!response.ok) throw new Error('Failed to edit product');
+    if (!response.ok) {
+        const errorBody = await response.json();
+        throw new Error(`Failed to edit product: ${errorBody.message}`);
+    }
     return await response.json();
 };
+
+const updateStock = async (productId, stock_quantity, session) => {
+    const response = await fetch(`/api/products/${productId}`, {
+        method: 'PUT',
+        headers: getAuthHeader(session),
+        body: JSON.stringify({ stock_quantity }),
+    });
+    if (!response.ok) throw new Error('Failed to update stock');
+    return await response.json();
+};
+
 
 // --- Component ---
 
 export default function AdminDashboard() {
   const { signOut, session } = useSupabaseAuth();
   const [products, setProducts] = useState([]);
+  const [stockValues, setStockValues] = useState({});
   const [loading, setLoading] = useState(true);
   const [apiError, setApiError] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -69,6 +87,12 @@ export default function AdminDashboard() {
       setApiError(null);
       const productData = await fetchProducts();
       setProducts(productData);
+      // Initialize stockValues state
+      const initialStockValues = productData.reduce((acc, product) => {
+        acc[product.id] = product.stock_quantity;
+        return acc;
+      }, {});
+      setStockValues(initialStockValues);
     } catch (err) {
       setApiError(err.message);
     } finally {
@@ -95,19 +119,56 @@ export default function AdminDashboard() {
     setApiError(null);
     try {
       if (editingProduct) {
-        await editProduct(productData, session);
+        const updatedProduct = await editProduct(productData, session);
+        setProducts(products.map(p => p.id === updatedProduct.id ? updatedProduct : p));
       } else {
-        await addProduct(productData, session);
+        const newProduct = await addProduct(productData, session);
+        setProducts([...products, newProduct]);
+        setStockValues(prev => ({ ...prev, [newProduct.id]: newProduct.stock_quantity }));
       }
       handleCloseDialog();
-      await loadProducts(); // Refresh the list
     } catch (err) {
+      console.error('handleSubmit error:', err);
       setApiError(err.message);
-      // Keep dialog open to show error if we want, or add a toast notification
     } finally {
       setFormLoading(false);
     }
   };
+
+  const handleStockChange = (productId, value) => {
+    setStockValues(prev => ({ ...prev, [productId]: value }));
+  };
+
+  const handleStockUpdate = async (productId) => {
+    const originalProduct = products.find(p => p.id === productId);
+    const newStockString = stockValues[productId];
+    const newStock = parseInt(newStockString, 10);
+
+    if (isNaN(newStock) || newStock < 0) {
+      setApiError('Invalid stock value. Please enter a non-negative number.');
+      // Revert the input to the original value
+      setStockValues(prev => ({ ...prev, [productId]: originalProduct.stock_quantity }));
+      return;
+    }
+
+    if (newStock === originalProduct.stock_quantity) {
+        return; // No change
+    }
+
+    try {
+        setApiError(null);
+        const updatedProduct = await updateStock(productId, newStock, session);
+        // Update local state for a seamless feel
+        setProducts(prevProducts =>
+            prevProducts.map(p => p.id === productId ? updatedProduct : p)
+        );
+    } catch (err) {
+        setApiError(err.message);
+        // Revert on failure
+        setStockValues(prev => ({ ...prev, [productId]: originalProduct.stock_quantity }));
+    }
+  };
+
 
   return (
     <div className="container mx-auto py-10">
@@ -128,7 +189,7 @@ export default function AdminDashboard() {
             <TableRow>
               <TableHead>Name</TableHead>
               <TableHead>Price</TableHead>
-              <TableHead>Stock</TableHead>
+              <TableHead className="w-[150px]">Stock</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -140,7 +201,15 @@ export default function AdminDashboard() {
                 <TableRow key={product.id}>
                   <TableCell className="font-medium">{product.name}</TableCell>
                   <TableCell>${product.price}</TableCell>
-                  <TableCell>{product.stock_quantity}</TableCell>
+                  <TableCell>
+                    <Input
+                      type="number"
+                      value={stockValues[product.id] ?? ''}
+                      onChange={(e) => handleStockChange(product.id, e.target.value)}
+                      onBlur={() => handleStockUpdate(product.id)}
+                      className="w-24"
+                    />
+                  </TableCell>
                   <TableCell>
                     <Button variant="outline" size="sm" onClick={() => handleOpenDialog(product)}>
                       Edit

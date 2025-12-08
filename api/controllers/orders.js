@@ -1,12 +1,68 @@
 import { supabase } from '../config/supabase.js';
-<<<<<<< HEAD
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+// @desc    Create a new order from a cart
+// @route   POST /api/orders
+// @access  Public
+export const createOrder = async (req, res) => {
+    const { cartId, email, phone } = req.body;
+
+    if (!cartId || !email) {
+        return res.status(400).json({ message: 'Cart ID and email are required' });
+    }
+
+    try {
+        // 1. Call the transactional database function
+        const { data, error } = await supabase.rpc('create_order_from_cart', {
+            p_cart_id: cartId,
+            p_customer_email: email,
+            p_customer_phone: phone,
+        }).single();
+
+        if (error) {
+            console.error('Error in create_order_from_cart RPC:', error);
+            // Check for specific error messages from the function if any are defined
+            if (error.message.includes('Not enough stock')) {
+                return res.status(400).json({ message: 'Order could not be placed due to insufficient stock.' });
+            }
+            throw error;
+        }
+
+        const { order_id, order_ref } = data;
+
+        // 2. Send email notification to store owner
+        try {
+            const fromEmail = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+            await resend.emails.send({
+                from: fromEmail,
+                to: process.env.STORE_OWNER_EMAIL,
+                subject: `Ny Ordre Mottatt: ${order_ref}`,
+                text: `En ny ordre er mottatt.\n\nOrder Reference: ${order_ref}\nKundens E-post: ${email}\n\nVennligst sjekk Admin dashboard for detaljer.`,
+            });
+        } catch (emailError) {
+            // If email fails, log the detailed error but don't fail the entire transaction
+            console.error('Failed to send new order notification email. Full error:', JSON.stringify(emailError, null, 2));
+        }
+
+        // 3. Return the order reference to the client
+        res.status(201).json({ orderReference: order_ref, orderId: order_id });
+        
+        console.log(`New order notification sent to storeowner.`);
+    } catch (error) {
+        console.error('Supabase Error in createOrder:', error);
+        res.status(500).json({ message: 'Failed to create order.' });
+    }
+};
+
 
 // @desc    Get all orders
 // @route   GET /api/orders
 // @access  Private (Admin)
 export const getAllOrders = async (req, res) => {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await req.supabase // USE REQ.SUPABASE
       .from('orders')
       .select(`
         *,
@@ -38,7 +94,7 @@ export const getAllOrders = async (req, res) => {
 export const getOrderById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { data, error } = await supabase
+    const { data, error } = await req.supabase // USE REQ.SUPABASE
       .from('orders')
       .select(`
         *,
@@ -50,26 +106,10 @@ export const getOrderById = async (req, res) => {
           )
         )
       `)
-=======
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-// @desc    Get order by ID
-// @route   GET /api/orders/:id
-export const getOrderById = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const { data, error } = await supabase
-      .from('orders')
-      .select('*')
->>>>>>> hajar
       .eq('id', id)
       .single();
 
     if (error) {
-<<<<<<< HEAD
       if (error.code === 'PGRST116') { // No rows found
         return res.status(404).json({ message: `Order with ID ${id} not found` });
       }
@@ -79,72 +119,12 @@ export const getOrderById = async (req, res) => {
 
     if (!data) {
       return res.status(404).json({ message: `Order with ID ${id} not found` });
-=======
-      if (error.code === 'PGRST116') {
-        return res.status(404).json({ message: 'Order not found' });
-      }
-      throw error;
->>>>>>> hajar
     }
 
     res.status(200).json(data);
   } catch (error) {
-<<<<<<< HEAD
     console.error('Server error in getOrderById:', error);
     res.status(500).json({ message: 'Server Error' });
-=======
-    console.error('Supabase Error in getOrderById:', error);
-    res.status(400).json({ message: error.message });
-  }
-};
-
-// @desc    Update order status
-// @route   PUT /api/orders/:id
-export const updateOrderStatus = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { status } = req.body;
-
-    if (!status) {
-      return res.status(400).json({ message: 'Status is required' });
-    }
-
-    const { data, error } = await supabase
-      .from('orders')
-      .update({ status })
-      .eq('id', id)
-      .select()
-      .single();
-
-    if (error) {
-      // Check for a not-found error specifically
-      if (error.code === 'PGRST116') {
-        return res.status(404).json({ message: 'Order not found' });
-      }
-      throw error;
-    }
-
-    if (status === 'Prepared') {
-      try {
-        await resend.emails.send({
-          from: 'onboarding@resend.dev',
-          to: data.customer_email,
-          subject: `Your order is ready for pickup`,
-          text: `Your order with reference number ${id} is now ready for pickup.`,
-        });
-        console.log(`Pickup notification sent to ${data.customer_email}`);
-      } catch (emailError) {
-        console.error('Error sending email:', emailError);
-        // Decide if you want to fail the whole request if email fails
-        // For now, just log it and continue
-      }
-    }
-
-    res.status(200).json(data);
-  } catch (error) {
-    console.error('Supabase Error in updateOrderStatus:', error);
-    res.status(400).json({ message: error.message });
->>>>>>> hajar
   }
 };
 
@@ -155,6 +135,8 @@ export const updateOrder = async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
+  console.log(`updateOrder called for ID: ${id} with status: ${status}`);
+
   if (!status) {
     return res.status(400).json({ message: 'Status is required' });
   }
@@ -163,35 +145,44 @@ export const updateOrder = async (req, res) => {
     let data;
     let error;
 
-    if (status === 'Cancelled') {
-      // Use an RPC call for transactional update
-      const { data: rpcData, error: rpcError } = await supabase.rpc('cancel_order_and_restock', {
-        p_order_id: id,
-      });
-
-      if (rpcError) {
-        throw rpcError;
-      }
-      
-      data = rpcData;
-
-    } else {
-      // Standard update for other statuses like 'prepared'
-      const { data: updateData, error: updateError } = await supabase
-        .from('orders')
-        .update({ status })
-        .eq('id', id)
-        .select()
-        .single();
-      
-      if (updateError) {
-        throw updateError;
-      }
-      data = updateData;
-    }
+    // Standard update for all statuses including 'Cancelled'
+    const { data: updateData, error: updateError } = await req.supabase // USE REQ.SUPABASE
+      .from('orders')
+      .update({ status })
+      .eq('id', id)
+      .select(`
+        *,
+        order_items (
+          *,
+          products (
+            name,
+            price
+          )
+        )
+      `)
+      .single();
+    if (updateError) throw updateError;
+    data = updateData;
 
     if (!data) {
+      console.log('Order not found or no data returned.');
       return res.status(404).json({ message: `Order with ID ${id} not found.` });
+    }
+    
+    // Send email notification to customer if status is 'Prepared'
+    if (status === 'Prepared' && data.customer_email) {
+      try {
+        await resend.emails.send({
+          from: 'onboarding@resend.dev',
+          to: data.customer_email,
+          subject: `Din ordre er klar til henting`,
+          text: `Din ordre med referansenummer ${data.reference_number} er nå klar til henting i butikken.`,
+        });
+        console.log(`Pickup notification sent to ${data.customer_email}`);
+      } catch (emailError) {
+        console.error('Error sending email:', emailError);
+        // Do not fail the request if email fails, just log it.
+      }
     }
 
     res.status(200).json(data);
@@ -200,6 +191,34 @@ export const updateOrder = async (req, res) => {
     if (error.code === 'PGRST116') {
       return res.status(404).json({ message: `Order with ID ${id} not found` });
     }
-    res.status(500).json({ message: 'Server Error' });
+    res.status(500).json({ message: error.message || 'Server Error' });
   }
+};
+
+// @desc    Delete an order
+// @route   DELETE /api/orders/:id
+// @access  Private (Admin)
+export const deleteOrder = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const { error } = await req.supabase // USE REQ.SUPABASE
+            .from('orders')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            // Handle case where item is not found vs. other errors
+            if (error.code === 'PGRST116') { // no rows found
+                return res.status(404).json({ message: 'Order not found' });
+            }
+            throw error;
+        }
+
+        res.status(204).send(); // 204 No Content for successful deletion
+
+    } catch (error) {
+        console.error(`Error deleting order ${id}:`, error);
+        res.status(500).json({ message: 'Server Error' });
+    }
 };

@@ -9,11 +9,14 @@
 		"lint": "biome check",
 		"preview": "vite preview",
 		"test:e2e": "playwright test",
-		"check-db": "node scripts/check-db.js"
+		"check-db": "node scripts/check-db.js",
+		"db:seed": "node scripts/seed-db.js",
+		"start:api": "node api-server.js"
 	},
 	"dependencies": {
 		"@radix-ui/react-dialog": "^1.1.15",
 		"@radix-ui/react-label": "^2.1.8",
+		"@radix-ui/react-separator": "^1.1.8",
 		"@radix-ui/react-slot": "^1.2.4",
 		"@supabase/supabase-js": "^2.84.0",
 		"bcryptjs": "^3.0.3",
@@ -34,15 +37,15 @@
 		"@biomejs/biome": "^2.3.6",
 		"@faker-js/faker": "^10.1.0",
 		"@playwright/test": "^1.56.1",
-		"@tailwindcss/postcss": "^4.1.17",
 		"@types/react": "^18.2.66",
 		"@types/react-dom": "^18.2.22",
-		"@vitejs/plugin-react": "^4.2.1",
+		"@vitejs/plugin-react": "^4.3.1",
 		"autoprefixer": "^10.4.22",
 		"cross-env": "^10.1.0",
 		"dotenv-cli": "^11.0.0",
 		"postcss": "^8.5.6",
-		"tailwindcss": "^4.1.17",
-		"vite": "^7.2.2"
+		"start-server-and-test": "^2.1.3",
+		"tailwindcss": "^3.4.17",
+		"vite": "^7.2.4"
 	}
 }

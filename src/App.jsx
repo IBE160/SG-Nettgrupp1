@@ -1,71 +1,45 @@
-import { useState } from "react";
-import { Link, Route, Routes } from "react-router-dom";
-import viteLogo from "/vite.svg";
-import reactLogo from "./assets/react.svg";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "./App.css";
+
+// Component Imports
+import Header from "./components/Header";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+// Page Imports
 import LoginPage from "./LoginPage";
 import ProductCatalog from "./ProductCatalog";
-<<<<<<< HEAD
-import AdminProductManagementPage from "./AdminProductManagementPage"; // Import AdminProductManagementPage
-import AdminOrderDetailPage from "./AdminOrderDetailPage"; // Import AdminOrderDetailPage
-=======
-import AdminDashboard from "./pages/AdminDashboard";
+import ProductDetailPage from "./ProductDetailPage";
+import AdminProductManagementPage from "./pages/AdminProductManagementPage";
+import AdminOrderManagementPage from "./pages/AdminOrderManagementPage";
 import AdminOrderDetailPage from "./pages/AdminOrderDetailPage";
->>>>>>> hajar
-
-function Home({ loggedIn }) {
-	const [count, setCount] = useState(0);
-
-	return (
-		<>
-			{loggedIn && <div data-testid="user-menu">User Menu</div>}
-			<div>
-				<a href="https://vitejs.dev" target="_blank" rel="noopener">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank" rel="noopener">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button onClick={() => setCount((count) => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.jsx</code> and save to test HMR
-				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
-		</>
-	);
-}
+import CartPage from "./pages/CartPage.jsx";
+import CheckoutPage from "./CheckoutPage";
+import OrderConfirmationPage from "./OrderConfirmationPage";
+import LandingPage from "./pages/LandingPage";
 
 function App() {
-	const [loggedIn, setLoggedIn] = useState(false);
-
 	return (
-		<div>
-			<nav>
-				<Link to="/">Home</Link> | <Link to="/login">Login</Link> | <Link to="/products">Products</Link> | <Link to="/admin">Admin</Link>
-			</nav>
-			<Routes>
-				<Route path="/" element={<Home loggedIn={loggedIn} />} />
-				<Route
-					path="/login"
-					element={<LoginPage setLoggedIn={setLoggedIn} />}
-				/>
-				<Route path="/products" element={<ProductCatalog />} />
-<<<<<<< HEAD
-				<Route path="/admin" element={<AdminProductManagementPage />} /> {/* Admin Dashboard Route */}
-				<Route path="/admin/orders/:orderId" element={<AdminOrderDetailPage />} /> {/* Admin Order Detail Route */}
-=======
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/order/:id" element={<AdminOrderDetailPage />} />
->>>>>>> hajar
-			</Routes>
+		<div className="min-h-screen flex flex-col">
+			<Header />
+			<main className="flex-grow">
+				<Routes>
+					<Route path="/" element={<LandingPage />} />
+					<Route path="/login" element={<LoginPage />} />
+					<Route path="/products" element={<ProductCatalog />} />
+					<Route path="/products/:id" element={<ProductDetailPage />} />
+					<Route path="/cart" element={<CartPage />} />
+					<Route path="/checkout" element={<CheckoutPage />} />
+					<Route path="/confirmation/:orderRef" element={<OrderConfirmationPage />} />
+					
+					{/* Protected Admin Routes */}
+					<Route element={<ProtectedRoute />}>
+						<Route path="/admin" element={<Navigate to="/admin/products" replace />} />
+						<Route path="/admin/products" element={<AdminProductManagementPage />} />
+						<Route path="/admin/orders" element={<AdminOrderManagementPage />} />
+						<Route path="/admin/orders/:orderId" element={<AdminOrderDetailPage />} />
+					</Route>
+				</Routes>
+			</main>
 		</div>
 	);
 }

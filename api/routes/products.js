@@ -5,6 +5,7 @@ import {
   getAllProducts,
   getProductById,
   updateProduct,
+  deleteProduct,
 } from '../controllers/products.js';
 
 const router = express.Router();
@@ -15,6 +16,7 @@ router.route('/')
 
 router.route('/:id')
   .get(getProductById)
-  .put(protect, updateProduct);
+  .put(protect, updateProduct)
+  .delete(protect, deleteProduct);
 
 export default router;

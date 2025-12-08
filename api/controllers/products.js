@@ -1,14 +1,33 @@
 import { supabase } from '../config/supabase.js';
 
+const ALLOWED_PRODUCT_FIELDS = ['name', 'description', 'price', 'stock_quantity', 'is_archived', 'land_of_origin', 'vitola'];
+
+// Helper to build a data object with only allowed fields that are present in the body
+const buildDataFromRequest = (body) => {
+  const data = {};
+  for (const field of ALLOWED_PRODUCT_FIELDS) {
+    if (body[field] !== undefined) {
+      data[field] = body[field];
+    }
+  }
+  return data;
+};
+
 // @desc    Create a new product
 // @route   POST /api/products
 export const createProduct = async (req, res) => {
   try {
-    const { data, error } = await supabase
+    const productData = buildDataFromRequest(req.body);
+
+    if (Object.keys(productData).length === 0) {
+      return res.status(400).json({ message: 'No valid fields provided for creation' });
+    }
+
+    const { data, error } = await req.supabase // USE REQ.SUPABASE
       .from('products')
-      .insert([req.body])
+      .insert([productData])
       .select()
-      .single(); // .single() to get the object directly
+      .single();
 
     if (error) {
       throw error;
@@ -21,13 +40,14 @@ export const createProduct = async (req, res) => {
   }
 };
 
-// @desc    Get all products
+// @desc    Get all PUBLIC products
 // @route   GET /api/products
 export const getAllProducts = async (req, res) => {
   try {
     const { data, error } = await supabase
       .from('products')
-      .select('*');
+      .select('*')
+      .eq('is_archived', false);
 
     if (error) {
       throw error;
@@ -36,7 +56,7 @@ export const getAllProducts = async (req, res) => {
     res.status(200).json({ data });
   } catch (error) {
     console.error('Supabase Error in getAllProducts:', error);
-    res.status(400).json({ message: error.message });
+    res.status(500).json({ message: 'Server Error' });
   }
 };
 
@@ -71,12 +91,13 @@ export const getProductById = async (req, res) => {
 export const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    
-    // Only allow updating specific fields
-    const { name, description, price, stock_quantity } = req.body;
-    const updateData = { name, description, price, stock_quantity };
+    const updateData = buildDataFromRequest(req.body);
 
-    const { data, error } = await supabase
+    if (Object.keys(updateData).length === 0) {
+      return res.status(400).json({ message: 'No valid fields provided for update' });
+    }
+
+    const { data, error } = await req.supabase // USE REQ.SUPABASE
       .from('products')
       .update(updateData)
       .eq('id', id)
@@ -96,5 +117,32 @@ export const updateProduct = async (req, res) => {
     console.error('Supabase Error in updateProduct:', error);
     res.status(400).json({ message: error.message });
   }
+};
+
+// @desc    Delete a product
+// @route   DELETE /api/products/:id
+export const deleteProduct = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { error } = await req.supabase
+            .from('products')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            if (error.code === 'PGRST116') { // no rows found
+                return res.status(404).json({ message: 'Product not found' });
+            }
+            throw error;
+        }
+
+        res.status(204).send();
+    } catch (error) {
+        console.error(`Error deleting product ${req.params.id}:`, error);
+        if (error.code === '23503') { // Foreign key violation
+            return res.status(400).json({ message: 'Cannot delete product because it is part of an existing order.' });
+        }
+        res.status(500).json({ message: 'Server Error' });
+    }
 };
 

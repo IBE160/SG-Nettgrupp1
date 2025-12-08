@@ -11,7 +11,7 @@ test.describe('Story 1.3: Admin Product Management', () => {
   });
 
   test('AC1: Unauthenticated user is redirected to login', async ({ page }) => {
-    await page.goto('/admin');
+    await page.goto('/admin/products');
     // Expect to be redirected to the login page
     await expect(page).toHaveURL('/login');
     await expect(page.getByRole('heading', { name: 'Admin Login' })).toBeVisible();
@@ -21,7 +21,7 @@ test.describe('Story 1.3: Admin Product Management', () => {
     await page.goto('/login');
     await page.getByLabel('Email').fill('wrong@test.com');
     await page.getByLabel('Password').fill('wrongpassword');
-    await page.getByRole('button', { name: 'Sign In' }).click();
+    await page.getByRole('button', { name: 'Login' }).click();
 
     // Expect an error message to be visible
     await expect(page.getByText('Invalid login credentials')).toBeVisible();
@@ -41,11 +41,13 @@ test.describe('Story 1.3: Admin Product Management', () => {
       await page.goto('/login');
       await page.getByLabel('Email').fill(email);
       await page.getByLabel('Password').fill(password);
-      await page.getByRole('button', { name: 'Sign In' }).click();
+      await page.getByRole('button', { name: 'Login' }).click();
       
       // Wait for navigation to the dashboard and for the table to be ready
-      await expect(page).toHaveURL('/admin');
-      await expect(page.getByRole('heading', { name: 'Admin Dashboard' })).toBeVisible();
+      await page.goto('/admin/products');
+      await expect(page).toHaveURL('/admin/products');
+      // Verify that the product management specific heading is visible
+      await expect(page.getByRole('heading', { name: 'Product Management' })).toBeVisible();
     });
 
     test('AC2, AC4: User can log in and view the product dashboard', async ({ page }) => {
@@ -68,7 +70,7 @@ test.describe('Story 1.3: Admin Product Management', () => {
       await dialog.getByLabel('Description').fill('A test description.');
       await dialog.getByLabel('Price').fill('10.99');
       await dialog.getByLabel('Stock').fill('50');
-      await dialog.getByRole('button', { name: 'Save' }).click();
+      await page.getByRole('button', { name: 'Save' }).click();
 
       // --- Step 2: Verify the product appears in the table ---
       // The dialog should be gone
@@ -76,7 +78,7 @@ test.describe('Story 1.3: Admin Product Management', () => {
       // The new product should be in the table.
       const newProductRow = page.getByRole('row', { name: productName });
       await expect(newProductRow).toBeVisible();
-      await expect(newProductRow.getByRole('cell', { name: '$10.99' })).toBeVisible();
+      await expect(newProductRow.getByRole('cell', { name: '10.99' })).toBeVisible();
       await expect(newProductRow.getByRole('cell', { name: '50' })).toBeVisible();
 
       // --- Step 3: Edit the product ---
@@ -93,16 +95,76 @@ test.describe('Story 1.3: Admin Product Management', () => {
       const updatedProductName = `${productName} (Updated)`;
       await editDialog.getByLabel('Name').fill(updatedProductName);
       await editDialog.getByLabel('Price').fill('12.99');
-      await editDialog.getByRole('button', { name: 'Save' }).click();
+      await page.getByRole('button', { name: 'Save' }).click();
 
       // --- Step 4: Verify the changes ---
       await expect(editDialog).not.toBeVisible();
       // The old row should be gone
-      await expect(newProductRow).not.toBeVisible();
+      await expect(page.getByRole('row', { name: productName })).not.toBeVisible();
       // The new, updated row should be visible
       const updatedRow = page.getByRole('row', { name: updatedProductName });
       await expect(updatedRow).toBeVisible();
-      await expect(updatedRow.getByRole('cell', { name: '$12.99' })).toBeVisible();
+      await expect(updatedRow.getByRole('cell', { name: '12.99' })).toBeVisible();
+    });
+
+    test('Story 3.1: Admin can edit all product details', async ({ page }) => {
+        // --- Step 1: Add a product to ensure a clean state ---
+        await page.getByRole('button', { name: 'Add New Product' }).click();
+        const dialog = page.getByRole('dialog');
+        await dialog.getByLabel('Name').fill(productName);
+        await dialog.getByLabel('Description').fill('Base description.');
+        await dialog.getByLabel('Price').fill('25.00');
+        await dialog.getByLabel('Stock').fill('100');
+        await page.getByRole('button', { name: 'Save' }).click();
+        
+        // Wait for the product to appear in the admin table
+        await expect(page.getByRole('row', { name: productName })).toBeVisible();
+  
+        // --- Step 2: Edit the product to add new details ---
+        const productRow = page.getByRole('row', { name: productName });
+        await productRow.getByRole('button', { name: 'Edit' }).click();
+  
+        const editDialog = page.getByRole('dialog');
+        await expect(editDialog.getByRole('heading', { name: 'Edit Product' })).toBeVisible();
+        
+        // Add the new fields
+        await editDialog.getByLabel('Origin').fill('Test Origin');
+        await editDialog.getByLabel('Vitola').fill('Test Vitola');
+        await page.getByRole('button', { name: 'Save' }).click();
+        await expect(editDialog).not.toBeVisible();
+  
+        // --- Step 3: Verify the changes on the public-facing page ---
+        await page.goto('/');
+        
+        // Wait for the product link to be visible in the catalog, then click it
+        const productLink = page.getByRole('link', { name: new RegExp(productName) });
+        await expect(productLink).toBeVisible();
+        await productLink.click();
+  
+        // Assert the new details are visible on the product detail page
+        await expect(page.getByText('Land of Origin: Test Origin')).toBeVisible();
+        await expect(page.getByText('Vitola: Test Vitola')).toBeVisible();
+      });
+
+    test('Story 3.2: Admin can archive and unarchive a product', async ({ page }) => {
+        // --- Step 1: Add a product to ensure a clean state ---
+        const newProductName = getTestProductName();
+        await page.getByRole('button', { name: 'Add New Product' }).click();
+        const dialog = page.getByRole('dialog');
+        await dialog.getByLabel('Name').fill(newProductName);
+        await dialog.getByLabel('Description').fill('Archive test description.');
+        await dialog.getByLabel('Price').fill('99.99');
+        await dialog.getByLabel('Stock').fill('10');
+        await page.getByRole('button', { name: 'Save' }).click();
+        
+        // --- Step 2: Find the new product row and assert the Archive button is visible ---
+        const productRow = page.getByRole('row', { name: newProductName });
+        await expect(productRow).toBeVisible();
+        
+        // --- Step 3: Assert the Archive button exists ---
+        // This is the key assertion that is expected to fail initially.
+        const archiveButton = productRow.getByRole('button', { name: 'Archive' });
+        await expect(archiveButton).toBeVisible();
     });
   });
 });

@@ -140,3 +140,92 @@ export const getCartItems = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+// @desc    Update item quantity in a cart
+// @route   PUT /api/cart/:cartId/items/:itemId
+export const updateCartItem = async (req, res) => {
+  const { itemId } = req.params;
+  const { quantity } = req.body;
+
+  if (typeof quantity !== 'number' || !Number.isInteger(quantity) || quantity < 0) {
+    return res.status(400).json({ message: 'Invalid quantity, must be a non-negative integer' });
+  }
+
+  try {
+    // If quantity is 0, delete the item
+    if (quantity === 0) {
+      const { error } = await supabase
+        .from('cart_items')
+        .delete()
+        .eq('id', itemId);
+      
+      if (error) throw error;
+      return res.status(204).send(); // 204 No Content
+    }
+
+    // Get product ID to check stock
+    const { data: item, error: itemError } = await supabase
+      .from('cart_items')
+      .select('product_id')
+      .eq('id', itemId)
+      .single();
+
+    if (itemError) throw itemError;
+    if (!item) return res.status(404).json({ message: 'Cart item not found' });
+
+    // Check product stock
+    const { data: product, error: productError } = await supabase
+      .from('products')
+      .select('stock_quantity')
+      .eq('id', item.product_id)
+      .single();
+    
+    if (productError) throw productError;
+    if (product.stock_quantity < quantity) {
+      return res.status(400).json({ message: 'Not enough stock' });
+    }
+
+    // Update item quantity
+    const { data: updatedItem, error: updateError } = await supabase
+      .from('cart_items')
+      .update({ quantity: quantity })
+      .eq('id', itemId)
+      .select()
+      .single();
+
+    if (updateError) throw updateError;
+    
+    res.status(200).json(updatedItem);
+
+  } catch (error) {
+    console.error('Supabase Error in updateCartItem:', error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+// @desc    Remove an item from a cart
+// @route   DELETE /api/cart/:cartId/items/:itemId
+export const deleteCartItem = async (req, res) => {
+  const { itemId } = req.params;
+
+  try {
+    const { error } = await supabase
+      .from('cart_items')
+      .delete()
+      .eq('id', itemId);
+
+    if (error) {
+      // Handle case where item is not found vs. other errors if needed
+      if (error.code === 'PGRST116') { // no rows found
+        return res.status(404).json({ message: 'Cart item not found' });
+      }
+      throw error;
+    }
+
+    res.status(204).send(); // 204 No Content
+
+  } catch (error) {
+    console.error('Supabase Error in deleteCartItem:', error);
+    res.status(400).json({ message: error.message });
+  }
+};

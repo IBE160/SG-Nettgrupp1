@@ -10,16 +10,23 @@ export const CartProvider = ({ children }) => {
   const [cartId, setCartId] = useState(null);
   const [cartItems, setCartItems] = useState([]);
 
+  const clearCart = () => {
+    localStorage.removeItem('cartId');
+    setCartId(null);
+    setCartItems([]);
+  };
+
   const fetchCartItems = async (id) => {
     try {
       const response = await fetch(`/api/cart/${id}`);
       if (!response.ok) {
-        throw new Error('Failed to fetch cart items');
+        throw new Error(`Failed to fetch cart items. Status: ${response.status}`);
       }
       const data = await response.json();
       setCartItems(data.items || []); // Assuming the API returns { id: ..., items: [...] }
     } catch (error) {
-      console.error('Error fetching cart items:', error);
+      console.error('[CartContext] Error in fetchCartItems:', error);
+      clearCart(); // If cart fetch fails (e.g., invalid ID), clear the cart
     }
   };
 
@@ -43,11 +50,10 @@ export const CartProvider = ({ children }) => {
       const data = await response.json();
       setCartId(data.id);
       localStorage.setItem('cartId', data.id);
-      // After creating a cart, immediately fetch its items (which should be empty initially)
-      fetchCartItems(data.id);
+      setCartItems([]); // New cart is always empty
       return data.id;
     } catch (error) {
-      console.error(error);
+      console.error('[CartContext] Error in createCart:', error);
     }
   };
 
@@ -55,6 +61,10 @@ export const CartProvider = ({ children }) => {
     let currentCartId = cartId;
     if (!currentCartId) {
       currentCartId = await createCart();
+      if (!currentCartId) {
+        console.error("Failed to create cart, cannot add item.");
+        return; 
+      }
     }
 
     try {
@@ -71,11 +81,59 @@ export const CartProvider = ({ children }) => {
         throw new Error(errorData.message || 'Failed to add item to cart');
       }
       
-      // After successfully adding an item, re-fetch the entire cart to ensure state is synchronized
       await fetchCartItems(currentCartId);
       
     } catch (error) {
-      console.error(error);
+      console.error('[CartContext] Error in addToCart:', error);
+    }
+  };
+
+  const updateQuantity = async (itemId, quantity) => {
+    if (!cartId) return;
+    
+    if (quantity <= 0) {
+      removeFromCart(itemId);
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/cart/${cartId}/items/${itemId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ quantity }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update quantity');
+      }
+
+      await fetchCartItems(cartId);
+
+    } catch (error) {
+      console.error('Error updating cart item quantity:', error);
+    }
+  };
+
+  const removeFromCart = async (itemId) => {
+    if (!cartId) return;
+
+    try {
+      const response = await fetch(`/api/cart/${cartId}/items/${itemId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok && response.status !== 204) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to remove item');
+      }
+
+      await fetchCartItems(cartId);
+
+    } catch (error) {
+      console.error('Error removing cart item:', error);
     }
   };
 
@@ -83,6 +141,9 @@ export const CartProvider = ({ children }) => {
     cartId,
     cartItems,
     addToCart,
+    updateQuantity,
+    removeFromCart,
+    clearCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
