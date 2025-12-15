@@ -102,6 +102,23 @@ export const getCartItems = async (req, res) => {
   const { cartId } = req.params;
 
   try {
+    // First, check if the cart itself exists
+    const { data: cart, error: cartError } = await supabase
+      .from('carts')
+      .select('id')
+      .eq('id', cartId)
+      .single();
+
+    if (cartError && cartError.code !== 'PGRST116') { // PGRST116 means no rows found
+      throw cartError;
+    }
+
+    // If the cart doesn't exist, return a 404
+    if (!cart) {
+      return res.status(404).json({ message: `Cart with ID ${cartId} not found` });
+    }
+
+    // If the cart exists, proceed to get its items
     const { data, error } = await supabase
       .from('cart_items')
       .select(`
@@ -120,7 +137,7 @@ export const getCartItems = async (req, res) => {
       throw error;
     }
 
-    // Transform data to a more friendly format if needed, e.g., flattening product details
+    // Transform data to a more friendly format
     const cartItems = data.map(item => ({
       id: item.id,
       productId: item.product_id,
